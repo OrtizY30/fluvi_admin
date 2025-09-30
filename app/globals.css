@@ -1,26 +1,88 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* --color-brand-primary: #E20F32; */
+  --color-brand-primary: #e20a33;
+  --color-brand-secondary: #de8796;
+  /* --color-brand-primary: #1e2248; */
+  /* --color-brand-primary: #DF316E; */
+  --color-brand-primary-light: #ff7043;
+  --color-brand-hover: #cc2f0c;
+  --color-surface-base: #f8f9fb;
+  --color-surface-base-secundary: #fdfdfd;
+  /* --color-surface-base: #FFFFFD; */
+  --color-surface-text: #f8f9fb;
+  --color-btn-primary: #2f2f2f;
+  /* --color-btn-secondary: #1FB2A6; */
+  --color-btn-secondary: #005eeb;
+  --color-btn-hover: #179085;
+}
+
+/* .btn {
+  @apply  disabled:bg-btn-secondary/50 text-xs font-semibold rounded-lg flex items-center justify-center text-white bg-btn-secondary  p-2 cursor-pointer shadow-md hover:bg-btn-hover  min-w-32 text-center ;
+} */
+.btn {
+  @apply font-bold border border-gray-300 rounded-xl flex items-center justify-center text-gray-800 bg-[#E3E3E3] gap-1 p-2.5 cursor-pointer shadow-md hover:bg-gray-400  text-center transition-all;
+}
+.btn-form {
+  @apply flex-1 rounded-md p-2 gap-2 max-h-10 cursor-pointer bg-btn-secondary hover:bg-neutral-200 text-white transition-colors;
+}
+.label-input {
+  @apply text-sm font-bold;
+}
+.input {
+  @apply mt-2 flex items-center pl-8 text-sm border border-slate-300 focus:outline-none p-2 w-full rounded-md;
+}
+.icon-header {
+  @apply rounded-full bg-gray-100 p-2 text-gray-600;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  /* font-family: Arial, Helvetica, sans-serif; */
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: scaleY(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+.animate-fade-in {
+  animation: fade-in 0.2s ease-out;
+}
+
+.menu-container {
+  position: relative;
+  background-color: rgb(199, 38, 38);
+  padding-top: 60px;
+  text-align: center;
+}
+
+.logo {
+  position: absolute;
+  top: -40px; /* mitad del pseudo-elemento */
+  left: 10%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  /* border: 8px solid white; borde si quieres */
+}
+
+.PhoneInputInput {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
 }

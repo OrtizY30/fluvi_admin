@@ -1,0 +1,198 @@
+"use client";
+
+import { updateProduct } from "@/actions/product/update-product-action";
+import { Product } from "@/src/schemas";
+import { Drawer, TextField } from "@mui/material";
+import {
+  startTransition,
+  useActionState,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import { toast } from "react-toastify";
+import { FluviToast } from "../ui/FluviToast";
+import ImageUpload from "./ImageUpload";
+import OpcionesAvanzadas from "./OpcionesAvanzadas";
+import ModeSimple from "./ModeSimple";
+
+type ProductFormProps = {
+  product: Product;
+  open: boolean;
+  setOpen: () => void;
+};
+
+export default function ProductForm({
+  open,
+  setOpen,
+  product,
+}: ProductFormProps) {
+  const [imageUrl, setImageUrl] = useState("");
+  const [formData, setFormData] = useState({
+    name: product?.name || "",
+    price: product?.price || 0,
+    description: product?.description || "",
+    image: product?.image || "",
+    isOnSale: product?.isOnSale || false,
+    discount: product?.discount || 0,
+    modifiers: product?.modifiers?.map((m) => m.modifierGroup.id) || [],
+    modifiersGroup: product?.modifiers?.map((m) => m.modifierGroup) || [],
+  });
+  const debounceRef = useRef<NodeJS.Timeout | null>(null);
+
+  const updateProductWithId = updateProduct.bind(null, product?.id!);
+  const [state, dispatch] = useActionState(updateProductWithId, {
+    errors: [],
+    success: "",
+    data: formData,
+  });
+
+  useEffect(() => {
+    if (state.errors.length) {
+      state.errors.forEach((error) =>
+        toast.error(<FluviToast type="error" msg={error} />)
+      );
+    }
+    if (state.success) {
+      toast.success(<FluviToast type="success" msg={state.success} />);
+      // onClose();
+    }
+  }, [state]);
+
+  const onClose = () => {
+    setOpen();
+  };
+
+  const handleChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const { name, value, type } = e.target;
+
+      // 👇 Si el input es un checkbox, forzamos el cast
+      const checked =
+        type === "checkbox" && "checked" in e.target
+          ? (e.target as HTMLInputElement).checked
+          : undefined;
+
+      // actualizar estado local
+      setFormData((prev) => ({
+        ...prev,
+        [name]: type === "checkbox" ? checked : value,
+      }));
+
+      // limpiar debounce previo
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+
+      // nuevo debounce
+      debounceRef.current = setTimeout(() => {
+        if (!product) return;
+
+        const fd = new FormData();
+        fd.append("field", name);
+        fd.append(
+          "value",
+          type === "checkbox" ? String(checked ?? false) : value
+        );
+
+        startTransition(() => {
+          dispatch(fd);
+        });
+      }, 1000); // ⏳ espera 1s desde la última tecla
+    },
+    [product, dispatch, startTransition]
+  );
+
+  const handleChangeField = (field: string, value: string) => {
+    const fd = new FormData();
+    fd.append("field", field);
+    fd.append("value", value);
+
+    startTransition(() => {
+      dispatch(fd);
+    });
+  };
+  return (
+    <Drawer
+      open={open}
+      onClose={onClose}
+      anchor="right"
+      PaperProps={{
+        sx: {
+          borderTopLeftRadius: "26px",
+          overflow: "hidden", // para que no sobresalga el contenido
+        },
+      }}
+    >
+      <div className="w-md rounded-tl-2xl overflow-hidden bg-slate-50 relative h-full flex flex-col">
+        {/* Imagen */}
+        <ImageUpload
+          setImageUrl={setImageUrl}
+          image={formData.image}
+          imageUrl={imageUrl}
+          onChangeField={handleChangeField}
+        />
+
+        <div className="flex-1 overflow-y-auto p-6">
+          <form id="product-form" noValidate className="space-y-6">
+            {/* 👇 Modo oculto */}
+
+            {/* Nombre */}
+            <div>
+              <TextField
+                className="w-full"
+                id="outlined-basic"
+                variant="outlined"
+                name="name"
+                label="Producto"
+                value={formData.name}
+                onChange={handleChange}
+                size="small"
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    borderRadius: 4, // aquí se aplica el borderRadius al input
+                  },
+                }}
+              />
+            </div>
+
+            {/* Descripción */}
+            <div>
+              <TextField
+                name="description"
+                label="Descripción"
+                value={formData.description}
+                onChange={handleChange}
+                className="w-full"
+                multiline
+                rows={3} // Puedes ajustar cuántas filas quieres por defecto
+                id="outlined-basic"
+                variant="outlined"
+                size="small"
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    borderRadius: 4, // aquí se aplica el borderRadius al input
+                  },
+                }}
+              />
+            </div>
+
+            {/* Toggle entre Simple / Variantes */}
+            <ModeSimple
+              price={formData.price}
+              onChange={handleChange}
+              product={product!}
+            />
+
+            <OpcionesAvanzadas
+              product={product}
+              modifiers={formData.modifiers}
+              setFormData={setFormData}
+              formData={formData}
+              onChange={handleChange}
+            />
+          </form>
+        </div>
+      </div>
+    </Drawer>
+  );
+}
