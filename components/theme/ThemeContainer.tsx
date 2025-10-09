@@ -72,14 +72,14 @@ export default function ThemeContainer({ theme }: ThemeProfileProps) {
     [dispatch, startTransition]
   );
 
-  const handleReset = () => {
+  const handleReset = () => { 
     const defaultTheme = {
-      fontColor: "#000000",
-      otherColors: "#000000",
-      discountColor: "#ff0000",
-      buttonBgColor: "#ff0000",
+      fontColor: "#262626",
+      otherColors: "#99a1af",
+      discountColor: "#e20a33",
+      buttonBgColor: "#e20a33",
       buttonTextColor: "#ffffff",
-      backgroundColor: "#d6d6d6",
+      backgroundColor: "#f3f4f6",
       cardContrastColor: "#ffffff",
     };
     setFormData(defaultTheme);
@@ -109,7 +109,7 @@ export default function ThemeContainer({ theme }: ThemeProfileProps) {
         <div className="flex gap-6 justify-start">
           <div className="flex flex-col gap-1">
             <label className="text-md  text-gray-800" htmlFor="primary-color">
-              Color de fuente
+              Color de fuentes
             </label>
             <div className="flex items-center gap-3">
               <input
@@ -122,6 +122,29 @@ export default function ThemeContainer({ theme }: ThemeProfileProps) {
               />
               <input
                 name="fontColor"
+                value={formData.fontColor ?? ""}
+                onChange={handleChange}
+                placeholder="#0ea5e9"
+                className=" border border-slate-300 p-2 text-sm rounded-md w-full focus:outline-none"
+              />
+            </div>
+          </div>
+
+            <div className="flex flex-col gap-1">
+            <label className="text-md  text-gray-800" htmlFor="primary-color">
+              Color de fuentes secundarias
+            </label>
+            <div className="flex items-center gap-3">
+              <input
+                placeholder="Selecciona un color"
+                name="otherColors"
+                type="color"
+                value={formData.otherColors ?? ""}
+                onChange={handleChange}
+                className=" border border-gray-200 p-1 h-10 w-14 appearance-none rounded-md focus:outline-none  cursor-pointer"
+              />
+              <input
+                name="otherColors"
                 value={formData.otherColors ?? ""}
                 onChange={handleChange}
                 placeholder="#0ea5e9"
@@ -130,28 +153,7 @@ export default function ThemeContainer({ theme }: ThemeProfileProps) {
             </div>
           </div>
 
-          <div className="flex flex-col gap-1">
-            <label className="text-md  text-gray-800" htmlFor="primary-color">
-              Descuento color
-            </label>
-            <div className="flex items-center gap-3">
-              <input
-                placeholder="Selecciona un color"
-                name="discountColor"
-                type="color"
-                value={formData.discountColor ?? ""}
-                onChange={handleChange}
-                className=" border border-gray-200 p-1 h-10 w-14 appearance-none rounded-md focus:outline-none  cursor-pointer"
-              />
-              <input
-                name="discountColor"
-                value={formData.discountColor ?? ""}
-                onChange={handleChange}
-                placeholder="#0ea5e9"
-                className=" border border-slate-300 p-2 text-sm rounded-md w-full focus:outline-none"
-              />
-            </div>
-          </div>
+         
         </div>
       </div>
 
@@ -198,6 +200,29 @@ export default function ThemeContainer({ theme }: ThemeProfileProps) {
               <input
                 name="buttonTextColor"
                 value={formData.buttonTextColor ?? ""}
+                onChange={handleChange}
+                placeholder="#0ea5e9"
+                className=" border border-slate-300 p-2 text-sm rounded-md w-full focus:outline-none"
+              />
+            </div>
+          </div>
+
+           <div className="flex flex-col gap-1">
+            <label className="text-md  text-gray-800" htmlFor="primary-color">
+              Color de botones simples y descuentos
+            </label>
+            <div className="flex items-center gap-3">
+              <input
+                placeholder="Selecciona un color"
+                name="discountColor"
+                type="color"
+                value={formData.discountColor ?? ""}
+                onChange={handleChange}
+                className=" border border-gray-200 p-1 h-10 w-14 appearance-none rounded-md focus:outline-none  cursor-pointer"
+              />
+              <input
+                name="discountColor"
+                value={formData.discountColor ?? ""}
                 onChange={handleChange}
                 placeholder="#0ea5e9"
                 className=" border border-slate-300 p-2 text-sm rounded-md w-full focus:outline-none"

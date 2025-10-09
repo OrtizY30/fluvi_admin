@@ -45,7 +45,7 @@ export default function SettingMenu() {
               >
                 <Palette className="size-5" strokeWidth={1.5} />
 
-                <p className="text-sm font-semibold">Configuracion de theme</p>
+                <p className="text-sm font-semibold">Configuración de temas</p>
               </Link>
             </MenuItem>
 

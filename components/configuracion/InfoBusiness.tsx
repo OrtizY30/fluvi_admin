@@ -7,6 +7,10 @@ import { TextField } from "@mui/material";
 import BtnEditStore from "./BtnEditStore";
 import BtnEditHorary from "./BtnEditHorary";
 import BtnEditSocialMedia from "./BtnEditSocialMedia";
+import { FluviToast } from "../ui/FluviToast";
+import { toast } from "react-toastify";
+import { startTransition, useActionState, useCallback, useEffect, useRef, useState } from "react";
+import { updateProfile } from "@/actions/profile/update-profile-action";
 
 type ContentTiendaProps = {
   branches: Branch[];
@@ -15,6 +19,62 @@ type ContentTiendaProps = {
 export default function InfoBusiness({ branches }: ContentTiendaProps) {
   const business = useBusinessStore((state) => state.business);
   if (!business) return;
+
+  const [formData, setFormData] = useState({
+      name: business.name || "",
+      description: business.description || "",
+    });
+  
+    useEffect(() => {
+      setFormData({ name: business.name!, description: business.description! });
+    }, [business.name, business.description]);
+
+    const [state, dispatch, isPending] = useActionState(updateProfile, {
+      success: "",
+      errors: [],
+    });
+  
+    const debounceRef = useRef<NodeJS.Timeout | null>(null);
+  
+    useEffect(() => {
+      if (state.errors?.length) {
+        state.errors.forEach((error) =>
+          toast.error(<FluviToast type="error" msg={error} />)
+        );
+      }
+      if (state.success) {
+        toast.success(<FluviToast type="success" msg={state.success} />);
+      }
+    }, [state]);
+  
+    // 🔥 Manejar cambios con debounce
+    const handleChange = useCallback(
+      (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target;
+  
+        let parsedValue: string | null = value;
+  
+        // actualizar el formData local
+        setFormData((prev) => ({
+          ...prev,
+          [name]: parsedValue,
+        }));
+  
+        // limpiar debounce previo
+        if (debounceRef.current) clearTimeout(debounceRef.current);
+  
+        // disparar el update al backend con el campo cambiado
+        debounceRef.current = setTimeout(() => {
+          startTransition(() => {
+            if (parsedValue !== "") {
+              // solo mando si hay valor
+              dispatch({ [name]: parsedValue });
+            }
+          });
+        }, 1000);
+      },
+      [dispatch, startTransition]
+    );
   return (
     <div className="w-full p-6 s bg-white mx-auto space-y-3 border rounded-xl border-gray-200  shadow-md">
       <div className="flex items-center gap-2 text-gray-800">
@@ -26,9 +86,30 @@ export default function InfoBusiness({ branches }: ContentTiendaProps) {
         <p className="w-full font-semibold">Nombre del negocio</p>
         <TextField
           name="name"
-          value={business.name}
-          // onChange={handleChange}
+          value={formData.name}
+          onChange={handleChange}
           className="w-full"
+          id="outlined-basic"
+          variant="outlined"
+          size="small"
+          sx={{
+            "& .MuiOutlinedInput-root": {
+              borderRadius: 4, // aquí se aplica el borderRadius al input
+            },
+          }}
+        />
+        {/* <InputNameProfile name={business!.name} /> */}
+      </div>
+
+      <div className="px-10 py-3 flex items-center text-gray-800 border-b border-gray-200">
+        <p className="w-full font-semibold">Descripción del negocio</p>
+        <TextField
+          name="description"
+          value={formData.description}
+          onChange={handleChange}
+          className="w-full"
+          multiline
+          rows={4}
           id="outlined-basic"
           variant="outlined"
           size="small"
@@ -57,19 +138,19 @@ export default function InfoBusiness({ branches }: ContentTiendaProps) {
             </p>
           )}
         </div>
-          <BtnEditStore />
+        <BtnEditStore />
       </div>
 
-{/* Contenedor de horario */}
+      {/* Contenedor de horario */}
       <div className="px-10 text-gray-800 py-3 flex items-center border-b border-gray-200">
         <p className="w-full font-semibold">Horario de atención</p>
-        <BtnEditHorary/>
+        <BtnEditHorary />
       </div>
 
-{/* Contenedor de Redes Sociales */}
+      {/* Contenedor de Redes Sociales */}
       <div className="px-10 text-gray-800 py-3 flex items-center border-b border-gray-200">
         <p className="w-full font-semibold">Redes sociales</p>
-        <BtnEditSocialMedia/>
+        <BtnEditSocialMedia />
       </div>
     </div>
   );
