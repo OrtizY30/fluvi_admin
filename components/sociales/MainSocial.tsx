@@ -1,5 +1,4 @@
 import React from "react";
-import SocialForm from "./SocialForm";
 import SocialDetails from "./SocialDetails";
 import { SocialMedia } from "@/src/schemas";
 import { TfiHelpAlt } from "react-icons/tfi";
@@ -23,7 +22,6 @@ export default function MainSocial({socialMedia}: MainSocialProps) {
                 </p>
               </div>
             </div>
-            <SocialForm />
           </div>
 
           <div className=" rounded-md shadow-md border border-gray-100 ">
