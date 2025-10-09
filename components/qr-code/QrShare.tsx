@@ -1,13 +1,12 @@
 import * as React from "react";
-import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Fade from "@mui/material/Fade";
-import { Share, WhatsApp } from "@mui/icons-material";
 import { LinkIcon } from "@heroicons/react/24/outline";
 import { FluviToast } from "../ui/FluviToast";
 import { toast } from "react-toastify";
 import { Share2 } from "lucide-react";
+import { WhatsApp } from "@mui/icons-material";
 
 export default function QrShare({ qrUrl }: { qrUrl: string }) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -24,11 +23,12 @@ export default function QrShare({ qrUrl }: { qrUrl: string }) {
       await navigator.clipboard.writeText(qrUrl);
       toast.success(<FluviToast type="success" msg={"Enlace copiado"} />);
       handleClose();
-    } catch (err) {
+    } catch (error) {
+      console.log(error)
       toast.success(
-        <FluviToast type="error" msg={"Error al copiar el enlace"} />
+        <FluviToast type="error" msg={"Error al copiar el enlace"} /> 
       );
-    }
+    } 
   };
 
   const handleShareWhatsApp = () => {

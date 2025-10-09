@@ -26,8 +26,8 @@ export async function createProduct(
   });
 
   const json = await req.json();
-  console.log(json)
-  revalidatePath("/admin/product");
+  
+  revalidatePath("/admin/productos");
   const success = SuccessSchema.parse(json);
 
   return {

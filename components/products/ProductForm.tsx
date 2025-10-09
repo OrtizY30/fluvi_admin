@@ -41,7 +41,7 @@ export default function ProductForm({
   });
   const debounceRef = useRef<NodeJS.Timeout | null>(null);
 
-  const updateProductWithId = updateProduct.bind(null, product?.id!);
+  const updateProductWithId = updateProduct.bind(null, product!.id!);
   const [state, dispatch] = useActionState(updateProductWithId, {
     errors: [],
     success: "",
@@ -99,7 +99,7 @@ export default function ProductForm({
         });
       }, 1000); // ⏳ espera 1s desde la última tecla
     },
-    [product, dispatch, startTransition]
+    [product, dispatch]
   );
 
   const handleChangeField = (field: string, value: string) => {

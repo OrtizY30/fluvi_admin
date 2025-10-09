@@ -2,7 +2,7 @@
 
 import { updateProfile } from "@/actions/profile/update-profile-action";
 import { getImagetPath } from "@/src/utils";
-import { Camera, ImagePlus } from "lucide-react";
+import { Camera } from "lucide-react";
 import { CldUploadWidget } from "next-cloudinary";
 import Image from "next/image";
 import {
@@ -67,7 +67,7 @@ export default function ImageProfileUpload({
         });
       }, 1000);
     },
-    [dispatch, startTransition]
+    [dispatch]
   );
   return (
     <CldUploadWidget

@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 export default function ResetPasswordForm({ token }: { token: string }) {
   const router = useRouter();
   const resetPasswordWithToken = resetPassword.bind(null, token);
-  const [state, dispatch] = useActionState(resetPasswordWithToken, {
+  const [state, dispatch, isPending] = useActionState(resetPasswordWithToken, {
     errors: [],
     success: "",
     data: {
@@ -29,20 +29,20 @@ export default function ResetPasswordForm({ token }: { token: string }) {
           router.push("/auth/login");
         },
         onClick: () => {
-             router.push("/auth/login");
-        }
+          router.push("/auth/login");
+        },
       });
     }
-  }, [state]);
+  }, [state, router]);
 
   return (
-    <form action={dispatch} className=" mt-14 space-y-5" noValidate>
+    <form action={dispatch} className=" p-4 space-y-5" noValidate>
       <div className="flex flex-col gap-5">
-        <label className="font-bold text-2xl">Password</label>
+        <label className="font-bold text-lg">Password</label>
 
         <input
           type="password"
-          placeholder="Password de Registro"
+          placeholder="Contraseña"
           className="w-full border border-gray-300 p-3 rounded-lg"
           name="password"
           defaultValue={state.data.password}
@@ -50,12 +50,12 @@ export default function ResetPasswordForm({ token }: { token: string }) {
       </div>
 
       <div className="flex flex-col gap-5">
-        <label className="font-bold text-2xl">Repetir Password</label>
+        <label className="font-bold text-lg">Repetir contraseña</label>
 
         <input
           id="password_confirmation"
           type="password"
-          placeholder="Repite Password de Registro"
+          placeholder="Repite contraseña"
           className="w-full border border-gray-300 p-3 rounded-lg"
           name="password_confirmation"
           defaultValue={state.data.password_confirmation}
@@ -63,9 +63,21 @@ export default function ResetPasswordForm({ token }: { token: string }) {
       </div>
 
       <input
+        disabled={isPending}
         type="submit"
-        value="Guardar Password"
-        className="bg-purple-950 hover:bg-purple-800 w-full p-3 rounded-lg text-white font-black  text-xl cursor-pointer block"
+        value={isPending ? "Cargando..." : "Cambiar Contraseña"}
+        className={`
+            bg-brand-primary
+            ${isPending ? "opacity-50 cursor-not-allowed" : ""}
+            hover:bg-red-800
+            w-full
+            p-2
+            rounded-lg
+            text-white
+            font-semibold
+            text-sm sm:text-base
+            cursor-pointer
+          `}
       />
     </form>
   );

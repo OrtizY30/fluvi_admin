@@ -6,10 +6,9 @@ import { FluviToast } from "../ui/FluviToast";
 import { authenticate } from "@/actions/auth/authenticate-user-action";
 
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
-import Image from "next/image";
 
 export default function LoginForm() {
-  const [state, dispatch] = useActionState(authenticate, {
+  const [state, dispatch, isPending] = useActionState(authenticate, {
     errors: [],
     data: {
       email: "",
@@ -33,7 +32,7 @@ export default function LoginForm() {
 
   return (
     
-      <form action={dispatch} className="bg-surface-base border-gray-100 p-8 rounded-lg shadow-md mx-auto w-md space-y-5 " noValidate>
+      <form action={dispatch} className="bg-surface-base border-gray-100 p-8 rounded-lg shadow-xs shadow-black/50 w-full max-w-md mx-4 space-y-5 " noValidate>
         <div className="flex flex-col">
           <label className="label-input" htmlFor="email">
             Dirección de correo
@@ -52,7 +51,7 @@ export default function LoginForm() {
             Contraseña
           </label>
 
-          <div className="border flex items-center rounded-lg w-full border-gray-300 focus:outline-none shadow">
+          <div className="border flex items-center rounded-lg w-full  border-gray-300 focus:outline-none shadow">
             <input
               className="border-none text-gray-800 p-3  w-full focus:outline-none"
               type={showPassword ? "text" : "password"}
@@ -74,10 +73,22 @@ export default function LoginForm() {
         </div>
 
         <input
-          type="submit"
-          value="Iniciar Sesión"
-          className="bg-brand-primary hover:bg-red-900 transition-all w-full p-2 rounded-md text-white font-bold text-md cursor-pointer"
-        />
+        disabled={isPending}
+        type="submit"
+        value={isPending ? "Cargando..." : "Iniciar Sesión"}
+        className={`
+            bg-brand-primary
+            ${isPending ? "opacity-50 cursor-not-allowed" : ""}
+            hover:bg-red-800
+            w-full
+            p-2
+            rounded-lg
+            text-white
+            font-semibold
+            text-sm sm:text-base
+            cursor-pointer
+          `}
+      />
       </form>
    
   );

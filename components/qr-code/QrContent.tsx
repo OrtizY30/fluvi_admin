@@ -34,6 +34,7 @@ export default function QrContent() {
         link.click();
       })
       .catch((err) => {
+        console.log(err)
         toast.error(<FluviToast type="error" msg="Error al descargar el QR" />);
       });
   };

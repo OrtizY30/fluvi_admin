@@ -9,7 +9,7 @@ import {
 import { ExpandMore } from "@mui/icons-material";
 import { Grip } from "lucide-react";
 import { Product, Variant } from "@/src/schemas";
-import { startTransition, useActionState, useEffect, useState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import { updateProductOrder } from "@/actions/product/order-products";
 import { toast } from "react-toastify";
 import { FluviToast } from "../ui/FluviToast";
@@ -38,12 +38,10 @@ export function VariantGroupDetails({ product }: { product: Product }) {
   );
 
   // server action state
-  const [state, dispatch] = useActionState(updateProductOrder, {
+  const [state] = useActionState(updateProductOrder, {
     errors: [],
     success: "",
   });
-
-  
 
   // toasts
   useEffect(() => {
@@ -67,8 +65,7 @@ export function VariantGroupDetails({ product }: { product: Product }) {
           // borderRadius: 2,
           boxShadow: "0px 0px 0px rgba(0,0,0,0.1)",
           overflow: "hidden",
-          m: 0
-          
+          m: 0,
         }}
       >
         <AccordionSummary
@@ -87,7 +84,7 @@ export function VariantGroupDetails({ product }: { product: Product }) {
               size="small"
               onClick={(e) => {
                 e.stopPropagation();
-                toggleVariantGroup(variant.id); 
+                toggleVariantGroup(variant.id);
               }}
               className="rounded-xl"
             >
@@ -112,15 +109,17 @@ export function VariantGroupDetails({ product }: { product: Product }) {
               <InputVariant variant={variant} />
             </div>
             <div className="flex items-center gap-2">
-              <p className="font-semibold text-sm">{formatCurrency(variant.price, user!.country)}</p>
+              <p className="font-semibold text-sm">
+                {formatCurrency(variant.price, user!.country)}
+              </p>
 
               <BtnDeleteVariant variant={variant} />
             </div>
-          </div> 
+          </div>
         </AccordionSummary>
 
         <AccordionDetails sx={{ borderRadius: 2, padding: "10px 20px" }}>
-          <InputVariantPrice variant={variant}/>
+          <InputVariantPrice variant={variant} />
         </AccordionDetails>
       </Accordion>
     ))

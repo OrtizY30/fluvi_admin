@@ -1,5 +1,5 @@
 "use client";
-import { Cog, GalleryVerticalEnd, Settings } from "lucide-react";
+import {  Settings } from "lucide-react";
 import NavSubItem from "../ui/NavSubItem";
 import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 import { ExpandMore } from "@mui/icons-material";

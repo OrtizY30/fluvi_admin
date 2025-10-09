@@ -23,7 +23,9 @@ export async function resetPassword(token: string, prevState:  ActionStateType, 
 
     if (!resetPassword.success) {
         return {
-            errors: resetPassword.error.issues.map(issue => issue.message),
+            errors: resetPassword.error.issues
+                .map((issue) => issue.message)
+                .filter((msg): msg is string => Boolean(msg)), // ✅ Filtra undefined
             success: '',
             data: resetPasswordInput
         }
@@ -45,7 +47,7 @@ export async function resetPassword(token: string, prevState:  ActionStateType, 
     if (!req.ok) {
         const { error } = ErrorResponSchema.parse(json)
         return {
-            errors: [error],
+            errors: [error].filter((e): e is string => Boolean(e)), // ✅ filtra undefined
             success: '',
             data: {
                 password: '',

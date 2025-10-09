@@ -1,7 +1,6 @@
 "use client";
 
 import { Branch } from "@/src/schemas";
-import { Pencil, Store } from "lucide-react";
 import { useBusinessStore } from "@/store/useBusinessStore";
 import { TextField } from "@mui/material";
 import BtnEditStore from "./BtnEditStore";
@@ -9,72 +8,84 @@ import BtnEditHorary from "./BtnEditHorary";
 import BtnEditSocialMedia from "./BtnEditSocialMedia";
 import { FluviToast } from "../ui/FluviToast";
 import { toast } from "react-toastify";
-import { startTransition, useActionState, useCallback, useEffect, useRef, useState } from "react";
+import {
+  startTransition,
+  useActionState,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { updateProfile } from "@/actions/profile/update-profile-action";
+import { Store } from "lucide-react";
 
 type ContentTiendaProps = {
   branches: Branch[];
 };
 
 export default function InfoBusiness({ branches }: ContentTiendaProps) {
-  const business = useBusinessStore((state) => state.business);
+ const business = useBusinessStore((state) => state.business);
+const [formData, setFormData] = useState({
+  name: business?.name || "",
+  description: business?.description || "",
+});
+
+// sincronizar formData cuando cambie business
+useEffect(() => {
   if (!business) return;
 
-  const [formData, setFormData] = useState({
-      name: business.name || "",
-      description: business.description || "",
-    });
-  
-    useEffect(() => {
-      setFormData({ name: business.name!, description: business.description! });
-    }, [business.name, business.description]);
+  setFormData({
+    name: business.name || "",
+    description: business.description || "",
+  });
+}, [business]);
 
-    const [state, dispatch, isPending] = useActionState(updateProfile, {
-      success: "",
-      errors: [],
-    });
-  
-    const debounceRef = useRef<NodeJS.Timeout | null>(null);
-  
-    useEffect(() => {
-      if (state.errors?.length) {
-        state.errors.forEach((error) =>
-          toast.error(<FluviToast type="error" msg={error} />)
-        );
-      }
-      if (state.success) {
-        toast.success(<FluviToast type="success" msg={state.success} />);
-      }
-    }, [state]);
-  
-    // 🔥 Manejar cambios con debounce
-    const handleChange = useCallback(
-      (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const { name, value } = e.target;
-  
-        let parsedValue: string | null = value;
-  
-        // actualizar el formData local
-        setFormData((prev) => ({
-          ...prev,
-          [name]: parsedValue,
-        }));
-  
-        // limpiar debounce previo
-        if (debounceRef.current) clearTimeout(debounceRef.current);
-  
-        // disparar el update al backend con el campo cambiado
-        debounceRef.current = setTimeout(() => {
-          startTransition(() => {
-            if (parsedValue !== "") {
-              // solo mando si hay valor
-              dispatch({ [name]: parsedValue });
-            }
-          });
-        }, 1000);
-      },
-      [dispatch, startTransition]
-    );
+  const [state, dispatch] = useActionState(updateProfile, {
+    success: "",
+    errors: [],
+  });
+
+  const debounceRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    if (state.errors?.length) {
+      state.errors.forEach((error) =>
+        toast.error(<FluviToast type="error" msg={error} />)
+      );
+    }
+    if (state.success) {
+      toast.success(<FluviToast type="success" msg={state.success} />);
+    }
+  }, [state]);
+
+  // 🔥 Manejar cambios con debounce
+  const handleChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const { name, value } = e.target;
+
+      const parsedValue: string | null = value;
+
+      // actualizar el formData local
+      setFormData((prev) => ({
+        ...prev,
+        [name]: parsedValue,
+      }));
+
+      // limpiar debounce previo
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+
+      // disparar el update al backend con el campo cambiado
+      debounceRef.current = setTimeout(() => {
+        startTransition(() => {
+          if (parsedValue !== "") {
+            // solo mando si hay valor
+            dispatch({ [name]: parsedValue });
+          }
+        });
+      }, 1000);
+    },
+    [dispatch]
+  );
   return (
     <div className="w-full p-6 s bg-white mx-auto space-y-3 border rounded-xl border-gray-200  shadow-md">
       <div className="flex items-center gap-2 text-gray-800">

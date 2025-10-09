@@ -29,7 +29,7 @@ export default function BannerResetForm({imageUrl, setImageUrl }: BannerResetFor
       setImageUrl(""); // Reset the image URL after successful reset
       setBanner(""); // Clear the banner state
     }
-  }, [state]);
+  }, [state, setImageUrl]);
   return (
     <>
       <form action={dispatch}>

@@ -401,7 +401,6 @@ export type RegisterFormFields = {
 
 export type ActionStateType = {
   errors: string[];
-  errorServer: string;
   success?: string;
   data: Partial<RegisterFormFields>;
 };

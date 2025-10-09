@@ -1,7 +1,7 @@
 import { Product } from "@/src/schemas";
 import { Dialog, DialogContent } from "@mui/material";
 import Image from "next/image";
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction } from "react";
 
 type ImageModalProps = {
   setOpen: Dispatch<SetStateAction<boolean>>;

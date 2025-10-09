@@ -35,7 +35,7 @@ export default function BtnCreateVariantGroup({
       toast.success(<FluviToast type="success" msg={state.success} />, {});
       onCreated();
     }
-  }, [state]);
+  }, [state, onCreated]);
 
   const handleCreate = () => {
     startTransition(() => {

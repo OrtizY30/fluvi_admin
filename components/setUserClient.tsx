@@ -2,18 +2,18 @@
 
 import { useEffect } from "react";
 import { useUserStore } from "@/store/useUserStore";
-import { Horary, ModifierGroup } from "@/src/schemas";
+import { Business, Horary, ModifierGroup, SocialMedia, User } from "@/src/schemas";
 import { useModifiersStore } from "@/store/useModifiersStore";
 import { useHorariesStore } from "@/store/useHorariesStore";
 import { useSocialStore } from "@/store/useSocialStore";
 import { useBusinessStore } from "@/store/useBusinessStore";
 
 type Props = {
-  user: any;
+  user: User;
   modifiers: ModifierGroup[]
   horaries: Horary[]
-  socialMedia: any
-  business: any
+  socialMedia: SocialMedia
+  business: Business
 };
 
 export default function SetUserClient({ user, modifiers, horaries, socialMedia, business }: Props) {
@@ -32,7 +32,7 @@ const setSocialMedia = useSocialStore((state) => state.setSocialMedias)
       setSocialMedia(socialMedia)
     };
 
-  }, [user, setUser]);
+  }, [user, setUser, setBusiness, business, setModifiersGroups, modifiers, setHoraries, horaries, setSocialMedia, socialMedia]);
 
   return null;
 }

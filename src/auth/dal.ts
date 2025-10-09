@@ -22,7 +22,6 @@ export const verifySession = cache(async () => {
   const userReq = await fetch(`${process.env.API_URL}/auth/user`, {
     headers: { Authorization: `Bearer ${token}` },
   });
-
   const userJson = await userReq.json();
   const parsedUser = UserSchema.safeParse(userJson);
 
@@ -30,24 +29,23 @@ export const verifySession = cache(async () => {
     redirect("/auth/login");
   }
 
+  // 2. Empresa
   const businessReq = await fetch(`${process.env.API_URL}/auth/business`, {
     headers: { Authorization: `Bearer ${token}` },
   });
   const businessJson = await businessReq.json();
-  const parsedbusiness = businessSchema.safeParse(businessJson);
+  const parsedBusiness = businessSchema.safeParse(businessJson);
 
-  if (!parsedbusiness.success) {
-    console.error("Error al parsear modifiers:", parsedbusiness.error);
+  if (!parsedBusiness.success) {
+    console.error("Error al parsear business:", parsedBusiness.error);
   }
 
-  // 2. Modificadores
+  // 3. Modificadores
   const modifiersReq = await fetch(`${process.env.API_URL}/modifiersGroup`, {
     headers: { Authorization: `Bearer ${token}` },
     cache: "no-store",
   });
-
   const modifiersJson = await modifiersReq.json();
-
   const parsedModifiers =
     ModifierGroupsArrayAPIResponseSchema.safeParse(modifiersJson);
 
@@ -55,8 +53,7 @@ export const verifySession = cache(async () => {
     console.error("Error al parsear modifiers:", parsedModifiers.error);
   }
 
-  // 3. Horarios
-
+  // 4. Horarios
   const horaryReq = await fetch(`${process.env.API_URL}/business/horary`, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -66,12 +63,11 @@ export const verifySession = cache(async () => {
   const horariesJson = await horaryReq.json();
   const parsedHoraries = HorariesApiResponseSchema.safeParse(horariesJson);
 
-  if (!parsedHoraries) {
-    console.error("Error al parsear horary:");
+  if (!parsedHoraries.success) {
+    console.error("Error al parsear horary:", parsedHoraries.error);
   }
 
-  // 4. Redes sociales
-
+  // 5. Redes sociales
   const socialMediaReq = await fetch(`${process.env.API_URL}/business/social`, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -82,18 +78,27 @@ export const verifySession = cache(async () => {
   const parsedSocialMedia =
     SocialMediaApiResponseSchema.safeParse(socialMediaJson);
 
-  if (!parsedSocialMedia) {
-    console.error("Error al parsear horary:");
+  // ✅ Usamos fallback si el parseo falla
+  let socialMedia;
+  if (parsedSocialMedia.success) {
+    socialMedia = parsedSocialMedia.data;
+  } else {
+    socialMedia = {
+      id: 0,
+      instagram: null,
+      facebook: null,
+      tiktok: null,
+      whatsapp: null,
+    };
   }
 
-  // 5. Retornar todo en un mismo objeto
+  // 6. Retornar todo junto
   return {
     isAuth: true,
     user: parsedUser.data,
-    business: parsedbusiness.data,
+    business: parsedBusiness.data,
     modifiers: parsedModifiers.success ? parsedModifiers.data : [],
     horaries: parsedHoraries.success ? parsedHoraries.data : [],
-    socialMedia: parsedSocialMedia.success ? parsedSocialMedia.data : {},
-    // aquí puedes seguir sumando: settings, categorías, permisos, etc.
+    socialMedia, // 👈 aquí usamos el objeto correcto
   };
 });

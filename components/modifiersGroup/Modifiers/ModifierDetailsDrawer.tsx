@@ -2,12 +2,10 @@ import { updateModifier } from "@/actions/modifier/update-modifier-action";
 import { FluviToast } from "@/components/ui/FluviToast";
 import { Modifier } from "@/src/schemas";
 import {
-  IconButton,
   InputAdornment,
   inputBaseClasses,
   TextField,
 } from "@mui/material";
-import { EllipsisVerticalIcon } from "lucide-react";
 import React, {
   startTransition,
   useActionState,
@@ -31,7 +29,7 @@ export default function ModifierDetailsDrawer({
 
   const debounceRef = useRef<NodeJS.Timeout | null>(null);
 
-  const [state, dispatch, isPending] = useActionState(
+  const [state, dispatch] = useActionState(
     updateModifier.bind(null, modifier.id),
     { errors: [], success: "" } // 👈 estado inicial
   );
@@ -74,7 +72,7 @@ export default function ModifierDetailsDrawer({
         });
       }, 1000);
     },
-    [dispatch, startTransition]
+    [dispatch]
   );
 
   return (

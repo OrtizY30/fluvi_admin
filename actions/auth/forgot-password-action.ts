@@ -1,6 +1,10 @@
 "use server";
 
-import { ErrorResponSchema, ForgotPasswordSchema, SuccessSchema } from "@/src/schemas";
+import {
+  ErrorResponSchema,
+  ForgotPasswordSchema,
+  SuccessSchema,
+} from "@/src/schemas";
 
 type ActionStateType = {
   errors: string[];
@@ -19,7 +23,9 @@ export async function forgotPassword(
 
   if (!parseResult.success) {
     return {
-      errors: parseResult.error.issues.map((issue) => issue.message),
+      errors: parseResult.error.issues
+        .map((issue) => issue.message)
+        .filter((msg): msg is string => Boolean(msg)), // ✅ Filtra undefined
       success: "",
       data: { email },
     };
@@ -40,18 +46,19 @@ export async function forgotPassword(
   if (!req.ok) {
     const { error } = ErrorResponSchema.parse(json);
     return {
-      errors: [error],
+      errors: [error].filter((e): e is string => Boolean(e)), // ✅ filtra undefined
       success: "",
       data: { email },
     };
   }
 
-  const success = SuccessSchema.parse(json)
+  const success = SuccessSchema.parse(json);
   // Aquí harías la lógica de envío del email, etc...
 
   return {
+    ...prevState,
     errors: [],
-    success: success ,
+    success: success,
     data: { email },
   };
 }

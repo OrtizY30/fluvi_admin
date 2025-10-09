@@ -32,7 +32,7 @@ export default function BtnDeleteMethod({methodId} : {methodId : Methods['id']})
           toast.success(<FluviToast type="success" msg={state.success} />);
           router.refresh()
         }
-      }, [state]);
+      }, [state, router]);
   return (
     <IconButton disabled={isPending} onClick={handleClick}>
       <Trash2  className='size-5 -mt-1 cursor-pointer text-red-600 hover:text-red-800 transition-all disabled:opacity-60' strokeWidth={1.5}/>

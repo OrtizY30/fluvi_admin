@@ -16,27 +16,33 @@ type SocialMediaFormProps = {
 export default function SocialMediaForm({ setOpen }: SocialMediaFormProps) {
   const [country, setCountry] = useState<CountryCode | undefined>();
   const socialMedia = useSocialStore((state) => state.socialMedia);
-
-  if (!socialMedia) return;
+  const [phone, setPhone] = useState<E164Number | undefined>(undefined);
   const [formData, setFormData] = useState({
-    instagram: socialMedia.instagram || "",
-    facebook: socialMedia.facebook || "",
-    tiktok: socialMedia.tiktok || "",
-    whatsapp: socialMedia.whatsapp || "",
+    instagram: "",
+    facebook: "",
+    tiktok: "",
+    whatsapp: "",
   });
+
+  useEffect(() => {
+    if (socialMedia) {
+      setFormData({
+        instagram: socialMedia.instagram || "",
+        facebook: socialMedia.facebook || "",
+        tiktok: socialMedia.tiktok || "",
+        whatsapp: socialMedia.whatsapp || "",
+      });
+    }
+    if (formData.whatsapp) {
+      setPhone(formData.whatsapp as E164Number);
+    }
+  }, [socialMedia, formData.whatsapp]);
+
   useEffect(() => {
     // Ejemplo: navigator.language devuelve "es-CO" en Colombia
     const lang = navigator.language.split("-")[1]; // "CO"
     if (lang) {
       setCountry(lang.toUpperCase() as CountryCode);
-    }
-  }, []);
-  const [phone, setPhone] = useState<E164Number | undefined>(undefined);
-
-  // Cargar el valor inicial desde backend
-  useEffect(() => {
-    if (formData.whatsapp) {
-      setPhone(formData.whatsapp as E164Number);
     }
   }, []);
 
@@ -58,7 +64,7 @@ export default function SocialMediaForm({ setOpen }: SocialMediaFormProps) {
       toast.success(<FluviToast type="success" msg={state.success} />, {});
       setOpen();
     }
-  }, [state]);
+  }, [state, setOpen]);
   return (
     <form action={dispatch} className="p-3 space-y-6">
       <div className="flex gap-2 items-center">
@@ -71,7 +77,6 @@ export default function SocialMediaForm({ setOpen }: SocialMediaFormProps) {
           onChange={setPhone}
           className="w-full border border-gray-300 p-2 rounded-2xl"
         />
-    
       </div>
       <div className="flex gap-2 items-center">
         <Instagram className="size-9 text-gray-600" strokeWidth={1.5} />

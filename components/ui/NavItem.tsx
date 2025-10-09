@@ -7,7 +7,7 @@ import {
   Cog6ToothIcon,
 } from "@heroicons/react/24/outline";
 import { IoStorefrontOutline } from "react-icons/io5";
-import { Clock3, Component, Hamburger, Headset, Layers, LinkIcon, QrCode, ShoppingCart, TvMinimal, UserRound } from 'lucide-react';
+import { Clock3, Hamburger, Headset, Layers, LinkIcon, QrCode, ShoppingCart, TvMinimal, UserRound } from 'lucide-react';
 
 type NavItemProps = {
   link: string;
@@ -24,7 +24,6 @@ export default function NavItem({ link, label }: NavItemProps) {
         return <Hamburger className="size-5" strokeWidth={2} />;
 
       case "categories":
-        // return <HiOutlineViewGridAdd className="size-5" />;
         return <Layers className="size-5" strokeWidth={2} />;
 
       case "pedidos":

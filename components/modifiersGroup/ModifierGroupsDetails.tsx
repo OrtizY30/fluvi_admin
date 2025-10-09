@@ -41,7 +41,7 @@ export default function ModifierGroupsDetails({
 
   const debounceRef = useRef<NodeJS.Timeout | null>(null);
 
-  const [state, dispatch, isPending] = useActionState(updateModifierGroup.bind(null, modifiersGroups.id),
+  const [state, dispatch] = useActionState(updateModifierGroup.bind(null, modifiersGroups.id),
     { 
       errors: [], 
       success: "" 
@@ -62,7 +62,7 @@ export default function ModifierGroupsDetails({
 
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      const { name, value, type } = e.target;
+      const { name, value } = e.target;
 
       let parsedValue: string | number | boolean = value;
       if (name === "required") {
@@ -90,7 +90,7 @@ export default function ModifierGroupsDetails({
         });
       }, 1000);
     },
-    [dispatch, startTransition]
+    [dispatch]
   );
 
   return (

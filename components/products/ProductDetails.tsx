@@ -50,7 +50,7 @@ export default function ProductDetails({ product }: { product: Product }) {
         </div>
 
         <div className="flex lg:col-span-1 justify-end items-center gap-2">
-          <p>{formatCurrency(product.price, user?.country!)}</p>
+          <p>{formatCurrency(product.price, user!.country!)}</p>
 
           <ToggleAvailabilityButton product={product} />
 

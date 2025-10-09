@@ -1,11 +1,9 @@
-import { updateCategory } from "@/actions/category/update-category-action";
-import { Category, VariantGroup } from "@/src/schemas";
+import {  VariantGroup } from "@/src/schemas";
 import { TextField } from "@mui/material";
 import React, {
   useActionState,
   useEffect,
   useState,
-  useTransition,
   useCallback,
   useRef,
   startTransition,
@@ -70,7 +68,7 @@ export default function InputVariantGroup({
         }
       }, 1000); // ⏳ espera 600ms desde la última tecla
     },
-    [variantGroup?.title, dispatch, startTransition]
+    [variantGroup?.title, dispatch]
   );
 
   return (

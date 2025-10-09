@@ -21,7 +21,7 @@ export default function InputNameProfile({ name }: { name: Business["name"] }) {
     setFormData({ name: name! });
   }, [name]);
 
-  const [state, dispatch, isPending] = useActionState(updateProfile, {
+  const [state, dispatch] = useActionState(updateProfile, {
     success: "",
     errors: [],
   });
@@ -44,7 +44,7 @@ export default function InputNameProfile({ name }: { name: Business["name"] }) {
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const { name, value } = e.target;
 
-      let parsedValue: string | null = value;
+      const parsedValue: string | null = value;
 
       // actualizar el formData local
       setFormData((prev) => ({
@@ -65,7 +65,7 @@ export default function InputNameProfile({ name }: { name: Business["name"] }) {
         });
       }, 1000);
     },
-    [dispatch, startTransition]
+    [dispatch]
   );
 
   return (

@@ -1,5 +1,5 @@
 "use client";
-import { LayoutDashboard, ShoppingCart } from "lucide-react";
+import { ShoppingCart } from "lucide-react";
 import NavSubItem from "../ui/NavSubItem";
 import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 import { ExpandMore } from "@mui/icons-material";

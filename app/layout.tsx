@@ -9,8 +9,11 @@ const nunito = Nunito({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://fluvi.shop"),
+  title: "Fluvi - Tu Menú Digital",
+  description: "Crea tu menú digital fácil y rápido 🚀",
   icons: {
-    icon: "/logo-gota.png",
+    icon: "/fluvi.png",
   },
 };
 

@@ -6,6 +6,7 @@ import { Metadata } from "next";
 import ToastNotification from "@/components/ui/ToastNotification";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://fluvi.shop/admin"),
   title: "Fluvi - Panel de Administración",
   description:
     "Gestiona productos, categorías y más desde tu panel de administración.",
@@ -13,11 +14,11 @@ export const metadata: Metadata = {
     title: "Panel de Administración de Fluvi",
     description:
       "Accede al panel para gestionar tu menú digital, pedidos por WhatsApp, productos, horarios y más.",
-    url: "https://fluvi.site/admin/productos", // usa URL completa
+    url: "https://fluvi.shop/admin/productos", // usa URL completa
     siteName: "Fluvi Admin",
     images: [
       {
-        url: "/logo-gota.svg",
+        url: "/fluvi.png",
         width: 800,
         height: 600,
         alt: "Fluvi Admin Logo",
@@ -27,14 +28,14 @@ export const metadata: Metadata = {
     type: "website",
   },
   icons: {
-    icon: "/logo-gota.svg",
+    icon: "/fluvi.png",
   },
   twitter: {
     card: "summary_large_image",
     title: "Panel de Administración de Fluvi",
     description:
       "Gestiona tu restaurante en minutos desde cualquier lugar con Fluvi.",
-    images: ["/logo-gota.svg"],
+    images: ["/fluvi.png"],
   },
 };
 

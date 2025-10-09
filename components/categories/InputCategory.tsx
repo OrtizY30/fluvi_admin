@@ -5,7 +5,6 @@ import React, {
   useActionState,
   useEffect,
   useState,
-  useTransition,
   useCallback,
   useRef,
   startTransition,
@@ -60,7 +59,7 @@ export default function InputCategory({ category }: { category: Category }) {
         }
       }, 1000); // ⏳ espera 600ms desde la última tecla
     },
-    [category.name, dispatch, startTransition]
+    [category.name, dispatch]
   );
 
   return (

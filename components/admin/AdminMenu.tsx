@@ -21,7 +21,7 @@ export default function AdminMenu() {
     <div className="relative m-1 shadow-md bg-surface-base rounded-xl py-3 px-1 mb-4">
       {/* Menú que aparece ARRIBA */}
       {open && (
-        <div className="absolute w-full bg-surface-base pb-4 bottom-full left-0 -mb-3 z-50  rounded-t-xl  py-2 px-1 animate-fade-in">
+        <div className="absolute w-full bg-surface-base pb-4 bottom-full left-0 -mb-3 z-50 rounded-t-xl py-2 px-1 animate-fade-in">
           {/* Contenido del menú */}
           <div className="text-slate-800 capitalize text-sm space-y-3">
             <div className="flex justify-between items-center">
@@ -49,17 +49,17 @@ export default function AdminMenu() {
                 Fecha de pago
               </p>
               <p className="font-bold text-xs">
-                {user?.subscriptionEnd ? formatDate(user.subscriptionEnd!) : "-----"}
+                {user?.subscriptionEnd ? formatDate(user.subscriptionEnd) : "-----"}
               </p>
             </div>
           </div>
 
           <div className="bg-brand-primary mt-4 rounded-md">
             <div className="hover:bg-surface-base transition-all" onClick={toggleMenu}>
-              <NavItem icon="settings" label="configuracion" />
+              <NavItem link="settings" label="configuracion" />
             </div>
             <div className="hover:bg-surface-base transition-all" onClick={toggleMenu}>
-              <NavItem icon="soporte" label="soporte" />
+              <NavItem link="soporte" label="soporte" />
             </div>
             <button
               className="w-full text-white flex items-center gap-3 px-3 py-2 text-xs hover:bg-surface-base hover:text-brand-primary transition-all"
@@ -89,7 +89,7 @@ export default function AdminMenu() {
           <div className="rounded-full bg-white p-[1px]">
             <Avatar
               alt="Logo del restaurante"
-              src={business?.logo!}
+              src={business?.logo ?? "/default-logo.png"}
               sx={{ width: 42, height: 42 }}
             />
           </div>

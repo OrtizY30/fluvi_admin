@@ -8,8 +8,6 @@ import CategoryTabs from "../categories/CategoryTabs";
 import InputNameProfile from "../profile/InputNameProfile";
 import LogoProfileUpload from "../profile/LogoProfileUpload";
 import ImageProfileUpload from "../profile/ImageProfileUpload";
-import { Settings } from "lucide-react";
-import { IconButton } from "@mui/material";
 import SettingMenu from "./SettingMenu";
 
 export default function ProductContainer({
@@ -35,7 +33,7 @@ export default function ProductContainer({
         </div>
         <div className="flex gap-4 items-end h-full px-6">
           <LogoProfileUpload image={business?.logo} />
-          <InputNameProfile name={business?.name!} />
+          <InputNameProfile name={business?.name} />
         </div>
       </div>
 

@@ -69,7 +69,7 @@ export default function ThemeContainer({ theme }: ThemeProfileProps) {
         });
       }, 2000);
     },
-    [dispatch, startTransition]
+    [dispatch]
   );
 
   const handleReset = () => { 

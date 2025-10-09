@@ -1,7 +1,5 @@
 import { useRouter } from "next/navigation";
 import React, {
-  Dispatch,
-  SetStateAction,
   startTransition,
   useActionState,
   useEffect,
@@ -45,7 +43,7 @@ export default function ConfirmDeleteVariants({
       handleClose();
       onDeleted();
     }
-  }, [state]);
+  }, [state, router, handleClose, onDeleted]);
 
   const handleDeleteGroup = () => {
     const formData = new FormData();

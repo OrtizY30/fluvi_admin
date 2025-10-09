@@ -10,29 +10,43 @@ import {
   inputBaseClasses,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import {  useState } from "react";
+import { useState } from "react";
 import { WrenchScrewdriverIcon } from "@heroicons/react/16/solid";
-import { useUserStore } from "@/store/useUserStore";
 import { Product } from "@/src/schemas";
 import OpenDrawerModifiersGroup from "../modifiersGroup/OpenDrawerModifiersGroup";
 import { useModifiersStore } from "@/store/useModifiersStore";
 import ModifiersDetail from "../modifiersGroup/Modifiers/ModifiersDetail";
+type modifiersGroup = {
+    id: number;
+    name: string;
+    modifiers: {
+        id: number;
+        name: string;
+        price: number | null;
+        discount?: number | undefined;
+    }[];
+    required: boolean;
+    position: number;
+    maxSelections: number;
+  }
+type FormData = {
+  name: string;
+  price: number;
+  description: string;
+  image: string;
+  isOnSale: boolean;
+  discount: number;
+  modifiers: number[];
+  modifiersGroup: modifiersGroup[];
+};
 
 type Props = {
   modifiers: number[];
   onChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
-  setFormData: React.Dispatch<React.SetStateAction<any>>;
-  formData: {
-    name: string;
-    price: number;
-    description: string;
-    image: string;
-    isOnSale: boolean;
-    discount: number;
-    modifiers: number[];
-  };
+  setFormData: React.Dispatch<React.SetStateAction<FormData>>;
+  formData: FormData;
   product: Product;
 };
 
@@ -43,19 +57,15 @@ export default function OpcionesAvanzadas({
   product,
 }: Props) {
   const [expanded, setExpanded] = useState(false);
-  const user = useUserStore((state) => state.user);
 
   const modifiersGroup = useModifiersStore((state) => state.modifierGroups);
 
   return (
     <Accordion
       sx={{
-        // backgroundColor: "#eeeff0",
-        // mt: 2,
-        borderRadius: 4, // como los inputs
-        // boxShadow: "1px 1px 4px gray",
-        border: "1px solid #dddfe3", // similar al borde del input
-        "&::before": { display: "none" }, // quita línea superior
+        borderRadius: 4,
+        border: "1px solid #dddfe3",
+        "&::before": { display: "none" },
       }}
       expanded={expanded}
       onChange={() => setExpanded(!expanded)}
@@ -72,13 +82,8 @@ export default function OpcionesAvanzadas({
         </div>
       </AccordionSummary>
 
-      <AccordionDetails
-        sx={{
-          borderRadius: 4,
-        }}
-      >
+      <AccordionDetails sx={{ borderRadius: 4 }}>
         <div className="space-y-6">
-          {/* Switch para producto en oferta */}
           <div className="flex items-center justify-between">
             <div>
               <label className="label-input">Producto en oferta</label>
@@ -92,12 +97,11 @@ export default function OpcionesAvanzadas({
               checked={formData.isOnSale}
               onChange={(e) => {
                 const checked = e.target.checked;
-                setFormData((prev: Partial<Product>) => ({
+                setFormData((prev: FormData) => ({
                   ...prev,
-                  isOnSale: !prev.isOnSale,
+                  isOnSale: checked,
                 }));
 
-                // si quieres que dispare el mismo handler que otros inputs:
                 onChange({
                   target: {
                     name: "isOnSale",
@@ -110,7 +114,6 @@ export default function OpcionesAvanzadas({
             />
           </div>
 
-          {/* Campo de descuento */}
           {formData.isOnSale && (
             <div>
               <TextField
@@ -126,13 +129,11 @@ export default function OpcionesAvanzadas({
                 sx={{
                   backgroundColor: "#f8fafc",
                   "& .MuiOutlinedInput-root": {
-                    borderRadius: 4, // aquí se aplica el borderRadius al input
+                    borderRadius: 4,
                   },
                 }}
                 slotProps={{
                   input: {
-                    // 👈 aquí lo cambiamos
-
                     startAdornment: (
                       <InputAdornment
                         position="start"
@@ -145,7 +146,7 @@ export default function OpcionesAvanzadas({
                             },
                         }}
                       >
-                        <span className=" text-gray-500 text-lg">$</span>
+                        <span className="text-gray-500 text-lg">$</span>
                       </InputAdornment>
                     ),
                   },
@@ -154,10 +155,9 @@ export default function OpcionesAvanzadas({
             </div>
           )}
 
-          {/* Checkboxes de grupos de adiciones */}
           <div className="space-y-4">
             <div className="flex w-full items-center justify-between">
-              <div className="">
+              <div>
                 <label className="label-input">Modificadores</label>
                 <p className="text-xs text-gray-600 mt-0">
                   Adiciones, salsas, extras, etc.

@@ -1,5 +1,4 @@
 
-import { useUserStore } from "@/store/useUserStore";
 
 // ajusta la ruta
 const currencyMap: Record<string, { locale: string; currency: string }> = {

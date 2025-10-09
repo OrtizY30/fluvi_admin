@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://fluvi.shop"),
   title:
     "Fluvi - Vende Más con tu Menú Digital y Ten Control Total de tu Restaurante",
   description:
@@ -12,11 +13,11 @@ export const metadata: Metadata = {
    title: "Crea tu propia app de delivery y aumenta tus ventas hasta un 40% con Fluvi 🚀",
     description:
       "Fluvi te permite tener tu propio menú digital tipo app de delivery, recibir pedidos por WhatsApp y controlar todo desde un panel administrativo. ¡Tu restaurante, a otro nivel!",
-    url: "https://fluvi.site", // Cambia esto por tu dominio real
+    url: "https://fluvi.shop", // Cambia esto por tu dominio real
     siteName: "Fluvi",
     images: [
       {
-        url: "/og-fluvi.png", // Reemplaza con la ruta real de tu imagen
+        url: "/fluvi.png", // Reemplaza con la ruta real de tu imagen
         width: 1200,
         height: 630,
         alt: "Fluvi - Menú digital para restaurantes",

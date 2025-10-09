@@ -34,7 +34,7 @@ export const getModifiers = cache(async () => {
     return {
       modifiersGroups: result.data,
     };
-  } catch (err: any) {
+  } catch (err) {
     console.log(err);
   }
 });

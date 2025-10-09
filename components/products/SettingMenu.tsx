@@ -19,9 +19,6 @@ export default function SettingMenu() {
   const handleClickOpenModalHorary = () => {
     setOpenModalHorary(true);
   };
-  const handleClickOpenModalSocialMedia = () => {
-    setOpenModalSocialMedia(true);
-  };
 
   return (
     <>

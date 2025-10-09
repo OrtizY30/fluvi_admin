@@ -4,8 +4,9 @@ import Link from "next/link";
 import Image from "next/image";
 
 export const metadata: Metadata = {
- title: "Fluvi – Accede a tu Panel de Restaurante",
-  description: "Ingresa a tu cuenta de Fluvi y gestiona tu menú digital, pedidos por WhatsApp y configuración del restaurante desde un solo lugar.",
+  title: "Fluvi – Accede a tu Panel de Restaurante",
+  description:
+    "Ingresa a tu cuenta de Fluvi y gestiona tu menú digital, pedidos por WhatsApp y configuración del restaurante desde un solo lugar.",
   keywords: [
     "iniciar sesión restaurante",
     "login menú digital",
@@ -21,22 +22,24 @@ export const metadata: Metadata = {
 };
 export default function loginPage() {
   return (
-    <div className="flex flex-col items-center justify-center gap-6 bg-slate-50 mx-auto w-full h-screen">
- <div className="w-72 h-20 flex items-center justify-center">
-          <Image
-            src={"/Fluvisvg.svg"}
-            width={200}
-            height={160}
-            alt="logo fluvi"
-          />
-        </div>
+    <div className="flex flex-col min-h-screen px-2 items-center justify-center gap-6 mx-auto w-full">
+      <div className="w-[400px] h-20 relative ">
+        <Image src={"/logo-fluvi.svg"} fill alt="logo fluvi" />
+      </div>
       <LoginForm />
       <nav className="flex flex-col items-center space-y-1">
-        <Link href="/auth/forgot-password" className="text-sm text-blue-500 hover:underline">
+        <Link
+          href="/auth/forgot-password"
+          className="text-sm text-white hover:underline"
+        >
           ¿Olvidaste tu contraseña?
         </Link>
-        <Link href="/auth/register" className="text-sm text-blue-500 hover:underline">
-          ¿No tienes una cuenta?. <span className="text-brand-primary">Regístrate</span> 
+        <Link
+          href="/auth/register"
+          className="text-sm text-white hover:underline"
+        >
+          ¿No tienes una cuenta?.{" "}
+          <span className="text-brand-primary bg-white p-1 rounded-md font-bold">Regístrate</span>
         </Link>
       </nav>
     </div>

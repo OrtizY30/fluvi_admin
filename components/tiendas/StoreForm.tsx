@@ -3,7 +3,6 @@ import { createBranch } from "@/actions/branch/create-branch";
 import {
   CircularProgress,
   Dialog,
-  Drawer,
   IconButton,
   TextField,
 } from "@mui/material";
@@ -22,10 +21,10 @@ type StoreFormProps = {
 export default function StoreForm({ open, onClose, branch }: StoreFormProps) {
   const isEditMode = !!branch;
 
-  const updateBrachWithId = updateBranch.bind(null, branch?.id!);
+  const updateBranchWithId = updateBranch.bind(null, branch!.id!);
 
   const [state, dispatch, isPending] = useActionState(
-    isEditMode ? updateBrachWithId : createBranch,
+    isEditMode ? updateBranchWithId : createBranch,
     {
       errors: [],
       success: "",
@@ -48,7 +47,7 @@ export default function StoreForm({ open, onClose, branch }: StoreFormProps) {
       toast.success(<FluviToast type="success" msg={state.success} />, {});
       onClose();
     }
-  }, [state]);
+  }, [state, onClose]);
   return (
     <Dialog
       open={open}

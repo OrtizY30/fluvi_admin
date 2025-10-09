@@ -6,7 +6,7 @@ import { Product } from "@/src/schemas";
 import { formatCurrency } from "@/src/utils";
 import { useUserStore } from "@/store/useUserStore";
 import { IconButton } from "@mui/material";
-import { EllipsisVertical, Grip, Hamburger } from "lucide-react";
+import { Grip, Hamburger } from "lucide-react";
 import React, { useState } from "react";
 import ToggleAvailabilityButton from "../ui/ToggleAvailabilityButton";
 import ProductForm from "./ProductForm";

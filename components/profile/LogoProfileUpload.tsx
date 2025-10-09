@@ -68,7 +68,7 @@ export default function LogoProfileUpload({
         });
       }, 1000);
     },
-    [dispatch, startTransition]
+    [dispatch]
   );
 
   return (

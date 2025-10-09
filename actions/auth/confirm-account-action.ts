@@ -1,23 +1,25 @@
+
 "use server";
 
 import { ErrorResponSchema, SuccessSchema, TokenSchema } from "@/src/schemas";
-
 
 type ActionStateType = {
   errors: string[];
   success: string;
 };
+
 export async function confirmAccount(
   token: string,
   prevState: ActionStateType
-) {
+): Promise<ActionStateType> {
 
   const confirmToken = TokenSchema.safeParse(token);
 
-
   if (!confirmToken.success) {
     return {
-      errors: confirmToken.error.issues.map((issue) => issue.message),
+      errors: confirmToken.error.issues
+        .map((issue) => issue.message)
+        .filter((e): e is string => Boolean(e)), // 🧼 limpia undefined
       success: "",
     };
   }
@@ -35,26 +37,22 @@ export async function confirmAccount(
 
     const json = await res.json();
 
-    console.log(res.ok);
-    console.log(json);
-
     if (!res.ok) {
       const { error } = ErrorResponSchema.parse(json);
       return {
-        errors: [error],
+        errors: [error || "Error desconocido"],
         success: "",
       };
     }
 
-    const success = SuccessSchema.parse(json)
+    // ✅ extraemos el string de éxito correctamente
+    const parsed = SuccessSchema.parse(json);
 
-    // Aquí podrías opcionalmente resetear el formulario (solo si quieres)
     return {
       errors: [],
-      success
+      success: parsed ?? "",
     };
   } catch (error) {
-    // console.log(error)
     return {
       ...prevState,
       errors: ["Error de conexión con el servidor"],
@@ -62,3 +60,4 @@ export async function confirmAccount(
     };
   }
 }
+

@@ -52,7 +52,7 @@ export default function ConfirmDeleteCategory({
       router.refresh()
       closeModal();
     }
-  }, [state]);
+  }, [state, router]);
 
   return (
     <>

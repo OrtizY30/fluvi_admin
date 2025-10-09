@@ -1,4 +1,4 @@
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import React, {
   Dispatch,
   SetStateAction,
@@ -55,7 +55,7 @@ export default function ConfirmDeleteProduct({
       closeModal();
       router.refresh();
     }
-  }, [state]);
+  }, [state, closeModal, router]);
 
   return (
     <>

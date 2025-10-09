@@ -38,7 +38,7 @@ export default function InputVariantPrice({ variant }: { variant: Variant }) {
       toast.success(<FluviToast type="success" msg={state.success} />);
       router.refresh();
     }
-  }, [state]);
+  }, [state, router]);
 
   // 🔥 Manejar cambios con debounce
   const handleChange = useCallback(
@@ -74,7 +74,7 @@ export default function InputVariantPrice({ variant }: { variant: Variant }) {
         }
       }, 1000);
     },
-    [variant, dispatch, startTransition]
+    [variant, dispatch]
   );
 
   return (

@@ -1,13 +1,11 @@
-import { updateCategory } from "@/actions/category/update-category-action";
 import { updateVariant } from "@/actions/variant/update-variant-action";
 import { FluviToast } from "@/components/ui/FluviToast";
-import { Category, Variant } from "@/src/schemas";
+import { Variant } from "@/src/schemas";
 import { TextField } from "@mui/material";
 import React, {
   useActionState,
   useEffect,
   useState,
-  useTransition,
   useCallback,
   useRef,
   startTransition,
@@ -62,7 +60,7 @@ export default function InputVariant({ variant }: { variant: Variant }) {
       }
     }, 1000);
   },
-  [variant, dispatch, startTransition]
+  [variant, dispatch]
 );
 
   return (

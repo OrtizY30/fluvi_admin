@@ -40,7 +40,7 @@ export default function ToggleAvailabilityButton({
     if (state.success) {
       toast.success(<FluviToast type="success" msg={state.success} />);
     }
-  }, [state]);
+  }, [state, product.isAvailable]);
 
   // 🔧 Optimistic UI con cambio inmediato y luego dispatch
   const handleToggle = () => {

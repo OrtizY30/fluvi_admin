@@ -32,7 +32,7 @@ export default function BtnToogleActiveMethod({ method }: { method: Methods }) {
     if (state.success) {
       toast.success(<FluviToast type="success" msg={state.success} />);
     }
-  }, [state]);
+  }, [state, method.active]);
 
   // 🔧 Optimistic UI con cambio inmediato y luego dispatch
   const handleChange = () => {
@@ -51,6 +51,7 @@ export default function BtnToogleActiveMethod({ method }: { method: Methods }) {
       <div>
 
       <input
+      disabled={isPending}
         type="checkbox"
         value={method.name}
         checked={isChecked}
