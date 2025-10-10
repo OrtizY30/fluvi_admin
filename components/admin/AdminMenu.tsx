@@ -27,7 +27,7 @@ export default function AdminMenu() {
             <div className="flex justify-between items-center">
               <p className="flex items-center gap-2 text-xs">
                 <CreditCardIcon className="size-5" />
-                Suscripción
+                Suscripción 
               </p>
               <p
                 className={`${
