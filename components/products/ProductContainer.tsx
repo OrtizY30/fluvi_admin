@@ -21,7 +21,7 @@ export default function ProductContainer({
 
   return (
    <div className="flex-1 h-screen shadow-md">
-  <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 h-full">
+  <div className="w-full mx-auto grid grid-cols-1 lg:grid-cols-3 h-full">
     
     {/* SECCIÓN SCROLLEABLE */}
     <div className="lg:col-span-2 h-full  overflow-y-auto bg-surface-base-secundary relative">
@@ -46,21 +46,32 @@ export default function ProductContainer({
 
     {/* SECCIÓN FIJA SIN SCROLL */}
     <div className="lg:col-span-1 bg-[#f4f6f8] h-screen overflow-hidden">
-      <div className="flex justify-center items-center h-full">
-        {/* Simulador de Celular */}
-        <div
-          className="relative"
-          style={{ width: "280px", height: "450px" }}
-        >
-          <Image
-            src="/phone.png"
-            alt="Simulador de Celular"
-            layout="fill"
-            objectFit="contain"
-          />
-        </div>
-      </div>
+  <div className="flex justify-center items-center h-full">
+    {/* Simulador de Celular */}
+    <div className="relative p-2" style={{ width: "280px", height: "600px" }}>
+      <Image
+        src="/phone.png"
+        alt="Simulador de Celular"
+        width={270}
+        height={590}
+        objectFit="cover"
+        className="pointer-events-none absolute z-50"
+      />
+
+      {/* Vista del subdominio dentro del teléfono */}
+      <iframe
+        src={`https://${user?.domain}.fluvi.shop/menu`} // 👈 Aquí pones dinámicamente el subdominio
+        className="absolute  top-[29px] left-[32px]" // ajusta estos valores para que encaje en la pantalla del teléfono
+        width="227" // ancho del área visible dentro del marco
+        height="495" // alto del área visible dentro del marco
+        style={{
+          border: "none",
+          borderRadius: "20px",
+        }}
+      ></iframe>
     </div>
+  </div>
+</div>
   </div>
 </div>
 
