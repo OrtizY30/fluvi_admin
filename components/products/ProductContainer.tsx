@@ -24,7 +24,7 @@ export default function ProductContainer({
   <div className="w-full mx-auto grid grid-cols-1 lg:grid-cols-3 h-full">
     
     {/* SECCIÓN SCROLLEABLE */}
-    <div className="lg:col-span-2 h-full  overflow-y-auto bg-surface-base-secundary relative">
+  <div className="lg:col-span-1 bg-[#f4f6f8] h-screen overflow-hidden hidden lg:flex">
       {/* Encabezado */}
       <div className="h-46 w-full relative">
         <div className="absolute w-full h-full bg-blue-400">
