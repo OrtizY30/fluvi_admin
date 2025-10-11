@@ -19,9 +19,9 @@ async function getTheme(){
 export default async function ThemePage() {
    const theme = await getTheme();
   return (
-    <div className="flex-1 p-10 space-y-4 flex h-full flex-col bg-surface-base overflow-x-hidden overflow-y-auto">
-      <header className="max-w-7xl flex-shrink-0">
-        <h1 className="text-3xl font-bold">Configura los colores de tu App</h1>
+    <div className="flex-1 space-y-4 flex h-full flex-col bg-surface-base overflow-x-hidden overflow-y-auto">
+      <header className="w-full p-10 flex-shrink-0">
+        <h1 className="md:text-3xl text-xl font-black">Configura los colores de tu App</h1>
       </header>
       <ThemeContainer theme={theme} />
       {/* <ThemeContainer /> */}

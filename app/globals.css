@@ -27,6 +27,9 @@
 .btn {
   @apply font-bold border border-gray-300 rounded-xl flex items-center justify-center text-gray-800 bg-[#E3E3E3] gap-1 p-2.5 cursor-pointer shadow-md hover:bg-gray-400  text-center transition-all;
 }
+.btn-product {
+  @apply font-bold border border-gray-300 rounded-xl items-center justify-center text-gray-800 bg-[#E3E3E3] gap-1 p-2.5 cursor-pointer shadow-md hover:bg-gray-400  text-center  transition-all;
+}
 .btn-form {
   @apply flex-1 rounded-md p-2 gap-2 max-h-10 cursor-pointer bg-btn-secondary hover:bg-neutral-200 text-white transition-colors;
 }

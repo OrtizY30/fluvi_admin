@@ -38,7 +38,7 @@ export default function ModifiersGroupDrawer({
         },
       }}
     >
-      <div className="flex w-xl flex-col h-full bg-slate-50">
+      <div className="flex md:w-xl w-full flex-col h-full bg-slate-50">
         {/* Header */}
         <div className="flex justify-between items-center px-4 py-3 shadow-sm">
           <p className="font-bold text-lg">Gestionar Modificadores</p>
@@ -48,7 +48,7 @@ export default function ModifiersGroupDrawer({
         </div>
 
         {/* Contenido s*/}
-        <div className="flex-1 overflow-y-auto p-4">
+        <div className="flex-1 overflow-y-auto md:p-4 px-2 py-4">
           <div className="flex justify-between items-center w-full pb-4">
             <div className="flex gap-2">
               <p className="font-semibold">Total de categorías </p>

@@ -152,8 +152,8 @@ export default function ModifierGroupsDetails({
         </div>
       </AccordionSummary>
 
-      <AccordionDetails sx={{ borderRadius: 2, padding: "10px 20px" }}>
-        <form className="space-y-4 mt-2">
+      <AccordionDetails sx={{ borderRadius: 2, padding: 0 }}>
+        <form className="space-y-4 md:p-4 p-2">
           {/* Required */}
           <div className="flex flex-col gap-2">
             <label className="text-sm font-bold">¿Es obligatorio?</label>
@@ -217,7 +217,7 @@ export default function ModifierGroupsDetails({
           </div>
         </form>
 
-        <div className="border-t-2  flex gap-2 flex-col items-center justify-center border-slate-200 mt-2 ">
+        <div className="border-t-2  flex gap-2 flex-col items-center justify-center border-slate-200 md:p-4 p-2 ">
           <div className="w-full my-3">
             <p className="text-md text-left font-bold">Modificadores</p>
           </div>

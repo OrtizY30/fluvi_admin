@@ -8,7 +8,7 @@ import { logout } from "@/actions/auth/logout-user-action";
 
 export default function Sidebar() {
   return (
-    <aside className="w-56 h-screen flex justify-between flex-col flex-shrink-0">
+    <aside className="w-56 hidden h-screen md:flex justify-between flex-col flex-shrink-0">
       <div>
         <div
           className=" flex items-center justify-center w-full p-4

@@ -88,12 +88,12 @@ export default function ThemeContainer({ theme }: ThemeProfileProps) {
     setFormData(defaultTheme);
 
     // ✅ Envolver en transición
-    startTransition(() => {
+    startTransition(() => { 
       dispatch(formData);
     });
   };
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 p-2 md:p-10 md:pt-4 ">
       <button
         onClick={handleReset}
         disabled={isPending}
@@ -106,12 +106,12 @@ export default function ThemeContainer({ theme }: ThemeProfileProps) {
           "Reiniciar"
         )}
       </button>
-      <div className="flex flex-col gap-3 w-full shadow-md rounded-xl p-6 bg-white border border-gray-200">
+      <div className="flex flex-col gap-3 w-full shadow-md rounded-xl md:p-6 p-2 bg-white border border-gray-200">
         <p className="text-xl font-bold ">General</p>
 
         <div className="flex gap-6 justify-start">
           <div className="flex flex-col gap-1">
-            <label className="text-md  text-gray-800" htmlFor="primary-color">
+            <label className="md:text-md text-sm  text-gray-800" htmlFor="primary-color">
               Color de fuentes
             </label>
             <div className="flex items-center gap-3">
@@ -134,7 +134,7 @@ export default function ThemeContainer({ theme }: ThemeProfileProps) {
           </div>
 
             <div className="flex flex-col gap-1">
-            <label className="text-md  text-gray-800" htmlFor="primary-color">
+            <label className="md:text-md text-sm  text-gray-800" htmlFor="primary-color">
               Color de fuentes secundarias
             </label>
             <div className="flex items-center gap-3">
@@ -160,12 +160,12 @@ export default function ThemeContainer({ theme }: ThemeProfileProps) {
         </div>
       </div>
 
-      <div className="flex flex-col gap-3 w-full shadow-md rounded-xl p-6 bg-white border border-gray-200">
+      <div className="flex flex-col gap-3 w-full shadow-md rounded-xl md:p-6 p-2 bg-white border border-gray-200">
         <p className="text-xl font-bold ">Botones</p>
 
         <div className="flex gap-6 justify-start">
           <div className="flex flex-col gap-1">
-            <label className="text-md  text-gray-800" htmlFor="primary-color">
+            <label className="md:text-md text-sm  text-gray-800" htmlFor="primary-color">
               Color de fondo
             </label>
             <div className="flex items-center gap-3">
@@ -188,7 +188,7 @@ export default function ThemeContainer({ theme }: ThemeProfileProps) {
           </div>
 
           <div className="flex flex-col gap-1">
-            <label className="text-md  text-gray-800" htmlFor="primary-color">
+            <label className="md:text-md text-sm  text-gray-800" htmlFor="primary-color">
               Color de fuente
             </label>
             <div className="flex items-center gap-3">
@@ -211,7 +211,7 @@ export default function ThemeContainer({ theme }: ThemeProfileProps) {
           </div>
 
            <div className="flex flex-col gap-1">
-            <label className="text-md  text-gray-800" htmlFor="primary-color">
+            <label className="md:text-md text-sm  text-gray-800" htmlFor="primary-color">
               Color de botones simples y descuentos
             </label>
             <div className="flex items-center gap-3">
@@ -235,12 +235,12 @@ export default function ThemeContainer({ theme }: ThemeProfileProps) {
         </div>
       </div>
 
-      <div className="flex flex-col gap-3 w-full shadow-md rounded-xl p-6 bg-white border border-gray-200">
+      <div className="flex flex-col gap-3 w-full shadow-md rounded-xl md:p-6 p-2 bg-white border border-gray-200">
         <p className="text-xl font-bold ">Fondo</p>
 
-        <div className="flex gap-6 justify-start">
+        <div className="flex gap-6 flex-col justify-start">
           <div className="flex flex-col gap-1">
-            <label className="text-md  text-gray-800" htmlFor="primary-color">
+            <label className="md:text-md text-sm  text-gray-800" htmlFor="primary-color">
               Color de fondo
             </label>
             <div className="flex items-center gap-3">
@@ -263,7 +263,7 @@ export default function ThemeContainer({ theme }: ThemeProfileProps) {
           </div>
 
           <div className="flex flex-col gap-1">
-            <label className="text-md  text-gray-800" htmlFor="primary-color">
+            <label className="md:text-md text-sm  text-gray-800" htmlFor="primary-color">
               Color de tarjetas
             </label>
             <div className="flex items-center gap-3">

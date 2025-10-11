@@ -32,6 +32,7 @@ import { toast } from "react-toastify";
 import { FluviToast } from "../ui/FluviToast";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
+import BtnNewProductText from "../products/BtnNewProductText";
 
 // Import dinámico para evitar hydration issues de dnd-kit/MUI
 const SortableProduct = dynamic(() => import("../products/SortableProduct"), {
@@ -153,14 +154,14 @@ export function SortableCategory({
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex w-full items-center justify-between">
-          <div className="flex gap-2 items-center">
+          <div className=" gap-2 items-center flex">
             {/* Grip para mover */}
-            <IconButton component="span" {...attributes} {...listeners}>
+            <div className="md:flex hidden" {...attributes} {...listeners}>
               <Grip
                 className="text-btn-secondary cursor-grab active:cursor-grabbing size-5"
                 strokeWidth={2}
               />
-            </IconButton>
+            </div>
             <InputCategory category={category} />
           </div>
           <div className="flex items-center gap-2">
@@ -174,6 +175,9 @@ export function SortableCategory({
       </AccordionSummary>
 
       <AccordionDetails sx={{ borderRadius: 2, padding: "0px" }}>
+        
+          <BtnNewProductText category={category} />
+       
         {items.length ? (
           <DndContext onDragEnd={handleDragEnd}>
             <SortableContext

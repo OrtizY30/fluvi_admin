@@ -44,13 +44,13 @@ export default function SortableProduct({ product }: { product: Product }) {
         style={style}
         className="grid grid-cols-3 items-center justify-between border-t border-gray-200 p-2 "
       >
-        <div className="flex lg:col-span-2 items-center gap-2 ">
-          <IconButton component="span" {...attributes} {...listeners}>
+        <div className="flex col-span-2 items-center gap-2 ">
+          <div className="md:flex hidden" {...attributes} {...listeners}>
             <Grip
               className="text-btn-secondary size-5 cursor-grab active:cursor-grabbing"
               strokeWidth={2}
             />
-          </IconButton>
+          </div>
 
           <div className="flex items-center gap-2">
             {product.image ? (
@@ -72,7 +72,7 @@ export default function SortableProduct({ product }: { product: Product }) {
 
             <p
               onClick={handleOpen}
-              className="hover:underline cursor-pointer hover:text-blue-800"
+              className="hover:underline text-sm md:text-lg cursor-pointer hover:text-blue-800"
             >
               {product.name}
             </p>
@@ -88,7 +88,7 @@ export default function SortableProduct({ product }: { product: Product }) {
                     <span className="text-xs text-slate-400 line-through">
                       {formatCurrency(product.price!, user!.country)}
                     </span>
-                    <span className="text-[10px] shadow-md shadow-orange-800  bg-orange-300 text-orange-600 font-bold px-2 py-0.5 rounded-full animate-pulse">
+                    <span className="text-[10px] md:flex hidden shadow-md shadow-orange-800  bg-orange-300 text-orange-600 font-bold px-2 py-0.5 rounded-full animate-pulse">
                       {discount(product)}% OFF
                     </span>
                   </div>

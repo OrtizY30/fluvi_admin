@@ -10,6 +10,7 @@ import { toogleAvailabilityProduct } from "@/actions/product/toogle-availability
 import { toast } from "react-toastify";
 import { FluviToast } from "../ui/FluviToast";
 import { Eye, EyeOff } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 type ToggleAvailabilityButtonProps = {
   product: Product;
@@ -18,6 +19,7 @@ type ToggleAvailabilityButtonProps = {
 export default function ToggleAvailabilityButton({
   product,
 }: ToggleAvailabilityButtonProps) {
+  const router = useRouter();
   // 🔧 Agregamos estado local para manejar el switch
   const [isChecked, setIsChecked] = useState(product.isAvailable);
 
@@ -39,8 +41,9 @@ export default function ToggleAvailabilityButton({
 
     if (state.success) {
       toast.success(<FluviToast type="success" msg={state.success} />);
+      router.refresh()
     }
-  }, [state, product.isAvailable]);
+  }, [state, product.isAvailable, router]);
 
   // 🔧 Optimistic UI con cambio inmediato y luego dispatch
   const handleToggle = () => {
@@ -51,13 +54,13 @@ export default function ToggleAvailabilityButton({
   };
 
   return (
-    <IconButton title={isChecked ? 'Desactivar' : 'Activar'} onClick={handleToggle}>
+    <button className="hidden md:flex" title={isChecked ? 'Desactivar' : 'Activar'} onClick={handleToggle}>
       {isChecked ? (
 
         <Eye className={`${isPending && 'opacity-10'} size-6`} strokeWidth={1.5} />
       ): (
         <EyeOff className={`${isPending && 'opacity-10'} size-6`} strokeWidth={1.5} />
       )}
-    </IconButton>
+    </button>
   );
 }

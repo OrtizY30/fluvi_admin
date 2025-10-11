@@ -4,6 +4,7 @@ import { verifySession } from "@/src/auth/dal";
 import SetUserClient from "@/components/setUserClient";
 import { Metadata } from "next";
 import ToastNotification from "@/components/ui/ToastNotification";
+import BottomBar from "@/components/admin/BottomBar";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://fluvi.shop/admin"),
@@ -56,6 +57,7 @@ export default async function RootLayout({
 
       <div className="w-full flex-1 flex overflow-hidden">
       <Sidebar />
+      <BottomBar/>
         {children}
       </div>
 

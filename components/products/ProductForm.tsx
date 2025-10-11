@@ -17,6 +17,7 @@ import ImageUpload from "./ImageUpload";
 import OpcionesAvanzadas from "./OpcionesAvanzadas";
 import ModeSimple from "./ModeSimple";
 import { useRouter } from "next/navigation";
+import { X } from "lucide-react";
 
 type ProductFormProps = {
   product: Product;
@@ -126,8 +127,11 @@ export default function ProductForm({
         },
       }}
     >
-      <div className="w-md rounded-tl-2xl overflow-hidden bg-slate-50 relative h-full flex flex-col">
+      <div className="md:w-md w-full rounded-tl-2xl overflow-hidden bg-slate-50 relative h-full flex flex-col">
         {/* Imagen */}
+        <div>
+          <X onClick={onClose} className="absolute z-50 top-2 bg-white/50 rounded-full left-2 cursor-pointer text-gray-800" />
+        </div>
         <ImageUpload
           setImageUrl={setImageUrl}
           image={formData.image}

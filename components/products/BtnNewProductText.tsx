@@ -7,7 +7,7 @@ import { CircularProgress } from "@mui/material";
 import { Category } from "@/src/schemas";
 import { useRouter } from "next/navigation";
 
-export default function BtnNewProduct({ category }: { category: Category }) {
+export default function BtnNewProductText({ category }: { category: Category }) {
   const createProductWithCategory = createProduct.bind(null, category.id);
   const router = useRouter();
   const [state, dispatch, isPending] = useActionState(
@@ -36,20 +36,22 @@ export default function BtnNewProduct({ category }: { category: Category }) {
       dispatch();
     });
   };
-  return (
+  return ( 
+<div className="flex w-full justify-center items-center p-3">
     <button
       type="button"
       disabled={isPending}
       onClick={handleProduct}
-      className="btn-product md:flex hidden min-w-32 text-xs"
+      className=" md:hidden cursor-pointer flex items-center justify-center text-sm text-brand-primary"
     >
       {isPending ? (
-        <CircularProgress size="20px" />
+        <CircularProgress  size="20px" />
       ) : (
         <p className="flex items-center gap-1">
-          <Plus className="size-4" strokeWidth={1.5} /> Nuevo producto
+          <Plus className="size-4" strokeWidth={2} /> Nuevo producto
         </p>
       )}
     </button>
+    </div>
   );
 }

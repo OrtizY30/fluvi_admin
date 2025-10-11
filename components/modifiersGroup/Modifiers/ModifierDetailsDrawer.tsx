@@ -1,11 +1,7 @@
 import { updateModifier } from "@/actions/modifier/update-modifier-action";
 import { FluviToast } from "@/components/ui/FluviToast";
 import { Modifier } from "@/src/schemas";
-import {
-  InputAdornment,
-  inputBaseClasses,
-  TextField,
-} from "@mui/material";
+import { InputAdornment, inputBaseClasses, TextField } from "@mui/material";
 import React, {
   startTransition,
   useActionState,
@@ -16,12 +12,14 @@ import React, {
 } from "react";
 import { toast } from "react-toastify";
 import BtnDeleteModifier from "./BtnDeleteModifier";
+import { useRouter } from "next/navigation";
 
 export default function ModifierDetailsDrawer({
   modifier,
 }: {
   modifier: Modifier;
 }) {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     name: modifier.name || "",
     price: modifier.price ?? "",
@@ -42,9 +40,10 @@ export default function ModifierDetailsDrawer({
     }
     if (state.success) {
       toast.success(<FluviToast type="success" msg={state.success} />);
+      router.refresh();
       // onClose();
     }
-  }, [state]);
+  }, [state, router]);
 
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -77,7 +76,7 @@ export default function ModifierDetailsDrawer({
 
   return (
     <div className="flex items-center justify-between">
-      <div className="w-full flex gap-4">
+      <div className="w-full flex gap-2">
         <TextField
           className=""
           id="outlined-basic"
@@ -89,7 +88,16 @@ export default function ModifierDetailsDrawer({
           size="small"
           sx={{
             "& .MuiOutlinedInput-root": {
-              borderRadius: 4, // aquí se aplica el borderRadius al input
+              borderRadius: 4,
+            },
+            "& .MuiInputBase-input": {
+              fontSize: "16px", // 👈 tamaño del texto que escribes
+            },
+            "& .MuiInputLabel-root": {
+              fontSize: "16px", // 👈 tamaño del label cuando está normal
+            },
+            "& .MuiInputLabel-shrink": {
+              fontSize: "14px", // 👈 tamaño del label cuando se eleva (opcional)
             },
           }}
         />
@@ -106,7 +114,16 @@ export default function ModifierDetailsDrawer({
           size="small"
           sx={{
             "& .MuiOutlinedInput-root": {
-              borderRadius: 4, // aquí se aplica el borderRadius al input
+              borderRadius: 4,
+            },
+            "& .MuiInputBase-input": {
+              fontSize: "16px", // 👈 tamaño del texto que escribes
+            },
+            "& .MuiInputLabel-root": {
+              fontSize: "16px", // 👈 tamaño del label cuando está normal
+            },
+            "& .MuiInputLabel-shrink": {
+              fontSize: "14px", // 👈 tamaño del label cuando se eleva (opcional)
             },
           }}
           inputProps={{
