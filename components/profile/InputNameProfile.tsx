@@ -11,8 +11,10 @@ import React, {
 } from "react";
 import { toast } from "react-toastify";
 import { FluviToast } from "../ui/FluviToast";
+import { useRouter } from "next/navigation";
 
 export default function InputNameProfile({ name }: { name: Business["name"] }) {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     name: "",
   });
@@ -36,8 +38,9 @@ export default function InputNameProfile({ name }: { name: Business["name"] }) {
     }
     if (state.success) {
       toast.success(<FluviToast type="success" msg={state.success} />);
+       router.refresh(); // 👈 refrescar la página para ver los cambios
     }
-  }, [state]);
+  }, [state, router]);
 
   // 🔥 Manejar cambios con debounce
   const handleChange = useCallback(

@@ -11,8 +11,10 @@ import { Plus, X } from "lucide-react";
 import React, { useActionState, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { FluviToast } from "../ui/FluviToast";
+import { useRouter } from "next/navigation";
 
 export default function ModalMethodForm() {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -39,9 +41,10 @@ export default function ModalMethodForm() {
       }
       if (state.success) {
         toast.success(<FluviToast type="success" msg={state.success} />);
-        handleClose()
+        handleClose();
+        router.refresh();
       }
-    }, [state]);
+    }, [state, router]);
   return (
     <>
       <button

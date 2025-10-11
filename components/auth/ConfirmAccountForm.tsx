@@ -37,6 +37,7 @@ export default function ConfirmAccountForm() {
          autoClose: 3000,
         onClose: () => {
           router.push("/auth/login");
+          router.refresh();
         },
       });
     }

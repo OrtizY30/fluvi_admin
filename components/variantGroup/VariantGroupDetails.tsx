@@ -18,8 +18,10 @@ import BtnDeleteVariant from "./variant/BtnDeleteVariant";
 import { formatCurrency } from "@/src/utils";
 import { useUserStore } from "@/store/useUserStore";
 import InputVariantPrice from "./variant/InputVariantPrice";
+import { useRouter } from "next/navigation";
 
 export function VariantGroupDetails({ product }: { product: Product }) {
+  const router = useRouter();
   const user = useUserStore((state) => state.user);
   const [items, setItems] = useState<Variant[]>(
     product?.variantGroup?.variants ?? []
@@ -52,8 +54,9 @@ export function VariantGroupDetails({ product }: { product: Product }) {
     }
     if (state.success) {
       toast.success(<FluviToast type="success" msg={state.success} />);
+       router.refresh(); // 👈 refrescar la página para ver los cambios
     }
-  }, [state]);
+  }, [state, router]);
 
   return items.length ? (
     items.map((variant) => (

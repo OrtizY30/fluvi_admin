@@ -12,6 +12,7 @@ import { FluviToast } from "../ui/FluviToast";
 import { Branch } from "@/src/schemas";
 import { updateBranch } from "@/actions/branch/update-branch";
 import { X } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 type StoreFormProps = {
   branch?: Branch;
@@ -20,7 +21,7 @@ type StoreFormProps = {
 };
 export default function StoreForm({ open, onClose, branch }: StoreFormProps) {
   const isEditMode = !!branch;
-
+  const router = useRouter();
   const updateBranchWithId = updateBranch.bind(null, branch?.id || 0);
 
   const [state, dispatch, isPending] = useActionState(
@@ -46,8 +47,9 @@ export default function StoreForm({ open, onClose, branch }: StoreFormProps) {
     if (state.success) {
       toast.success(<FluviToast type="success" msg={state.success} />, {});
       onClose();
+      router.refresh();
     }
-  }, [state, onClose]);
+  }, [state, onClose, router]);
   return (
     <Dialog
       open={open}

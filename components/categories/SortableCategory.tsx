@@ -31,6 +31,7 @@ import { updateProductOrder } from "@/actions/product/order-products";
 import { toast } from "react-toastify";
 import { FluviToast } from "../ui/FluviToast";
 import dynamic from "next/dynamic";
+import { useRouter } from "next/navigation";
 
 // Import dinámico para evitar hydration issues de dnd-kit/MUI
 const SortableProduct = dynamic(() => import("../products/SortableProduct"), {
@@ -46,6 +47,8 @@ export function SortableCategory({
   expanded: boolean;
   toggleCategory: (id: number) => void;
 }) {
+  
+  const router = useRouter();
   const [items, setItems] = useState<Product[]>(category.products);
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: category.id });
@@ -68,8 +71,9 @@ export function SortableCategory({
     }
     if (state.success) {
       toast.success(<FluviToast type="success" msg={state.success} />);
+      router.refresh();
     }
-  }, [state]);
+  }, [state, router]);
 
   const style = {
     transform: CSS.Transform.toString(transform),

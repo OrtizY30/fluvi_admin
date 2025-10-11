@@ -49,7 +49,7 @@ export default function ConfirmDeleteVariants({
     const formData = new FormData();
     formData.append("variantGroupId", String(variantGroup.id));
 
-    startTransition(() => {
+    startTransition(() => { 
       dispatch(formData);
     });
   };

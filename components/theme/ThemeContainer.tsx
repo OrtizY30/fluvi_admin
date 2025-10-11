@@ -13,12 +13,14 @@ import { toast } from "react-toastify";
 import { FluviToast } from "../ui/FluviToast";
 import { Theme } from "@/src/schemas";
 import { CircularProgress } from "@mui/material";
+import { useRouter } from "next/navigation";
 
 type ThemeProfileProps = {
   theme: Theme;
 };
 export default function ThemeContainer({ theme }: ThemeProfileProps) {
   const debounceRef = useRef<NodeJS.Timeout | null>(null);
+  const router = useRouter();
   const [formData, setFormData] = useState({
     fontColor: theme.fontColor || "",
     otherColors: theme.otherColors || "",
@@ -44,8 +46,9 @@ export default function ThemeContainer({ theme }: ThemeProfileProps) {
 
     if (state.success) {
       toast.success(<FluviToast type="success" msg={state.success} />, {});
+      router.refresh();
     }
-  }, [state]);
+  }, [state, router]);
 
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

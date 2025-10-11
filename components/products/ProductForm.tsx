@@ -16,6 +16,7 @@ import { FluviToast } from "../ui/FluviToast";
 import ImageUpload from "./ImageUpload";
 import OpcionesAvanzadas from "./OpcionesAvanzadas";
 import ModeSimple from "./ModeSimple";
+import { useRouter } from "next/navigation";
 
 type ProductFormProps = {
   product: Product;
@@ -29,6 +30,7 @@ export default function ProductForm({
   product,
 }: ProductFormProps) {
   const [imageUrl, setImageUrl] = useState("");
+  const router = useRouter();
   const [formData, setFormData] = useState({
     name: product?.name || "",
     price: product?.price || 0,
@@ -57,8 +59,9 @@ export default function ProductForm({
     if (state.success) {
       toast.success(<FluviToast type="success" msg={state.success} />);
       // onClose();
+      router.refresh(); // refrescar la página para obtener los datos actualizados
     }
-  }, [state]);
+  }, [state, router]);
 
   const onClose = () => {
     setOpen();

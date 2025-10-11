@@ -7,12 +7,13 @@ import { Horary } from "@/src/schemas";
 import { toast } from "react-toastify";
 import { FluviToast } from "../ui/FluviToast";
 import { updateHorary } from "@/actions/horary/update-horary-action";
+import { useRouter } from "next/navigation";
 
 type HoraryFormProps = {
   horary: Horary;
 };
 export default function HoraryForm({ horary }: HoraryFormProps) {
- 
+ const router = useRouter();
   
   const [editingDay, setEditingDay] = useState<string | null>(null);
   const updateHoraryWithId = updateHorary.bind(null, horary.id);
@@ -36,8 +37,9 @@ export default function HoraryForm({ horary }: HoraryFormProps) {
     if (state.success) {
       toast.success(<FluviToast type="success" msg={state.success} />, {});
       setEditingDay(null);
+      router.refresh(); // refrescar la página para obtener los datos actualizados
     }
-  }, [state]);
+  }, [state, router]);
 
   function formatTime(time: string) {
     if (!time) return "";

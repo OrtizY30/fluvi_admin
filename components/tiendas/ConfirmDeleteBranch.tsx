@@ -1,7 +1,5 @@
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import {
-  Dispatch,
-  SetStateAction,
   useActionState,
   useEffect,
   useState,
@@ -18,28 +16,22 @@ import { DialogTitle } from "@mui/material";
 import { deleteBranch } from "@/actions/branch/delete-branch-action";
 
 type ConfirmDeleteBranch = {
-  setOpen: Dispatch<SetStateAction<boolean>>;
+ closedModal: () => void
+ branchId: number;
 };
 
 export default function ConfirmDeleteBranch({
-  setOpen,
+  closedModal,
+  branchId
 }: ConfirmDeleteBranch) {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const groupId = +searchParams.get("deleteBranchId")!;
 
-  const closeModal = () => {
-    const hideModal = new URLSearchParams(searchParams);
-    hideModal.delete("deleteBranchId");
-    router.replace(`?${hideModal.toString()}`);
-    setOpen(false);
-  };
 
-  const deleteBranchWithId = deleteBranch.bind(null, groupId);
+  const deleteBranchWithId = deleteBranch.bind(null, branchId);
   const [state, dispatch] = useActionState(deleteBranchWithId, {
     errors: [],
     success: "",
@@ -54,10 +46,10 @@ export default function ConfirmDeleteBranch({
 
     if (state.success) {
       toast.success(<FluviToast type="success" msg={state.success} />);
-      closeModal();
+      closedModal();
       router.refresh();
     }
-  }, [state, closeModal, router]);
+  }, [state, closedModal, router]);
 
   return (
     <>
@@ -140,7 +132,7 @@ export default function ConfirmDeleteBranch({
             <button
               type="button"
               className="flex-1 hover:bg-neutral-700 hover:text-white cursor-pointer rounded-lg p-2 border border-gray-300 bg-transparent transition-all"
-              onClick={closeModal}
+              onClick={closedModal}
             >
               Cancelar
             </button>

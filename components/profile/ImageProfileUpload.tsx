@@ -17,12 +17,14 @@ import { toast } from "react-toastify";
 import { FluviToast } from "../ui/FluviToast";
 import { Business } from "@/src/schemas";
 import ModalChangeImage from "./ModalChangeImage";
+import { useRouter } from "next/navigation";
 
 export default function ImageProfileUpload({
   image,
 }: {
   image: Business["image"];
 }) {
+  const router = useRouter();
   const [imageUrl, setImageUrl] = useState("");
   const [openDialog, setOpenDialog] = useState(false);
 
@@ -53,8 +55,9 @@ export default function ImageProfileUpload({
     }
     if (state.success) {
       toast.success(<FluviToast type="success" msg={state.success} />);
+      router.refresh(); // 👈 refrescar la página para ver los cambios
     }
-  }, [state]);
+  }, [state, router]);
 
   // 🔥 Manejar cambios con debounce
   const handleChange = useCallback(

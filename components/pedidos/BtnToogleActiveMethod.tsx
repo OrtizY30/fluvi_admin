@@ -8,8 +8,10 @@ import React, {
 import { toast } from "react-toastify";
 import { FluviToast } from "../ui/FluviToast";
 import { toogleActiveMethod } from "@/actions/paymentMethod/toogle-active-method-action";
+import { useRouter } from "next/navigation";
 
 export default function BtnToogleActiveMethod({ method }: { method: Methods }) {
+  const router = useRouter();
   // 🔧 Agregamos estado local para manejar el switch
   const [isChecked, setIsChecked] = useState(method.active);
 
@@ -31,8 +33,9 @@ export default function BtnToogleActiveMethod({ method }: { method: Methods }) {
 
     if (state.success) {
       toast.success(<FluviToast type="success" msg={state.success} />);
+      router.refresh(); // 🔧 refrescamos la página para ver cambios
     }
-  }, [state, method.active]);
+  }, [state, method.active, router]);
 
   // 🔧 Optimistic UI con cambio inmediato y luego dispatch
   const handleChange = () => {

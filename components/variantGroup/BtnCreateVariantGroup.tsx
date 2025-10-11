@@ -4,6 +4,7 @@ import React, { startTransition, useActionState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { FluviToast } from "../ui/FluviToast";
 import { CircularProgress } from "@mui/material";
+import { useRouter } from "next/navigation";
 
 export default function BtnCreateVariantGroup({
   product,
@@ -12,6 +13,7 @@ export default function BtnCreateVariantGroup({
   product: Product;
   onCreated: () => void;
 }) {
+  const router = useRouter();
   const createVariantGroupWithProductId = createVariantGroup.bind(
     null,
     product.id
@@ -34,8 +36,9 @@ export default function BtnCreateVariantGroup({
     if (state.success) {
       toast.success(<FluviToast type="success" msg={state.success} />, {});
       onCreated();
+      router.refresh(); // 👈 refrescar la página para ver los cambios
     }
-  }, [state, onCreated]);
+  }, [state, onCreated, router]);
 
   const handleCreate = () => {
     startTransition(() => {

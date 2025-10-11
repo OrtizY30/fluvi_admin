@@ -42,6 +42,7 @@ export default function RegisterForm() {
         autoClose: 3000,
         onClose: () => {
           router.push("/auth/login");
+          router.refresh();
         },
       });
     }

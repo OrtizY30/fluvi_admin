@@ -38,6 +38,7 @@ export default function ForgotPasswordForm() {
       const form = document.querySelector("form");
       form?.reset();
       router.push("/auth/new-password");
+      router.refresh();
     }
   }, [state, router]);
 

@@ -4,8 +4,10 @@ import { FluviToast } from "../ui/FluviToast";
 import { createModifierGroup } from "@/actions/modifiersGroup/create-grupos-action";
 import { CircularProgress } from "@mui/material";
 import { Plus } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function BtnCreateModifierGroup() {
+  const router = useRouter();
   const [state, dispatch, isPending] = useActionState(createModifierGroup, {
     errors: [],
     success: "",
@@ -20,8 +22,9 @@ export default function BtnCreateModifierGroup() {
 
     if (state.success) {
       toast.success(<FluviToast type="success" msg={state.success} />);
+      router.refresh();
     }
-  }, [state]);
+  }, [state, router]);
 
   const handleCreate = () => {
     startTransition(() => {

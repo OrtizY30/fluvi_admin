@@ -1,3 +1,6 @@
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 import HeaderSetting from "@/components/configuracion/HeaderSetting";
 import InfoBusiness from "@/components/configuracion/InfoBusiness";
 import getToken from "@/src/auth/token";

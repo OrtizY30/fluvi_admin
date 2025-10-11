@@ -6,8 +6,10 @@ import { FluviToast } from "../ui/FluviToast";
 import { authenticate } from "@/actions/auth/authenticate-user-action";
 
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
+import { useRouter } from "next/navigation";
 
 export default function LoginForm() {
+  const router = useRouter();
   const [state, dispatch, isPending] = useActionState(authenticate, {
     errors: [],
     data: {
@@ -21,14 +23,14 @@ export default function LoginForm() {
 
   useEffect(() => {
     if (state.errors) {
-      console.log(state);
+      
       state.errors.forEach((error) => {
         toast.error(<FluviToast type={"error"} msg={error!} />);
       });
     }
-
+    router.refresh();
     // if(state.success)
-  }, [state]);
+  }, [state, router]);
 
   return (
     

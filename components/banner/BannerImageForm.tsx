@@ -6,12 +6,14 @@ import { useActionState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { FluviToast } from "../ui/FluviToast";
 import { ImagePlus, Info } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 type BannerImageUploadProps = {
   imageUrl: string;
   setImageUrl: (url: string) => void;
 }
 export default function BannerImageForm({imageUrl, setImageUrl}: BannerImageUploadProps) {
+  const router = useRouter();
 const [state, dispatch] = useActionState(uploadBanner, {
     errors: [],
     success: "",
@@ -29,8 +31,9 @@ const [state, dispatch] = useActionState(uploadBanner, {
       
           if (state.success) {
             toast.success(<FluviToast type="success" msg={state.success} />, {});
+            router.refresh();
           }
-        }, [state]);
+        }, [state, router]);
   return (
     <CldUploadWidget
       uploadPreset="Fluvi-app"

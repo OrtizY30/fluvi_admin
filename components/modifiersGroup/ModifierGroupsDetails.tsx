@@ -21,6 +21,7 @@ import { toast } from "react-toastify";
 import { FluviToast } from "../ui/FluviToast";
 import ModifierDetailsDrawer from "./Modifiers/ModifierDetailsDrawer";
 import BtnCreateModifier from "@/components/modifiersGroup/Modifiers/BtnCreateModifier";
+import { useRouter } from "next/navigation";
 
 type ModifierDetailsProps = {
   modifiersGroups: ModifierGroup;
@@ -33,6 +34,7 @@ export default function ModifierGroupsDetails({
   expanded,
   toggleModifiersGroups,
 }: ModifierDetailsProps) {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     name: modifiersGroups.name || "",
     required: modifiersGroups.required || false,
@@ -56,9 +58,9 @@ export default function ModifierGroupsDetails({
     }
     if (state.success) {
       toast.success(<FluviToast type="success" msg={state.success} />);
-      // onClose();
+      router.refresh(); // 👈 refrescar la página para ver los cambios
     }
-  }, [state]);
+  }, [state, router]);
 
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

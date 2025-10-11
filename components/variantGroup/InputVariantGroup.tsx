@@ -11,12 +11,14 @@ import React, {
 import { toast } from "react-toastify";
 import { FluviToast } from "../ui/FluviToast";
 import { updateTitleVariantGroup } from "@/actions/variantGroup/update-title-action";
+import { useRouter } from "next/navigation";
 
 export default function InputVariantGroup({
   variantGroup,
 }: {
   variantGroup: VariantGroup;
 }) {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     title: variantGroup?.title || "",
   });
@@ -43,8 +45,9 @@ export default function InputVariantGroup({
     }
     if (state.success) {
       toast.success(<FluviToast type="success" msg={state.success} />);
+      router.refresh()
     }
-  }, [state]);
+  }, [state, router]);
 
   // 🔥 Manejar cambios con debounce
   const handleChange = useCallback(

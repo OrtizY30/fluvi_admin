@@ -11,8 +11,10 @@ import React, {
 } from "react";
 import { toast } from "react-toastify";
 import { FluviToast } from "../ui/FluviToast";
+import { useRouter } from "next/navigation";
 
 export default function InputCategory({ category }: { category: Category }) {
+  const router = useRouter();
   const [formData, setFormData] = useState({ name: category.name });
   const updateCategoryWithId = updateCategory.bind(null, category.id);
 
@@ -34,8 +36,9 @@ export default function InputCategory({ category }: { category: Category }) {
     }
     if (state.success) {
       toast.success(<FluviToast type="success" msg={state.success} />);
+      router.refresh();
     }
-  }, [state]);
+  }, [state, router]);
 
   // 🔥 Manejar cambios con debounce
   const handleChange = useCallback(

@@ -12,6 +12,7 @@ import {
 } from "react";
 import { toast } from "react-toastify";
 import { FluviToast } from "../ui/FluviToast";
+import { useRouter } from "next/navigation";
 
 type ValidateTokenFormProps = {
   setIsValidToken: Dispatch<SetStateAction<boolean>>;
@@ -23,6 +24,7 @@ export default function ValidateTokenForm({
   token,
   setToken,
 }: ValidateTokenFormProps) {
+  const router = useRouter();
   const [isComplete, setIsComplete] = useState(false);
 
   const validateTokenInput = validateToken.bind(null, token);
@@ -49,8 +51,9 @@ export default function ValidateTokenForm({
     if (state.success) {
       toast.success(<FluviToast type="success" msg={state.success} />);
       setIsValidToken(true);
+      router.refresh();
     }
-  }, [state, setIsValidToken]);
+  }, [state, setIsValidToken, router]);
 
   const handleChange = (token: string) => {
     setToken(token);

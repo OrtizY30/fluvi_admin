@@ -2,12 +2,14 @@ import React, { useActionState, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { FluviToast } from "../ui/FluviToast";
 import { uploadBanner } from "@/actions/profile/upload-banner-action";
+import { useRouter } from "next/navigation";
 
 type BannerResetFormProps = {
     imageUrl: string;
   setImageUrl: (url: string) => void;
 }
 export default function BannerResetForm({imageUrl, setImageUrl }: BannerResetFormProps) {
+  const router = useRouter();
   const [banner, setBanner] = useState("");
   const [state, dispatch] = useActionState(uploadBanner, {
     errors: [],
@@ -28,8 +30,9 @@ export default function BannerResetForm({imageUrl, setImageUrl }: BannerResetFor
       toast.success(<FluviToast type="success" msg={state.success} />);
       setImageUrl(""); // Reset the image URL after successful reset
       setBanner(""); // Clear the banner state
+      router.refresh();
     }
-  }, [state, setImageUrl]);
+  }, [state, setImageUrl, router]);
   return (
     <>
       <form action={dispatch}>

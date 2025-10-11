@@ -9,11 +9,13 @@ import { PiTiktokLogo, PiWhatsappLogo } from "react-icons/pi";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import { CountryCode, E164Number } from "libphonenumber-js/core";
+import { useRouter } from "next/navigation";
 
 type SocialMediaFormProps = {
   setOpen: () => void;
 };
 export default function SocialMediaForm({ setOpen }: SocialMediaFormProps) {
+  const router = useRouter();
   const [country, setCountry] = useState<CountryCode | undefined>();
   const socialMedia = useSocialStore((state) => state.socialMedia);
   const [phone, setPhone] = useState<E164Number | undefined>(undefined);
@@ -63,8 +65,9 @@ export default function SocialMediaForm({ setOpen }: SocialMediaFormProps) {
     if (state.success) {
       toast.success(<FluviToast type="success" msg={state.success} />, {});
       setOpen();
+      router.refresh();
     }
-  }, [state, setOpen]);
+  }, [state, setOpen, router]);
   return (
     <form action={dispatch} className="p-3 space-y-6">
       <div className="flex gap-2 items-center">

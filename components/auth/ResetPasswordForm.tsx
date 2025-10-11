@@ -27,6 +27,7 @@ export default function ResetPasswordForm({ token }: { token: string }) {
       toast.success(<FluviToast type="success" msg={state.success} />, {
         onClose: () => {
           router.push("/auth/login");
+          router.refresh();
         },
         onClick: () => {
           router.push("/auth/login");

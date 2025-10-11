@@ -6,8 +6,10 @@ import React, { startTransition, useActionState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { FluviToast } from "../ui/FluviToast";
 import { CircularProgress } from "@mui/material";
+import { useRouter } from "next/navigation";
 
 export default function BtnNewCategory() {
+  const router = useRouter();
   const [state, dispatch, isPending] = useActionState(createCategory, {
     errors: [],
     success: "",
@@ -22,8 +24,9 @@ export default function BtnNewCategory() {
 
     if (state.success) {
       toast.success(<FluviToast type="success" msg={state.success} />, {});
+      router.refresh();
     }
-  }, [state]);
+  }, [state, router]);
 
   const handleCategory = () => {
     startTransition(() => {
