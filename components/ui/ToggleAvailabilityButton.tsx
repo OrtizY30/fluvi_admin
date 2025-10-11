@@ -1,9 +1,6 @@
 "use client";
 
 import { Product } from "@/src/schemas";
-import {
-  IconButton,
-} from "@mui/material";
 import React, { startTransition, useEffect, useState } from "react";
 import { useActionState } from "react";
 import { toogleAvailabilityProduct } from "@/actions/product/toogle-availability-product-action";

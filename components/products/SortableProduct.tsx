@@ -5,7 +5,6 @@ import { CSS } from "@dnd-kit/utilities";
 import { Product } from "@/src/schemas";
 import { formatCurrency } from "@/src/utils";
 import { useUserStore } from "@/store/useUserStore";
-import { IconButton } from "@mui/material";
 import { Grip, Hamburger } from "lucide-react";
 import React, { useState } from "react";
 import ToggleAvailabilityButton from "../ui/ToggleAvailabilityButton";
