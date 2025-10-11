@@ -59,16 +59,25 @@ export default function ProductContainer({
       />
 
       {/* Vista del subdominio dentro del teléfono */}
-      <iframe
-        src={`https://${user?.domain}.fluvi.shop/menu`} // 👈 Aquí pones dinámicamente el subdominio
-        className="absolute  top-[29px] left-[32px]" // ajusta estos valores para que encaje en la pantalla del teléfono
-        width="227" // ancho del área visible dentro del marco
-        height="495" // alto del área visible dentro del marco
-        style={{
-          border: "none",
-          borderRadius: "20px",
-        }}
-      ></iframe>
+     <div
+    className="absolute top-[28px] left-[30px] origin-top-left"
+    style={{
+      transform: "scale(0.7)", // <-- ajusta este valor (0.6, 0.8, etc.)
+      width: "343px", // compensar el ancho por la escala
+      height: "711px", // compensar el alto
+    }}
+  >
+    <iframe
+      src={`https://${user?.domain}.fluvi.shop/menu`}
+      width="100%"
+      height="100%"
+      style={{
+        border: "none",
+        // borderRadius: "20px",
+      }}
+    ></iframe>
+ 
+</div>
     </div>
   </div>
 </div>

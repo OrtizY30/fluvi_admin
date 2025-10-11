@@ -21,7 +21,7 @@ type StoreFormProps = {
 export default function StoreForm({ open, onClose, branch }: StoreFormProps) {
   const isEditMode = !!branch;
 
-  const updateBranchWithId = updateBranch.bind(null, branch!.id!);
+  const updateBranchWithId = updateBranch.bind(null, branch?.id || 0);
 
   const [state, dispatch, isPending] = useActionState(
     isEditMode ? updateBranchWithId : createBranch,

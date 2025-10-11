@@ -20,7 +20,7 @@ import { updateProfile } from "@/actions/profile/update-profile-action";
 import { Store } from "lucide-react";
 
 type ContentTiendaProps = {
-  branches: Branch[];
+  branches?: Branch[];
 };
 
 export default function InfoBusiness({ branches }: ContentTiendaProps) {
@@ -86,6 +86,7 @@ useEffect(() => {
     },
     [dispatch]
   );
+  console.log('branches:', branches);
   return (
     <div className="w-full p-6 s bg-white mx-auto space-y-3 border rounded-xl border-gray-200  shadow-md">
       <div className="flex items-center gap-2 text-gray-800">
@@ -137,7 +138,7 @@ useEffect(() => {
       <div className="px-10 text-gray-800 py-3 flex items-center border-b border-gray-200">
         <p className="w-full font-semibold">Tiendas</p>
         <div className="flex flex-col justify-end gap-4  w-full">
-          {branches.length ? (
+         {branches && branches.length > 0 ? (
             branches.map((branch) => (
               <div className="flex items-center " key={branch.id}>
                 <p className="text-xs text-gray-600">{branch.name}</p>

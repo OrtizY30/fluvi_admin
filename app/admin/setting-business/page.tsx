@@ -4,19 +4,35 @@ import getToken from "@/src/auth/token";
 import { BranchsAPIResponseSchema } from "@/src/schemas";
 
 async function getBranch() {
-  const token = await getToken();
-  const url = `${process.env.API_URL}/business/branch`;
+  try {
+    const token = await getToken();
+    if (!token) {
+      console.warn("⚠️ No hay token disponible");
+      return [];
+    }
 
-  const req = await fetch(url, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+    const url = `${process.env.API_URL}/business/branch`;
+    const req = await fetch(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      cache: "no-store", // 👈 importante si quieres forzar que siempre se traiga fresco
+    });
 
-  const json = await req.json();
+    if (!req.ok) {
+      console.error("❌ Error en la API:", req.status, req.statusText);
+      return [];
+    }
 
-  const branches = BranchsAPIResponseSchema.parse(json);
-  return branches;
+    const json = await req.json();
+
+    // Si la data no es válida, esto puede lanzar error
+    const branches = BranchsAPIResponseSchema.parse(json);
+    return branches;
+  } catch (error) {
+    console.error("❌ Error obteniendo branches:", error);
+    return [];
+  }
 }
 
 export default async function SettingPage() {
