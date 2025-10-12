@@ -38,7 +38,7 @@ export async function authenticate(
       "Content-type": "application/json",
     },
     body: JSON.stringify({
-      email: auth.data.email,
+      email: auth.data.email.toLowerCase(),
       password: auth.data.password,
     }),
   });

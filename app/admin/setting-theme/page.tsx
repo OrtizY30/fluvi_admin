@@ -1,3 +1,5 @@
+
+import HeaderTheme from "@/components/theme/HeaderTheme";
 import ThemeContainer from "@/components/theme/ThemeContainer";
 import getToken from "@/src/auth/token";
 import { ThemeApiResponseSchema } from "@/src/schemas";
@@ -18,11 +20,10 @@ async function getTheme(){
 }
 export default async function ThemePage() {
    const theme = await getTheme();
+   
   return (
-    <div className="flex-1 space-y-4 flex h-full flex-col bg-surface-base overflow-x-hidden overflow-y-auto">
-      <header className="w-full p-10 flex-shrink-0">
-        <h1 className="md:text-3xl text-xl font-black">Configura los colores de tu App</h1>
-      </header>
+    <div className="flex-1 space-y-4 flex min-h-screen flex-col bg-surface-base overflow-x-hidden overflow-y-auto">
+     <HeaderTheme/>
       <ThemeContainer theme={theme} />
       {/* <ThemeContainer /> */}
     </div>

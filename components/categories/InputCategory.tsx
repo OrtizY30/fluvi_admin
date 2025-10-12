@@ -75,6 +75,7 @@ export default function InputCategory({ category }: { category: Category }) {
       onChange={handleChange}
       size="small"
       sx={{
+        width: "100%",
         "& .MuiInputBase-input": {
           fontSize: "1rem",
           padding: "0px 0",

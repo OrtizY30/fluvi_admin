@@ -88,7 +88,7 @@ export default function OpcionesAvanzadas({
             <div>
               <label className="label-input">Producto en oferta</label>
               <p className="text-xs text-gray-600">
-                Activa si el producto tiene descuento
+                Activa si el producto tiene descuento 
               </p>
             </div>
 

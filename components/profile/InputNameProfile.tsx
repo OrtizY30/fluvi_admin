@@ -38,7 +38,7 @@ export default function InputNameProfile({ name }: { name: Business["name"] }) {
     }
     if (state.success) {
       toast.success(<FluviToast type="success" msg={state.success} />);
-       router.refresh(); // 👈 refrescar la página para ver los cambios
+      router.refresh(); // 👈 refrescar la página para ver los cambios
     }
   }, [state, router]);
 
@@ -84,17 +84,20 @@ export default function InputNameProfile({ name }: { name: Business["name"] }) {
         sx={{
           mb: 1,
           background: "#ffffff5b",
-          p: 1,
+          padding: { xs: 0.5, md: 1 }, // padding más pequeño en mobile
           "& .MuiInputBase-input": {
             fontWeight: 900,
-            fontSize: "1.2rem",
+            fontSize: { xs: "0.9rem", md: "1.2rem" }, // tamaño pequeño en mobile
+            padding: "2px",
+            mt: "-5px",
           },
           "& .MuiInputLabel-root": {
-          fontWeight: 500,
-          color: '#000000',
-          p: 1,
-          mt: .5
-        },
+            fontWeight: 500,
+            color: "#000000",
+            fontSize: { xs: "0.8rem", md: "1rem" }, // label más pequeño
+            mt: 0.5,
+            paddingLeft: "8px",
+          },
         }}
       />
     </div>

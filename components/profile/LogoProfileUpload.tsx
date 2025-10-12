@@ -104,9 +104,9 @@ export default function LogoProfileUpload({
           <div
             className={`${
               isPending && "opacity-50"
-            } relative rounded-t-full bg-surface-base-secundary flex flex-col justify-center items-center p-2`}
+            } relative rounded-full bg-surface-base-secundary flex flex-col justify-center items-center mb-1 p-2`}
           >
-            <div className="w-26 h-26 rounded-full">
+            <div className="md:size-26 size-20 rounded-full">
               {/** Imagen nueva local (si existe, tiene prioridad sobre la del backend) */}
               {image && !imageUrl ? (
                 <>
@@ -120,7 +120,7 @@ export default function LogoProfileUpload({
                   </div>
                   <Image
                     fill
-                    className="rounded-full p-2  "
+                    className="rounded-full p-1  "
                     src={getImagetPath(image)}
                     alt="Imagen del logo"
                     style={{ objectFit: "cover" }}
@@ -137,7 +137,7 @@ export default function LogoProfileUpload({
                   </div>
                   <Image
                     fill
-                    className="rounded-full p-2"
+                    className="rounded-full p-1"
                     src={imageUrl}
                     alt="Imagen del logo"
                     style={{ objectFit: "cover" }}

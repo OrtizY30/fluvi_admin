@@ -153,8 +153,8 @@ export function SortableCategory({
         }
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex w-full items-center justify-between">
-          <div className=" gap-2 items-center flex">
+        <div className="flex w-full gap-3 items-center justify-between">
+          <div className="w-full gap-2 items-center flex">
             {/* Grip para mover */}
             <div className="md:flex hidden" {...attributes} {...listeners}>
               <Grip

@@ -127,7 +127,7 @@ export default function ProductForm({
         },
       }}
     >
-      <div className="md:w-md w-full rounded-tl-2xl overflow-hidden bg-slate-50 relative h-full flex flex-col">
+      <div className="md:w-md w-full md:rounded-tl-2xl overflow-hidden bg-slate-50 relative h-full flex flex-col">
         {/* Imagen */}
         <div>
           <X onClick={onClose} className="absolute z-50 top-2 bg-white/50 rounded-full left-2 cursor-pointer text-gray-800" />
