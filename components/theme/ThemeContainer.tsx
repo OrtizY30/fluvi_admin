@@ -14,10 +14,13 @@ import { FluviToast } from "../ui/FluviToast";
 import { Theme } from "@/src/schemas";
 import { CircularProgress } from "@mui/material";
 import { useRouter } from "next/navigation";
+import { HexColorPicker } from "react-colorful";
+import { Popover } from "@headlessui/react";
 
 type ThemeProfileProps = {
   theme: Theme;
 };
+
 export default function ThemeContainer({ theme }: ThemeProfileProps) {
   const debounceRef = useRef<NodeJS.Timeout | null>(null);
   const router = useRouter();
@@ -51,22 +54,17 @@ export default function ThemeContainer({ theme }: ThemeProfileProps) {
   }, [state, router]);
 
   const handleChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    (e: { target: { name: string; value: string } }) => {
       const { name, value } = e.target;
 
-      // actualizar el formData local
       setFormData((prev) => ({
         ...prev,
         [name]: value,
       }));
 
-      // limpiar debounce previo
       if (debounceRef.current) clearTimeout(debounceRef.current);
 
-      // disparar el update al backend con el campo cambiado
       debounceRef.current = setTimeout(() => {
-        const fd = new FormData();
-        fd.append(name, String(value)); // 👈 el backend recibe { [name]: value }
         startTransition(() => {
           dispatch({ [name]: value });
         });
@@ -86,19 +84,57 @@ export default function ThemeContainer({ theme }: ThemeProfileProps) {
       cardContrastColor: "#ffffff",
     };
     setFormData(defaultTheme);
-
-    // ✅ Envolver en transición
     startTransition(() => {
-      dispatch(formData);
+      dispatch(defaultTheme);
     });
   };
+
+  const ColorField = ({
+    label,
+    name,
+    value,
+    placeholder,
+  }: {
+    label: string;
+    name: string;
+    value: string;
+    placeholder: string;
+  }) => (
+    <div className="flex flex-col gap-1">
+      <label className="md:text-md text-sm text-gray-800">{label}</label>
+      <div className="flex items-center gap-3">
+        <Popover className="relative">
+          <Popover.Button
+            className="border border-gray-200 p-1 h-10 w-14 rounded-md focus:outline-none cursor-pointer"
+            style={{ backgroundColor: value }}
+          />
+          <Popover.Panel className="absolute z-20 mt-2 rounded-xl shadow-lg border bg-white p-2">
+            <HexColorPicker
+              color={value ?? ""}
+              onChange={(color) =>
+                handleChange({ target: { name: name, value: color } })
+              }
+            />
+          </Popover.Panel>
+        </Popover>
+        <input
+          name={name}
+          value={value ?? ""}
+          onChange={handleChange}
+          placeholder={placeholder}
+          className="border border-slate-300 p-2 text-sm rounded-md w-full focus:outline-none"
+        />
+      </div>
+    </div>
+  );
+
   return (
-    <div className="space-y-6 p-2 md:p-10 md:pt-4 ">
+    <div className="space-y-6 p-2 pb-20 md:p-10 md:pt-4">
       <button
         onClick={handleReset}
         disabled={isPending}
         type="button"
-        className="rounded-lg cursor-pointer bg-blue-600 text-white w-32 h-10 font-bold "
+        className="rounded-lg cursor-pointer bg-blue-600 text-white w-32 h-10 font-bold"
       >
         {isPending ? (
           <CircularProgress size={"20px"} sx={{ color: "white" }} />
@@ -106,203 +142,67 @@ export default function ThemeContainer({ theme }: ThemeProfileProps) {
           "Reiniciar"
         )}
       </button>
+
+      {/* General */}
       <div className="flex flex-col gap-3 w-full shadow-md rounded-xl md:p-6 p-2 bg-white border border-gray-200">
-        <p className="text-xl font-bold ">General</p>
-
-        <div className="flex md:flex-col gap-1 md:gap-6">
-          <div className="flex flex-col gap-1">
-            <label
-              className="md:text-md text-sm  text-gray-800"
-              htmlFor="primary-color"
-            >
-              Color de fuentes
-            </label>
-            <div className="flex items-center gap-3">
-              <input
-                placeholder="Selecciona un color"
-                name="fontColor"
-                type="color"
-                value={formData.fontColor ?? ""}
-                onChange={handleChange}
-                className=" border border-gray-200 p-1 h-10 w-14 appearance-none rounded-md focus:outline-none  cursor-pointer"
-              />
-              <input
-                name="fontColor"
-                value={formData.fontColor ?? ""}
-                onChange={handleChange}
-                placeholder="#0ea5e9"
-                className=" border border-slate-300 p-2 text-sm rounded-md w-full focus:outline-none"
-              />
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-1">
-            <label
-              className="md:text-md text-sm  text-gray-800"
-              htmlFor="primary-color"
-            >
-              Color de fuentes secundarias
-            </label>
-            <div className="flex items-center gap-3">
-              <input
-                placeholder="Selecciona un color"
-                name="otherColors"
-                type="color"
-                value={formData.otherColors ?? ""}
-                onChange={handleChange}
-                className=" border border-gray-200 p-1 h-10 w-14 appearance-none rounded-md focus:outline-none  cursor-pointer"
-              />
-              <input
-                name="otherColors"
-                value={formData.otherColors ?? ""}
-                onChange={handleChange}
-                placeholder="#0ea5e9"
-                className=" border border-slate-300 p-2 text-sm rounded-md w-full focus:outline-none"
-              />
-            </div>
-          </div>
+        <p className="text-xl font-bold">General</p>
+        <div className="flex flex-col md:flex-row gap-6">
+          <ColorField
+            label="Color de fuentes"
+            name="fontColor"
+            value={formData.fontColor}
+            placeholder="#0ea5e9"
+          />
+          <ColorField
+            label="Color de fuentes secundarias"
+            name="otherColors"
+            value={formData.otherColors}
+            placeholder="#0ea5e9"
+          />
         </div>
       </div>
 
+      {/* Botones */}
       <div className="flex flex-col gap-3 w-full shadow-md rounded-xl md:p-6 p-2 bg-white border border-gray-200">
-        <p className="text-xl font-bold ">Botones</p>
-
-        <div className="flex md:flex-col gap-1 md:gap-6">
-          <div className="flex flex-col gap-1">
-            <label
-              className="md:text-md text-sm  text-gray-800"
-              htmlFor="primary-color"
-            >
-              Color de fondo
-            </label>
-            <div className="flex items-center gap-3">
-              <input
-                placeholder="Selecciona un color"
-                name="buttonBgColor"
-                type="color"
-                value={formData.buttonBgColor ?? ""}
-                onChange={handleChange}
-                className=" border border-gray-200 p-1 h-10 w-14 appearance-none rounded-md focus:outline-none  cursor-pointer"
-              />
-              <input
-                name="buttonBgColor"
-                value={formData.buttonBgColor ?? ""}
-                onChange={handleChange}
-                placeholder="#0ea5e9"
-                className=" border border-slate-300 p-2 text-sm rounded-md w-full focus:outline-none"
-              />
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-1">
-            <label
-              className="md:text-md text-sm  text-gray-800"
-              htmlFor="primary-color"
-            >
-              Color de fuente
-            </label>
-            <div className="flex items-center gap-3">
-              <input
-                placeholder="Selecciona un color"
-                name="buttonTextColor"
-                type="color"
-                value={formData.buttonTextColor ?? ""}
-                onChange={handleChange}
-                className=" border border-gray-200 p-1 h-10 w-14 appearance-none rounded-md focus:outline-none  cursor-pointer"
-              />
-              <input
-                name="buttonTextColor"
-                value={formData.buttonTextColor ?? ""}
-                onChange={handleChange}
-                placeholder="#0ea5e9"
-                className=" border border-slate-300 p-2 text-sm rounded-md w-full focus:outline-none"
-              />
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-1">
-            <label
-              className="md:text-md text-sm  text-gray-800"
-              htmlFor="primary-color"
-            >
-              Color de botones simples y descuentos
-            </label>
-            <div className="flex items-center gap-3">
-              <input
-                placeholder="Selecciona un color"
-                name="discountColor"
-                type="color"
-                value={formData.discountColor ?? ""}
-                onChange={handleChange}
-                className=" border border-gray-200 p-1 h-10 w-14 appearance-none rounded-md focus:outline-none  cursor-pointer"
-              />
-              <input
-                name="discountColor"
-                value={formData.discountColor ?? ""}
-                onChange={handleChange}
-                placeholder="#0ea5e9"
-                className=" border border-slate-300 p-2 text-sm rounded-md w-full focus:outline-none"
-              />
-            </div>
-          </div>
+        <p className="text-xl font-bold">Botones</p>
+        <div className="flex flex-col md:flex-row gap-6">
+          <ColorField
+            label="Color de fondo"
+            name="buttonBgColor"
+            value={formData.buttonBgColor}
+            placeholder="#0ea5e9"
+          />
+          <ColorField
+            label="Color de fuente"
+            name="buttonTextColor"
+            value={formData.buttonTextColor}
+            placeholder="#0ea5e9"
+          />
+          <ColorField
+            label="Color de botones simples y descuentos"
+            name="discountColor"
+            value={formData.discountColor}
+            placeholder="#0ea5e9"
+          />
         </div>
       </div>
 
+      {/* Fondo */}
       <div className="flex flex-col gap-3 w-full shadow-md rounded-xl md:p-6 p-2 bg-white border border-gray-200">
-        <p className="text-xl font-bold ">Fondo</p>
-
-        <div className="flex gap-6 flex-col justify-start">
-          <div className="flex md:flex-col gap-1">
-            <label
-              className="md:text-md text-sm  text-gray-800"
-              htmlFor="primary-color"
-            >
-              Color de fondo
-            </label>
-            <div className="flex items-center gap-3">
-              <input
-                placeholder="Selecciona un color"
-                name="backgroundColor"
-                type="color"
-                value={formData.backgroundColor ?? ""}
-                onChange={handleChange}
-                className=" border border-gray-200 p-1 h-10 w-14 appearance-none rounded-md focus:outline-none  cursor-pointer"
-              />
-              <input
-                name="backgroundColor"
-                value={formData.backgroundColor ?? ""}
-                onChange={handleChange}
-                placeholder="#0ea5e9"
-                className=" border border-slate-300 p-2 text-sm rounded-md w-full focus:outline-none"
-              />
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-1">
-            <label
-              className="md:text-md text-sm  text-gray-800"
-              htmlFor="primary-color"
-            >
-              Color de tarjetas
-            </label>
-            <div className="flex items-center gap-3">
-              <input
-                placeholder="Selecciona un color"
-                name="cardContrastColor"
-                type="color"
-                value={formData.cardContrastColor ?? ""}
-                onChange={handleChange}
-                className=" border border-gray-200 p-1 h-10 w-14 appearance-none rounded-md focus:outline-none  cursor-pointer"
-              />
-              <input
-                name="cardContrastColor"
-                value={formData.cardContrastColor ?? ""}
-                onChange={handleChange}
-                placeholder="#0ea5e9"
-                className=" border border-slate-300 p-2 text-sm rounded-md w-full focus:outline-none"
-              />
-            </div>
-          </div>
+        <p className="text-xl font-bold">Fondo</p>
+        <div className="flex flex-col md:flex-row gap-6">
+          <ColorField
+            label="Color de fondo"
+            name="backgroundColor"
+            value={formData.backgroundColor}
+            placeholder="#0ea5e9"
+          />
+          <ColorField
+            label="Color de tarjetas"
+            name="cardContrastColor"
+            value={formData.cardContrastColor}
+            placeholder="#0ea5e9"
+          />
         </div>
       </div>
     </div>

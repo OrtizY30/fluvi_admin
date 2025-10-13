@@ -4,7 +4,7 @@ import React from 'react'
 
 export default function BottomBar() {
   return (
-    <div className='md:hidden h-16 w-full fixed bottom-0 left-0 bg-brand-primary z-50 border-t border-t-gray-300 flex items-center justify-between'>
+    <div className='md:hidden h-16 w-full  fixed bottom-0 left-0 bg-brand-primary z-50 flex items-center justify-between'>
      <button className='flex cursor-pointer px-6 w-full  text-white text-xs font-bold'>
         <Link href={'/admin/setting-theme'} className='flex  w-full flex-col items-center justify-center'>
         <Palette className='size-6' strokeWidth={2} />
@@ -18,7 +18,7 @@ export default function BottomBar() {
        </Link>
      </button>
      <button className='flex cursor-pointer  px-6 w-full  text-white text-xs font-bold'>
-       <Link href={'/admin/setting/more'} className='flex w-full flex-col items-center justify-center'>
+       <Link href={'#'} className='flex w-full flex-col items-center justify-center'>
          <Menu className='size-6' strokeWidth={2} />
          Más 
        </Link>
