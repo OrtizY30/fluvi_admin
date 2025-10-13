@@ -69,7 +69,7 @@ export default function SocialMediaForm({ setOpen }: SocialMediaFormProps) {
     }
   }, [state, setOpen, router]);
   return (
-    <form action={dispatch} className="p-3 space-y-6">
+    <form action={dispatch} className="p-3 w-full space-y-6">
       <div className="flex gap-2 items-center">
         <PiWhatsappLogo className="size-9 text-gray-600" />
         <PhoneInput
@@ -94,6 +94,7 @@ export default function SocialMediaForm({ setOpen }: SocialMediaFormProps) {
           // onChange={handleChange}
           size="small"
           sx={{
+            width: '100%',
             "& .MuiOutlinedInput-root": {
               borderRadius: 4, // aquí se aplica el borderRadius al input
             },

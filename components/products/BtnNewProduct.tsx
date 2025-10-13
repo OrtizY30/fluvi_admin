@@ -41,7 +41,7 @@ export default function BtnNewProduct({ category }: { category: Category }) {
       type="button"
       disabled={isPending}
       onClick={handleProduct}
-      className="btn-product md:flex hidden min-w-32 text-xs"
+      className="btn-product md:flex hidden min-w-36 text-xs"
     >
       {isPending ? (
         <CircularProgress size="20px" />

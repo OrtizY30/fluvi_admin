@@ -13,8 +13,10 @@ import getToken from "./token";
 
 export const verifySession = cache(async () => {
   const token = await getToken();
+  
 
   if (!token) {
+     console.log("Token en verifySession eliminado:", token);
     redirect("/auth/login");
   }
 

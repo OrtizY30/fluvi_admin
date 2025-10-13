@@ -51,7 +51,7 @@ export default function HoraryForm({ horary }: HoraryFormProps) {
     <>
       <div
         key={horary.id}
-        className="py-3 px-1 rounded-xl hover:bg-gray-50 transition-colors box-content"
+        className="py-3 px-1  hover:bg-gray-50 transition-colors box-content"
       >
         <div className="flex flex-col sm:flex-row sm:items-center gap-2 justify-between">
           
@@ -70,7 +70,7 @@ export default function HoraryForm({ horary }: HoraryFormProps) {
                   <form
                     action={dispatch}
                     id={`horary-form-${horary.day}`}
-                    className="flex items-center gap-2"
+                    className="flex items-center gap-2 w-full"
                   >
                     <input
                       name="day"

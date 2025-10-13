@@ -22,7 +22,7 @@ export default function SettingMenu() {
 
   return (
     <>
-      <div className="absolute right-1 top-1 z-100 rounded-lg bg-surface-base shadow-2xl ">
+      <div className="absolute right-1 top-1 z-10 rounded-lg bg-surface-base shadow-2xl ">
         <Menu>
           <MenuButton>
             <IconButton aria-label="more" id="long-button" component="span">

@@ -14,6 +14,7 @@ export async function createCategory(
 
 
   const token = await getToken();
+  console.log("Token en createCategory:", token); // Verifica que el token se obtiene correctamente
 
   const url = `${process.env.API_URL}/categories`;
 

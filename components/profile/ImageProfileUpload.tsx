@@ -111,7 +111,7 @@ export default function ImageProfileUpload({
                 <div
                   onClick={handleClickOpen}
                   title="Cambiar imagen"
-                  className=" cursor-pointer absolute hover:bg-blue-500 transition bg-btn-secondary p-2 rounded-full text-gray-100 z-10"
+                  className=" cursor-pointer z-10 absolute hover:bg-blue-500 transition bg-btn-secondary p-2 rounded-full text-gray-100 "
                 >
                   <Camera className="size-7" strokeWidth={2.5} />
                 </div>
@@ -128,7 +128,7 @@ export default function ImageProfileUpload({
                 <div
                   onClick={handleClickOpen}
                   title="Cambiar imagen"
-                  className=" cursor-pointer absolute hover:bg-blue-500 transition bg-btn-secondary p-2 rounded-full text-gray-100 z-10"
+                  className=" cursor-pointer z-1 absolute hover:bg-blue-500 transition bg-btn-secondary p-2 rounded-full text-gray-100 "
                 >
                   <Camera className="size-7" strokeWidth={2.5} />
                 </div>

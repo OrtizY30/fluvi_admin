@@ -20,10 +20,10 @@ export default function ProductContainer({
   const business = user?.business;
 
   return (
-    <div className="flex-1 h-screen shadow-md">
+    <div className="flex-1 h-screen  shadow-md">
       <div className="w-full mx-auto grid grid-cols-1 lg:grid-cols-3 h-full">
         {/* SECCIÓN SCROLLEABLE */}
-        <div className="lg:col-span-2 h-full  overflow-y-auto bg-surface-base-secundary relative">
+        <div className="lg:col-span-2 overflow-y-auto bg-surface-base-secundary relative">
           {/* Encabezado */}
           <div className="h-46 w-full relative">
             <div className="absolute w-full h-full bg-blue-400">
@@ -37,7 +37,7 @@ export default function ProductContainer({
           </div>
 
           {/* Contenedor de categorias y productos */}
-          <div className="relative space-y-3 p-3">
+          <div className="relative space-y-3 p-3 pb-16">
             <CategoryTabs />
             <CategoryList categories={categories} />
           </div>

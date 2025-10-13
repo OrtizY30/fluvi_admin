@@ -63,6 +63,9 @@ export async function authenticate(
     value: json,
     httpOnly: true,
     path: "/",
+    maxAge: 60 * 60 * 24 * 30, // 30 días
+    sameSite: "lax",
+    secure: process.env.NODE_ENV === "production",
   });
 
   redirect("/admin/productos");

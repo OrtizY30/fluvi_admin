@@ -25,12 +25,12 @@
   @apply  disabled:bg-btn-secondary/50 text-xs font-semibold rounded-lg flex items-center justify-center text-white bg-btn-secondary  p-2 cursor-pointer shadow-md hover:bg-btn-hover  min-w-32 text-center ;
 } */
 .btn {
-  @apply font-bold border border-gray-300 rounded-xl flex items-center justify-center text-gray-800 bg-[#E3E3E3] gap-1 p-2.5 cursor-pointer shadow-md hover:bg-gray-400  text-center transition-all;
+  @apply font-semibold  rounded-lg flex items-center justify-center text-white bg-brand-primary gap-1 p-2.5 cursor-pointer shadow-md hover:bg-red-800  text-center transition-all;
 }
 .btn-product {
-  @apply font-bold border border-gray-300 rounded-xl items-center justify-center text-gray-800 bg-[#E3E3E3] gap-1 p-2.5 cursor-pointer shadow-md hover:bg-gray-400  text-center  transition-all;
+  @apply font-semibold  rounded-lg items-center justify-center border border-brand-primary gap-1 p-2.5 cursor-pointer shadow-md hover:bg-brand-primary text-brand-primary hover:text-white   text-center  transition-all;
 }
-.btn-form {
+.btn-form { 
   @apply flex-1 rounded-md p-2 gap-2 max-h-10 cursor-pointer bg-btn-secondary hover:bg-neutral-200 text-white transition-colors;
 }
 .label-input {

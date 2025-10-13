@@ -1,4 +1,4 @@
-import { Dialog, DialogContent, DialogTitle, IconButton } from "@mui/material";
+import { Dialog, DialogTitle, IconButton } from "@mui/material";
 import React from "react";
 import { X } from "lucide-react";
 import SocialMediaForm from "./SocialMediaForm";
@@ -20,7 +20,8 @@ export default function SocialmediaModal({
       aria-describedby="alert-dialog-description"
       PaperProps={{
         sx: {
-          borderRadius: 6, // aquí sí se aplica
+          borderRadius: 2,
+          m: 0 // aquí sí se aplica
         },
       }}
     >
@@ -30,18 +31,17 @@ export default function SocialmediaModal({
           <X strokeWidth={2} className="size-6 " />
         </IconButton>
       </DialogTitle>
-      <DialogContent
-        dividers={false}
-        sx={{ padding: 0 }}
-        className=" rounded-xl shadow-xl w-auto sm:w-xl"
+      <div
+       
+        className=" rounded-xl shadow-xl w-full sm:w-xl"
       >
         <div className=" py-4 px-2 text-center  text-gray-700 w-full text-sm ">
           Activa los botones que se veran en tu App
         </div>
-        <div className="sm:px-6 px-2 flex flex-col">
+        <div className="sm:px-6 px-2 flex w-full flex-col">
           <SocialMediaForm setOpen={setOpen} />
         </div>
-      </DialogContent>
+      </div>
     </Dialog>
   );
 }
