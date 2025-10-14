@@ -72,9 +72,7 @@ export default function RegisterForm() {
             className="border p-3 bg-white text-gray-700 rounded-3xl w-full border-gray-300 focus:outline-none"
             name="name"
             placeholder="Nombre del negocio"
-            defaultValue={
-              typeof state.data.name === "string" ? state.data.name : ""
-            }
+            defaultValue={state.data.name}
           />
         </div>
 
@@ -88,9 +86,7 @@ export default function RegisterForm() {
             type="text"
             name="email"
             placeholder="tucorreo@ejemplo.com"
-            defaultValue={
-              typeof state.data.email === "string" ? state.data.email : ""
-            }
+            defaultValue={state.data.email}
           />
           {/* <Input
             type="text"
@@ -110,15 +106,11 @@ export default function RegisterForm() {
 
           <div className="border flex items-center rounded-3xl  w-full bg-white  border-gray-300 focus:outline-none pr-2">
             <input
-              className="border-none text-gray-800 p-3   w-full focus:outline-none"
+              className="border-none text-gray-800 p-3  rounded-3xl bg-white w-full focus:outline-none"
               type={showPassword ? "text" : "password"}
               name="password"
               placeholder="*********"
-              defaultValue={
-                typeof state.data.password === "string"
-                  ? state.data.password
-                  : ""
-              }
+              defaultValue={state.data.password}
             />
             <div
               onClick={handleClickShowPassword}
@@ -153,15 +145,11 @@ export default function RegisterForm() {
 
           <div className="border flex items-center rounded-3xl  w-full bg-white  border-gray-300 focus:outline-none pr-2">
             <input
-              className="border-none text-gray-800 p-3   w-full focus:outline-none"
+              className="border-none text-gray-800 p-3 rounded-3xl bg-white  w-full focus:outline-none"
               type={showPassword ? "text" : "password"}
               name="password_confirmation"
               placeholder="*********"
-              defaultValue={
-                typeof state.data.password_confirmation === "string"
-                  ? state.data.password_confirmation
-                  : ""
-              }
+              defaultValue={state.data.password_confirmation}
             />
             <div
               onClick={handleClickShowPassword}
@@ -200,11 +188,7 @@ export default function RegisterForm() {
             name="subscriptionType"
             className="w-full border text-[16px] border-gray-300 bg-white p-3 rounded-3xl"
             required
-            defaultValue={
-              typeof state.data.subscriptionType === "string"
-                ? state.data.subscriptionType
-                : ""
-            }
+            defaultValue={state.data.subscriptionType}
           >
             <option value="">Selecciona una opción</option>
             <option value="free">Free</option>
@@ -222,11 +206,7 @@ export default function RegisterForm() {
             name="phone"
             defaultCountry="CO"
             international
-            defaultValue={
-              typeof state.data.phone === "string" && state.data.phone !== ""
-                ? state.data.phone
-                : undefined
-            }
+            defaultValue={state.data.phone}
             className="w-full border border-gray-300 text-[16px] bg-white p-2 rounded-3xl focus:outline-none"
             onChange={() => {}}
           />

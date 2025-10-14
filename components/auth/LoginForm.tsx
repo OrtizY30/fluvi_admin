@@ -40,7 +40,7 @@ export default function LoginForm() {
           Correo
         </label>
         <input
-          className="border p-3 bg-white text-gray-700 rounded-3xl w-full border-gray-300 focus:outline-none"
+          className="border p-3 rounded-3xl bg-white  text-gray-700 w-full border-gray-300 focus:outline-none"
           type="text"
           name="email"
           placeholder="tucorreo@ejemplo.com"
@@ -55,7 +55,7 @@ export default function LoginForm() {
 
         <div className="border flex items-center rounded-3xl  w-full bg-white  border-gray-300 focus:outline-none pr-2">
           <input
-            className="border-none text-gray-800 p-3   w-full focus:outline-none"
+            className="border-none text-gray-800 p-3 rounded-3xl bg-white  w-full focus:outline-none"
             type={showPassword ? "text" : "password"}
             name="password"
             placeholder="*********"
