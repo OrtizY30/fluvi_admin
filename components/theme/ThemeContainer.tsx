@@ -14,12 +14,77 @@ import { FluviToast } from "../ui/FluviToast";
 import { Theme } from "@/src/schemas";
 import { CircularProgress } from "@mui/material";
 import { useRouter } from "next/navigation";
+import { Menu, Transition } from "@headlessui/react";
 import { HexColorPicker } from "react-colorful";
-import { Popover } from "@headlessui/react";
+import { Fragment } from "react";
 
 type ThemeProfileProps = {
   theme: Theme;
 };
+
+type ColorFieldType = {
+  label: string;
+  name: string;
+  value: string;
+  placeholder: string;
+  handleChange: (e: {
+    target: {
+      name: string;
+      value: string;
+    };
+  }) => void;
+};
+
+function ColorField({
+  label,
+  name,
+  value,
+  placeholder,
+  handleChange,
+}: ColorFieldType) {
+  return (
+    <div className="flex flex-col gap-1 relative">
+      <label className="md:text-md text-sm text-gray-800">{label}</label>
+
+      <Menu as="div" className="relative inline-block text-left w-full">
+        <div className="flex items-center gap-3">
+          <Menu.Button
+            type="button"
+            className="border border-gray-200 p-1 h-10 w-14 rounded-md focus:outline-none cursor-pointer"
+            style={{ backgroundColor: value }}
+          />
+          <input
+            name={name}
+            value={value ?? ""}
+            onChange={handleChange}
+            placeholder={placeholder}
+            className="border border-slate-300 p-2 text-sm rounded-md w-full focus:outline-none"
+          />
+        </div>
+
+        <Transition
+          as={Fragment}
+          enter="transition ease-out duration-100"
+          enterFrom="transform opacity-0 scale-95"
+          enterTo="transform opacity-100 scale-100"
+          leave="transition ease-in duration-75"
+          leaveFrom="transform opacity-100 scale-100"
+          leaveTo="transform opacity-0 scale-95"
+        >
+          <Menu.Items  className="absolute z-50 bottom-full mb-2 w-56 origin-bottom-left rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none p-3">
+            <HexColorPicker
+              color={value ?? ""}
+              onChange={(color) =>
+                handleChange({ target: { name: name, value: color } })
+              }
+            />
+            <p className="text-center text-xs text-gray-500 mt-2">{value}</p>
+          </Menu.Items>
+        </Transition>
+      </Menu>
+    </div>
+  );
+}
 
 export default function ThemeContainer({ theme }: ThemeProfileProps) {
   const debounceRef = useRef<NodeJS.Timeout | null>(null);
@@ -89,47 +154,8 @@ export default function ThemeContainer({ theme }: ThemeProfileProps) {
     });
   };
 
-  const ColorField = ({
-    label,
-    name,
-    value,
-    placeholder,
-  }: {
-    label: string;
-    name: string;
-    value: string;
-    placeholder: string;
-  }) => (
-    <div className="flex flex-col gap-1">
-      <label className="md:text-md text-sm text-gray-800">{label}</label>
-      <div className="flex items-center gap-3">
-        <Popover className="relative">
-          <Popover.Button
-            className="border border-gray-200 p-1 h-10 w-14 rounded-md focus:outline-none cursor-pointer"
-            style={{ backgroundColor: value }}
-          />
-          <Popover.Panel className="absolute z-20 mt-2 rounded-xl shadow-lg border bg-white p-2">
-            <HexColorPicker
-              color={value ?? ""}
-              onChange={(color) =>
-                handleChange({ target: { name: name, value: color } })
-              }
-            />
-          </Popover.Panel>
-        </Popover>
-        <input
-          name={name}
-          value={value ?? ""}
-          onChange={handleChange}
-          placeholder={placeholder}
-          className="border border-slate-300 p-2 text-sm rounded-md w-full focus:outline-none"
-        />
-      </div>
-    </div>
-  );
-
   return (
-    <div className="space-y-6 p-2 pb-20 md:p-10 md:pt-4">
+    <div className="space-y-6 p-2 pb-20 md:p-10 md:pt-4 ">
       <button
         onClick={handleReset}
         disabled={isPending}
@@ -148,12 +174,14 @@ export default function ThemeContainer({ theme }: ThemeProfileProps) {
         <p className="text-xl font-bold">General</p>
         <div className="flex flex-col md:flex-row gap-6">
           <ColorField
+            handleChange={handleChange}
             label="Color de fuentes"
             name="fontColor"
             value={formData.fontColor}
             placeholder="#0ea5e9"
           />
           <ColorField
+            handleChange={handleChange}
             label="Color de fuentes secundarias"
             name="otherColors"
             value={formData.otherColors}
@@ -167,19 +195,22 @@ export default function ThemeContainer({ theme }: ThemeProfileProps) {
         <p className="text-xl font-bold">Botones</p>
         <div className="flex flex-col md:flex-row gap-6">
           <ColorField
+            handleChange={handleChange}
             label="Color de fondo"
             name="buttonBgColor"
             value={formData.buttonBgColor}
             placeholder="#0ea5e9"
           />
           <ColorField
+            handleChange={handleChange}
             label="Color de fuente"
             name="buttonTextColor"
             value={formData.buttonTextColor}
             placeholder="#0ea5e9"
           />
           <ColorField
-            label="Color de botones simples y descuentos"
+            handleChange={handleChange}
+            label="Color descuentos"
             name="discountColor"
             value={formData.discountColor}
             placeholder="#0ea5e9"
@@ -192,12 +223,14 @@ export default function ThemeContainer({ theme }: ThemeProfileProps) {
         <p className="text-xl font-bold">Fondo</p>
         <div className="flex flex-col md:flex-row gap-6">
           <ColorField
+            handleChange={handleChange}
             label="Color de fondo"
             name="backgroundColor"
             value={formData.backgroundColor}
             placeholder="#0ea5e9"
           />
           <ColorField
+            handleChange={handleChange}
             label="Color de tarjetas"
             name="cardContrastColor"
             value={formData.cardContrastColor}

@@ -7,7 +7,7 @@ import { confirmAccount } from "@/actions/auth/confirm-account-action";
 import { toast } from "react-toastify";
 import { FluviToast } from "../ui/FluviToast";
 
-export default function ConfirmAccountForm() {
+export default function ConfirmAccountForm() { 
   const router = useRouter();
   const [isComplete, setIsComplete] = useState(false);
   const [token, setToken] = useState("");
@@ -52,18 +52,26 @@ export default function ConfirmAccountForm() {
   };
   return (
     <>
-      <div className="flex  justify-center gap-5 my-10">
+      {" "}
+      <p className="text-md text-brand-primary text-center font-semibold">
+        Ingresa el código que recibiste
+        <span className=" text-white bg-brand-primary p-1 rounded-md ml-1">
+          {" "}
+          por email
+        </span>
+      </p>
+      <div className="flex  justify-center gap-5 my-6">
         <PinInput
           value={token}
           onChange={handleChange}
           onComplete={handleComplete}
         >
-          <PinInputField className="h-12 w-10 border border-gray-300 shadow rounded-lg placeholder-white text-center" />
-          <PinInputField className="h-12 w-10 border border-gray-300 shadow rounded-lg placeholder-white text-center" />
-          <PinInputField className="h-12 w-10 border border-gray-300 shadow rounded-lg placeholder-white text-center" />
-          <PinInputField className="h-12 w-10 border border-gray-300 shadow rounded-lg placeholder-white text-center" />
-          <PinInputField className="h-12 w-10 border border-gray-300 shadow rounded-lg placeholder-white text-center" />
-          <PinInputField className="h-12 w-10 border border-gray-300 shadow rounded-lg placeholder-white text-center" />
+          <PinInputField className="w-10 h-14 text-black text-center border border-gray-300  rounded-lg bg-white " />
+          <PinInputField className="w-10 h-14 text-black text-center border border-gray-300  rounded-lg bg-white " />
+          <PinInputField className="w-10 h-14 text-black text-center border border-gray-300  rounded-lg bg-white " />
+          <PinInputField className="w-10 h-14 text-black text-center border border-gray-300  rounded-lg bg-white " />
+          <PinInputField className="w-10 h-14 text-black text-center border border-gray-300  rounded-lg bg-white " />
+          <PinInputField className="w-10 h-14 text-black text-center border border-gray-300  rounded-lg bg-white " />
         </PinInput>
       </div>
     </>

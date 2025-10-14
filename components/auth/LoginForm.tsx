@@ -7,9 +7,11 @@ import { authenticate } from "@/actions/auth/authenticate-user-action";
 
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function LoginForm() {
   const router = useRouter();
+  const [checkTyC, setCheckTyC] = useState(false);
   const [state, dispatch, isPending] = useActionState(authenticate, {
     errors: [],
     data: {
@@ -23,7 +25,6 @@ export default function LoginForm() {
 
   useEffect(() => {
     if (state.errors) {
-      
       state.errors.forEach((error) => {
         toast.error(<FluviToast type={"error"} msg={error!} />);
       });
@@ -33,49 +34,72 @@ export default function LoginForm() {
   }, [state, router]);
 
   return (
-    
-      <form action={dispatch} className="bg-surface-base border-gray-100 p-8 rounded-lg shadow-xs shadow-black/50 w-full max-w-md mx-4 space-y-5 " noValidate>
-        <div className="flex flex-col">
-          <label className="label-input" htmlFor="email">
-            Dirección de correo
-          </label>
+    <form action={dispatch} className=" w-full  space-y-5 " noValidate>
+      <div className="flex flex-col gap-2">
+        <label className="label-input " htmlFor="email">
+          Correo
+        </label>
+        <input
+          className="border p-3 bg-white text-gray-700 rounded-3xl w-full border-gray-300 focus:outline-none"
+          type="text"
+          name="email"
+          placeholder="tucorreo@ejemplo.com"
+          defaultValue={state.data.email}
+        />
+      </div>
+
+      <div className="flex flex-col gap-2">
+        <label className="label-input " htmlFor="password">
+          Contraseña
+        </label>
+
+        <div className="border flex items-center rounded-3xl  w-full bg-white  border-gray-300 focus:outline-none pr-2">
           <input
-            className="border p-3 shadow text-gray-700 rounded-lg w-full border-gray-300 focus:outline-none"
-            type="text"
-            name="email"
-            placeholder="tucorreo@gmail.com"
-            defaultValue={state.data.email}
+            className="border-none text-gray-800 p-3   w-full focus:outline-none"
+            type={showPassword ? "text" : "password"}
+            name="password"
+            placeholder="*********"
+            defaultValue={state.data.password}
           />
-        </div>
-
-        <div className="flex flex-col">
-          <label className="label-input" htmlFor="password">
-            Contraseña
-          </label>
-
-          <div className="border flex items-center rounded-lg w-full  border-gray-300 focus:outline-none shadow">
-            <input
-              className="border-none text-gray-800 p-3  w-full focus:outline-none"
-              type={showPassword ? "text" : "password"}
-              name="password"
-              placeholder="*********"
-              defaultValue={state.data.password}
-            />
-            <div
-              onClick={handleClickShowPassword}
-              className="pr-2 cursor-pointer"
-            >
-              {showPassword ? (
-                <EyeIcon className="text-gray-400 size-6" />
-              ) : (
-                <EyeSlashIcon className="text-gray-400 size-6" />
-              )}
-            </div>
+          <div
+            onClick={handleClickShowPassword}
+            className="pr-2 cursor-pointer"
+          >
+            {showPassword ? (
+              <EyeIcon className="text-gray-400 size-5" />
+            ) : (
+              <EyeSlashIcon className="text-gray-400 size-5" />
+            )}
           </div>
         </div>
+        <Link
+          href="/auth/forgot-password"
+          className="text-xs text-right font-bold text-gray-600 hover:underline"
+        >
+          ¿Olvidaste tu contraseña?
+        </Link>
+      </div>
 
-        <input
-        disabled={isPending}
+      <div className="py-4">
+        <label
+          id="tyc"
+          className="text-sm space-x-2 flex items-center text-gray-500"
+          htmlFor="tyc"
+        >
+          <input
+            onChange={(e) => setCheckTyC(e.target.checked)}
+            className="rounded-full accent-brand-primary"
+            title="Terminos y condiciones"
+            type="checkbox"
+            name="tyc"
+            id=""
+          />
+          <p> Acepto todos los terminos y condiciones</p>
+        </label>
+      </div>
+
+      <input
+        disabled={isPending || !checkTyC}
         type="submit"
         value={isPending ? "Cargando..." : "Iniciar Sesión"}
         className={`
@@ -83,15 +107,15 @@ export default function LoginForm() {
             ${isPending ? "opacity-50 cursor-not-allowed" : ""}
             hover:bg-red-800
             w-full
-            p-2
-            rounded-lg
+            disabled:opacity-60
+            p-3
+            rounded-3xl
             text-white
             font-semibold
             text-sm sm:text-base
             cursor-pointer
           `}
       />
-      </form>
-   
+    </form>
   );
 }

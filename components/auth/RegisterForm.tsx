@@ -1,17 +1,18 @@
 "use client";
 
-import { useActionState, useEffect } from "react";
+import { useActionState, useEffect, useState } from "react";
 import {
   ActionStateType,
   register,
 } from "@/actions/auth/create-account-action";
-import Input from "@/components/ui/Input";
 import { toast } from "react-toastify";
 import { FluviToast } from "../ui/FluviToast";
 import { useRouter } from "next/navigation";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import CountrySelect from "../ui/CountrySelect";
+import { EyeSlashIcon } from "@heroicons/react/24/outline";
+import { EyeIcon } from "lucide-react";
 
 const initialState: ActionStateType = {
   errors: [],
@@ -30,6 +31,9 @@ const initialState: ActionStateType = {
 export default function RegisterForm() {
   const router = useRouter();
   const [state, dispatch, isPending] = useActionState(register, initialState);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   useEffect(() => {
     if (state.errors) {
@@ -52,13 +56,6 @@ export default function RegisterForm() {
     <div className=" w-full p-4 flex items-center justify-center">
       <form
         className="
-          bg-surface-base
-          border border-gray-100
-          p-4
-          rounded-lg
-          shadow-xs
-          shadow-black/50
-         
           w-full
           space-y-5
         "
@@ -67,11 +64,12 @@ export default function RegisterForm() {
       >
         {/* Nombre */}
         <div className="flex flex-col gap-1">
-          <label className="font-bold text-sm sm:text-base" htmlFor="name">
+          <label className="font-bold text-sm sm:text-base " htmlFor="name">
             Nombre
           </label>
-          <Input
+          <input
             type="text"
+            className="border p-3 bg-white text-gray-700 rounded-3xl w-full border-gray-300 focus:outline-none"
             name="name"
             placeholder="Nombre del negocio"
             defaultValue={
@@ -82,43 +80,102 @@ export default function RegisterForm() {
 
         {/* Email */}
         <div className="flex flex-col gap-1">
-          <label className="font-bold text-sm sm:text-base" htmlFor="email">
-            Email
+          <label className="label-input " htmlFor="email">
+            Correo
           </label>
-          <Input
+          <input
+            className="border p-3 bg-white text-gray-700 rounded-3xl w-full border-gray-300 focus:outline-none"
+            type="text"
+            name="email"
+            placeholder="tucorreo@ejemplo.com"
+            defaultValue={
+              typeof state.data.email === "string" ? state.data.email : ""
+            }
+          />
+          {/* <Input
             type="text"
             name="email"
             placeholder="Email"
             defaultValue={
               typeof state.data.email === "string" ? state.data.email : ""
             }
-          />
+          /> */}
         </div>
 
         {/* Password */}
         <div className="flex flex-col gap-1">
-          <label className="font-bold text-sm sm:text-base" htmlFor="password">
-            Password
+          <label className="font-bold text-sm sm:text-base " htmlFor="password">
+            Contraseña
           </label>
-          <Input
+
+          <div className="border flex items-center rounded-3xl  w-full bg-white  border-gray-300 focus:outline-none pr-2">
+            <input
+              className="border-none text-gray-800 p-3   w-full focus:outline-none"
+              type={showPassword ? "text" : "password"}
+              name="password"
+              placeholder="*********"
+              defaultValue={
+                typeof state.data.password === "string"
+                  ? state.data.password
+                  : ""
+              }
+            />
+            <div
+              onClick={handleClickShowPassword}
+              className="pr-2 cursor-pointer"
+            >
+              {showPassword ? (
+                <EyeIcon className="text-gray-400 size-5" />
+              ) : (
+                <EyeSlashIcon className="text-gray-400 size-5" />
+              )}
+            </div>
+          </div>
+          {/* <Input
             type="password"
             name="password"
             placeholder="Contraseña"
             defaultValue={
               typeof state.data.password === "string" ? state.data.password : ""
             }
-          />
+          /> */}
         </div>
 
         {/* Confirmar contraseña */}
-        <div className="flex flex-col gap-1">
+
+        <div className="flex flex-col gap-2">
           <label
-            className="font-bold text-sm sm:text-base"
+            className="font-bold text-sm sm:text-base "
             htmlFor="password_confirmation"
           >
-            Confirmar contraseña
+            Repetir contraseña
           </label>
-          <Input
+
+          <div className="border flex items-center rounded-3xl  w-full bg-white  border-gray-300 focus:outline-none pr-2">
+            <input
+              className="border-none text-gray-800 p-3   w-full focus:outline-none"
+              type={showPassword ? "text" : "password"}
+              name="password_confirmation"
+              placeholder="*********"
+              defaultValue={
+                typeof state.data.password_confirmation === "string"
+                  ? state.data.password_confirmation
+                  : ""
+              }
+            />
+            <div
+              onClick={handleClickShowPassword}
+              className="pr-2 cursor-pointer"
+            >
+              {showPassword ? (
+                <EyeIcon className="text-gray-400 size-5" />
+              ) : (
+                <EyeSlashIcon className="text-gray-400 size-5" />
+              )}
+            </div>
+          </div>
+
+          {/* <Input
             type="password"
             name="password_confirmation"
             placeholder="Confirmar contraseña"
@@ -127,13 +184,13 @@ export default function RegisterForm() {
                 ? state.data.password_confirmation
                 : ""
             }
-          />
+          /> */}
         </div>
 
         {/* Tipo de suscripción */}
         <div className="flex flex-col gap-1">
           <label
-            className="font-bold text-sm sm:text-base"
+            className="font-bold text-sm sm:text-base "
             htmlFor="subscriptionType"
           >
             Tipo de Suscripción
@@ -141,7 +198,7 @@ export default function RegisterForm() {
           <select
             id="subscriptionType"
             name="subscriptionType"
-            className="w-full border text-[16px] border-gray-300 bg-white p-3 rounded-lg"
+            className="w-full border text-[16px] border-gray-300 bg-white p-3 rounded-3xl"
             required
             defaultValue={
               typeof state.data.subscriptionType === "string"
@@ -158,7 +215,7 @@ export default function RegisterForm() {
 
         {/* Teléfono */}
         <div className="flex flex-col gap-1">
-          <label className="font-bold text-sm sm:text-base" htmlFor="phone">
+          <label className="font-bold text-sm sm:text-base " htmlFor="phone">
             Teléfono
           </label>
           <PhoneInput
@@ -170,7 +227,7 @@ export default function RegisterForm() {
                 ? state.data.phone
                 : undefined
             }
-            className="w-full border border-gray-300 text-[16px] bg-white p-2 rounded-lg focus:outline-none"
+            className="w-full border border-gray-300 text-[16px] bg-white p-2 rounded-3xl focus:outline-none"
             onChange={() => {}}
           />
         </div>
@@ -193,8 +250,9 @@ export default function RegisterForm() {
             ${isPending ? "opacity-50 cursor-not-allowed" : ""}
             hover:bg-red-800
             w-full
-            p-2
-            rounded-lg
+            disabled:opacity-60
+            p-3
+            rounded-3xl
             text-white
             font-semibold
             text-sm sm:text-base

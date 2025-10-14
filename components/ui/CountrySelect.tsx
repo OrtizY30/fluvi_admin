@@ -44,7 +44,7 @@ export default function CountrySelect({
 
   return (
     <div>
-      <label className="font-bold text-sm sm:text-base" htmlFor={name}>
+      <label className="font-bold text-sm sm:text-base " htmlFor={name}>
         País
       </label>
       <Select
@@ -58,17 +58,19 @@ export default function CountrySelect({
         options={options}
         required
         className={
-          "rounded-lg w-full border bg-white text-[16px] border-gray-300"
+          "w-full  bg-white text-[16px]"
         }
         getOptionValue={(option) => option.value} // opcional
         formatOptionLabel={(option) => (
           <div className="flex items-center gap-2 relative">
-            <Image
-              src={option.flag}
-              alt={option.label}
-              fill
-              objectFit="cover"
-            />
+            <div className="relative h-3 size-5">
+              <Image
+                src={option.flag}
+                alt={option.label}
+                fill
+                objectFit="cover"
+              />
+            </div>
             <span>{option.label}</span>
           </div>
         )}

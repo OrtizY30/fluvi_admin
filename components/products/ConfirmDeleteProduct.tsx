@@ -4,6 +4,7 @@ import React, {
   SetStateAction,
   startTransition,
   useActionState,
+  useCallback,
   useEffect,
 } from "react";
 import { toast } from "react-toastify";
@@ -26,10 +27,9 @@ export default function ConfirmDeleteProduct({
 }: ConfirmDeleteProductProps) {
   const router = useRouter();
 
-  const closeModal = () => {
-    
-    setOpen(false);
-  };
+ const closeModal = useCallback(() => {
+  setOpen(false);
+}, [setOpen]); 
 
   const deleteProductWithId = deleteProduct.bind(null, product.id);
   const [state, dispatch] = useActionState(deleteProductWithId, {

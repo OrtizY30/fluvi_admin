@@ -22,26 +22,26 @@ export const metadata: Metadata = {
 };
 export default function loginPage() {
   return (
-    <div className="flex flex-col min-h-screen px-2 items-center justify-center gap-6 mx-auto w-full">
-      <div className="w-[400px] h-20 relative ">
-        <Image src={"/logo-fluvi.svg"} fill alt="logo fluvi" />
+    <div className="flex  flex-col h-screen  items-center justify-between gap-6 mx-auto w-full">
+      <div className="h-[25%] flex items-center justify-end flex-col">
+        <div className="w-[400px] h-20 relative ">
+          <Image src={"/logo-fluvi.svg"} fill alt="logo fluvi" />
+        </div>
+        <p className="text-white text-center font-bold">Tu mejor opción</p>
       </div>
-      <LoginForm />
-      <nav className="flex flex-col items-center space-y-1">
-        <Link
-          href="/auth/forgot-password"
-          className="text-sm text-white hover:underline"
-        >
-          ¿Olvidaste tu contraseña?
-        </Link>
-        <Link
-          href="/auth/register"
-          className="text-sm text-white hover:underline"
-        >
-          ¿No tienes una cuenta?.{" "}
-          <span className="text-brand-primary bg-white p-1 rounded-md font-bold">Regístrate</span>
-        </Link>
-      </nav>
+      
+      <div className="bg-white h-[70%] p-7 w-full max-w-md rounded-t-4xl">
+        <LoginForm />
+        <nav className="flex mt-6 flex-col items-center space-y-1">
+          <Link
+            href="/auth/register"
+            className="text-xs text-right font-bold text-gray-600 hover:underline"
+          >
+            ¿No tienes una cuenta?.{" "}
+            <span className="text-brand-primary font-black">Regístrate</span>
+          </Link>
+        </nav>
+      </div>
     </div>
   );
 }

@@ -1,4 +1,3 @@
-
 import ToastNotification from "@/components/ui/ToastNotification";
 import { Metadata } from "next";
 
@@ -12,8 +11,7 @@ export const metadata: Metadata = {
     "Gestiona productos, categorías y más desde tu panel de administración.",
   openGraph: {
     title: "Panel de Administración de Fluvi",
-    description:
-      "Fluvi, la mejor manera de vender tus productos por WhatsApp.",
+    description: "Fluvi, la mejor manera de vender tus productos por WhatsApp.",
     url: "https://fluvi.shop/auth", // usa URL completa
     siteName: "Fluvi Admin",
     images: [
@@ -26,10 +24,10 @@ export const metadata: Metadata = {
     ],
     locale: "es_419", // suponiendo que es para Colombia
     type: "website",
-  }
+  },
 };
 
-export default function AuthLayout({
+export default async function AuthLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -37,7 +35,9 @@ export default function AuthLayout({
   return (
     <>
       <div className="w-full mx-auto  min-h-screen bg-gradient-to-b from-brand-primary overflow-hidden to-brand-primary/70 ">
-        <div className="max-w-3xl flex items-center justify-center mx-auto">{children}</div>
+        <div className="max-w-3xl flex items-center justify-center mx-auto">
+          {children}
+        </div>
       </div>
 
       <ToastNotification />

@@ -21,6 +21,7 @@
     "@mui/material": "^7.1.1",
     "@tailwindcss/postcss": "^4.1.11",
     "cloudinary": "^2.7.0",
+    "cors": "^2.8.5",
     "date-fns": "^4.1.0",
     "html-to-image": "^1.11.13",
     "libphonenumber-js": "^1.12.11",
@@ -42,6 +43,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@types/cors": "^2.8.19",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

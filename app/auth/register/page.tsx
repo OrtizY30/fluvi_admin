@@ -23,29 +23,29 @@ export const metadata: Metadata = {
 
 export default function RegisterPage() {
   return (
-    <div className="min-h-screen w-full flex flex-col justify-between items-center pt-8">
+    <div className="flex  flex-col  items-center justify-between gap-6 mx-auto w-full">
       {/* Logo */}
-      <div className="flex justify-center w-full flex-col items-center">
-        <div className="relative w-96 h-20 md:w-96 ">
-          <Image src={"/logo-fluvi.svg"} fill alt="logo fluvi" priority />
+      <div className=" pt-6 flex items-center justify-end flex-col">
+        <div className="w-[400px] h-20 relative ">
+          <Image src={"/logo-fluvi.svg"} fill alt="logo fluvi" />
         </div>
-
-        {/* Formulario */}
-      
-          <RegisterForm /> 
-        
+        <p className="text-white text-center font-bold">Tu mejor opción</p>
       </div>
 
-      {/* Link de login */}
-      <nav className=" w-full flex pb-4 justify-center">
-        <Link
-          href="/auth/login"
-          className="text-sm sm:text-base text-white text-center hover:underline transition"
-        >
-          ¿Ya tienes una cuenta?{" "}
-          <span className="font-semibold">Inicia Sesión</span>
-        </Link>
-      </nav>
+      {/* Formulario */}
+      <div className="bg-white p-7 w-full max-w-md rounded-t-4xl">
+        <RegisterForm />
+
+        {/* Link de login */}
+        <nav className=" w-full flex pb-4 justify-center">
+          <Link
+            href="/auth/login"
+            className="text-xs text-right font-bold text-gray-600 hover:underline" >
+            ¿Ya tienes una cuenta?{" "}
+            <span className="text-brand-primary font-black">Inicia Sesión</span>
+          </Link>
+        </nav>
+      </div>
     </div>
   );
 }

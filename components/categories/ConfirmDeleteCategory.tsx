@@ -5,6 +5,7 @@ import {
   Dispatch,
   SetStateAction,
   useActionState,
+  useCallback,
   useEffect,
   useState,
 } from "react";
@@ -29,9 +30,9 @@ export default function ConfirmDeleteCategory({
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-  const closeModal = () => {
-    setOpen(false);
-  };
+const closeModal = useCallback(() => {
+  setOpen(false);
+}, [setOpen]); 
 
   const deleteCategoryWithId = deleteCategory.bind(null, category.id);
   const [state, dispatch, isPending] = useActionState(deleteCategoryWithId, {
@@ -52,7 +53,7 @@ export default function ConfirmDeleteCategory({
       router.refresh()
       closeModal();
     }
-  }, [state, router]);
+  }, [state, router, closeModal]);
 
   return (
     <>

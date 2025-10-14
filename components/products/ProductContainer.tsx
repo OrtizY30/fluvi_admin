@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { Category } from "@/src/schemas";
 import { useUserStore } from "@/store/useUserStore";
 import CategoryList from "../categories/CategoryList";
@@ -9,7 +8,7 @@ import InputNameProfile from "../profile/InputNameProfile";
 import LogoProfileUpload from "../profile/LogoProfileUpload";
 import ImageProfileUpload from "../profile/ImageProfileUpload";
 import SettingMenu from "./SettingMenu";
-
+import ContainerPhone from "../ui/ContainerPhone";
 export default function ProductContainer({
   categories,
 }: {
@@ -44,44 +43,7 @@ export default function ProductContainer({
         </div>
 
         {/* SECCIÓN FIJA SIN SCROLL */}
-        <div className="lg:col-span-1 pt-10 bg-[#f4f6f8] hidden lg:flex justify-center h-screen overflow-hidden">
-          <div className="flex justify-center  h-full">
-            {/* Simulador de Celular */}
-            <div
-              className="relative p-2"
-              style={{ width: "280px", height: "600px" }}
-            >
-              <Image
-                src="/phone.png"
-                alt="Simulador de Celular"
-                width={270}
-                height={590}
-                objectFit="cover"
-                className="pointer-events-none absolute z-50"
-              />
-
-              {/* Vista del subdominio dentro del teléfono */}
-              <div
-                className="absolute top-[28px] left-[30px] origin-top-left"
-                style={{
-                  transform: "scale(0.7)", // <-- ajusta este valor (0.6, 0.8, etc.)
-                  width: "343px", // compensar el ancho por la escala
-                  height: "711px", // compensar el alto
-                }}
-              >
-                <iframe
-                  src={`https://${user?.domain}.fluvi.shop/menu`}
-                  width="100%"
-                  height="100%"
-                  style={{
-                    border: "none",
-                    // borderRadius: "20px",
-                  }}
-                ></iframe>
-              </div>
-            </div>
-          </div>
-        </div>
+       <ContainerPhone/>
       </div>
     </div>
   );
