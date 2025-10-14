@@ -44,7 +44,7 @@ export default function CountrySelect({
 
   return (
     <div>
-      <label className="font-bold text-sm sm:text-base " htmlFor={name}>
+      <label className="font-bold rounded-3xl text-sm sm:text-base " htmlFor={name}>
         País
       </label>
       <Select
@@ -58,11 +58,11 @@ export default function CountrySelect({
         options={options}
         required
         className={
-          "w-full  bg-white text-[16px]"
+          "w-full  bg-white rounded-3xl text-[16px]"
         }
         getOptionValue={(option) => option.value} // opcional
         formatOptionLabel={(option) => (
-          <div className="flex items-center gap-2 relative">
+          <div className="flex rounded-3xl  items-center gap-2 relative">
             <div className="relative h-3 size-5">
               <Image
                 src={option.flag}
@@ -74,6 +74,21 @@ export default function CountrySelect({
             <span>{option.label}</span>
           </div>
         )}
+
+        styles={{
+    control: (base, state) => ({
+      ...base,
+      borderRadius: '1.5rem', // equivale a rounded-3xl
+      borderColor: state.isFocused ? '#d1d5dc' : '#d1d5dc',
+      padding: 7
+      
+    }),
+    menu: (base) => ({
+      ...base,
+      borderRadius: '1.5rem', // bordes redondeados también en el menú
+      overflow: 'hidden',
+    }),
+  }}
       />
     </div>
   );

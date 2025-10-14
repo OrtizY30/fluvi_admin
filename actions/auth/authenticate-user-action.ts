@@ -64,8 +64,8 @@ export async function authenticate(
     httpOnly: true,
     path: "/",
     maxAge: 60 * 60 * 24 * 30, // 30 días
-    sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
+    // sameSite: "lax",
+    // secure: process.env.NODE_ENV === "production",
   });
 
   redirect("/admin/productos");

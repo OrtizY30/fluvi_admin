@@ -53,7 +53,7 @@ export default function RegisterForm() {
   }, [state, router]);
 
   return (
-    <div className=" w-full p-4 flex items-center justify-center">
+    <div className=" w-full flex items-center justify-center">
       <form
         className="
           w-full
@@ -207,7 +207,7 @@ export default function RegisterForm() {
             defaultCountry="CO"
             international
             defaultValue={state.data.phone}
-            className="w-full border border-gray-300 text-[16px] bg-white p-2 rounded-3xl focus:outline-none"
+            className="w-full border border-gray-300 text-[16px] bg-white p-3 rounded-3xl focus:outline-none"
             onChange={() => {}}
           />
         </div>
