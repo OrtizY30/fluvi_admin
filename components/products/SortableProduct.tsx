@@ -85,7 +85,7 @@ export default function SortableProduct({ product }: { product: Product }) {
                 <div className="flex flex-col gap-1">
                   <div className="flex items-center gap-2">
                     <span className="text-xs text-slate-400 line-through">
-                      {formatCurrency(product.price!, user!.country)}
+                      {formatCurrency(product.price! || 0, user!.country || "")}
                     </span>
                     <span className="text-[10px] md:flex hidden shadow-md shadow-orange-800  bg-orange-300 text-orange-600 font-bold px-2 py-0.5 rounded-full animate-pulse">
                       {discount(product)}% OFF
@@ -97,7 +97,7 @@ export default function SortableProduct({ product }: { product: Product }) {
                 </div>
               ) : (
                 <p className="text-sm font-semibold text-slate-700">
-                  {formatCurrency(product.price!, user!.country)}
+                  {formatCurrency(product.price! || 0, user!.country || "")}
                 </p>
               )
             ) : (
