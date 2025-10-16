@@ -33,20 +33,17 @@ export default function BottomBar() {
             className="flex w-full flex-col items-center justify-center"
           >
             <GalleryVerticalEnd className="size-6" strokeWidth={2} />
-            Menú
+            Menú  
           </Link>
         </button>
         <button
           onClick={() => setOpen(true)}
           className="flex cursor-pointer  px-6 w-full  text-white text-xs font-bold"
         >
-          <Link
-            href={"#"}
-            className="flex w-full flex-col items-center justify-center"
-          >
+          <p className="flex w-full flex-col items-center justify-center">
             <Menu className="size-6" strokeWidth={2} />
             Más
-          </Link>
+          </p>
         </button>
       </div>
 
