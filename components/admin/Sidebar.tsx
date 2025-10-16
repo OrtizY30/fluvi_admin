@@ -3,8 +3,6 @@ import Logo from "../ui/Logo";
 import MenuProduct from "./MenuProduct";
 import MenuSetting from "./MenuSetting";
 import NavItem from "../ui/NavItem";
-import { LogOut } from "lucide-react";
-import { logout } from "@/actions/auth/logout-user-action";
 import AdminMenu from "./AdminMenu";
 
 export default function Sidebar() {

@@ -11,7 +11,7 @@ type MenuItem = {
 
 const productItems: MenuItem[] = [
   { label: "Página de productos", link: "productos" },
-  { label: "Banner promocional", link: "banner" },
+  // { label: "Banner promocional", link: "banner" },
   { label: "Configuración de temas", link: "setting-theme" },
 ];
 export default function MenuProduct() {

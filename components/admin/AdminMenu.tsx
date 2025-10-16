@@ -4,7 +4,6 @@ import * as React from "react";
 import { logout } from "@/actions/auth/logout-user-action";
 import { Avatar } from "@mui/material";
 import { CreditCardIcon } from "@heroicons/react/24/outline";
-import NavItem from "../ui/NavSubItem";
 import { BoltIcon } from "@heroicons/react/16/solid";
 import { useUserStore } from "@/store/useUserStore";
 import { formatDate } from "@/src/utils";
