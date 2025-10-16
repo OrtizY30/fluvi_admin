@@ -50,7 +50,7 @@ export default async function RootLayout({
   if(!business) return
 
   return (
-    <div className="overflow-hidden flex-col max-h-screen flex h-screen bg-brand-primary">
+    <div className="overflow-hidden flex-col  flex h-screen bg-brand-primary">
       <SetUserClient business={business} socialMedia={socialMedia} horaries={horaries} modifiers={modifiers} user={user} />
       {/* Sidebar */}
         {/* <Header /> */}

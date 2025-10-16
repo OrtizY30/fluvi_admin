@@ -37,7 +37,7 @@ export default function BtnDeleteBranch({ branchId }: BtnDeleteBranchProps) {
         <DialogContent
           dividers={false}
           sx={{ padding: 0 }}
-          className=" rounded-xl shadow-xl max-w-md w-full"
+          className=" rounded-xl shadow-xl md:max-w-md w-full"
         >
           <ConfirmDeleteBranch branchId={branchId} closedModal={closedModal} />
         </DialogContent>

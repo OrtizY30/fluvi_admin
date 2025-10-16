@@ -91,13 +91,13 @@ export default function InfoBusiness({ branches }: ContentTiendaProps) {
   );
   
   return (
-    <div className="w-full p-6 s bg-white mx-auto space-y-3 border rounded-xl border-gray-200  shadow-md">
+    <div className="w-full md:p-6 p-2 bg-white mx-auto space-y-3 border md:rounded-xl border-gray-200  md:shadow-md">
       <div className="flex items-center gap-2 text-gray-800">
         <Store strokeWidth={2} />
         <h1 className="font-black text-xl">Informacion del Negocio</h1>
       </div>
 
-      <div className="px-10 py-3 flex items-center text-gray-800 border-b border-gray-200">
+      <div className="p-2 md:px-10 py-3 flex md:flex-row flex-col items-center text-gray-800 border-b border-gray-200">
         <p className="w-full font-semibold">Nombre del negocio</p>
         <TextField
           name="name"
@@ -116,7 +116,7 @@ export default function InfoBusiness({ branches }: ContentTiendaProps) {
         {/* <InputNameProfile name={business!.name} /> */}
       </div>
 
-      <div className="px-10 py-3 flex items-center text-gray-800 border-b border-gray-200">
+      <div className="p-2 md:px-10 py-3 flex md:flex-row flex-col items-center text-gray-800 border-b border-gray-200">
         <p className="w-full font-semibold">Descripción del negocio</p>
         <TextField
           name="description"
@@ -138,7 +138,7 @@ export default function InfoBusiness({ branches }: ContentTiendaProps) {
       </div>
 
       {/* Contenedor de tiendas */}
-      <div className="px-10 text-gray-800 py-3 flex items-center border-b border-gray-200">
+      <div className="p-2 md:px-10 text-gray-800 py-3 flex items-center border-b border-gray-200">
         <p className="w-full font-semibold">Tiendas</p>
         <div className="flex flex-col justify-end gap-4  w-full">
           {branches && branches.length > 0 ? (
@@ -157,13 +157,13 @@ export default function InfoBusiness({ branches }: ContentTiendaProps) {
       </div>
 
       {/* Contenedor de horario */}
-      <div className="px-10 text-gray-800 py-3 flex items-center border-b border-gray-200">
+      <div className="p-2 md:px-10 text-gray-800 py-3 flex items-center border-b border-gray-200">
         <p className="w-full font-semibold">Horario de atención</p>
         <BtnEditHorary />
       </div>
 
       {/* Contenedor de Redes Sociales */}
-      <div className="px-10 text-gray-800 py-3 flex items-center border-b border-gray-200">
+      <div className="p-2 md:px-10 text-gray-800 py-3 flex items-center border-b border-gray-200">
         <p className="w-full font-semibold">Redes sociales</p>
         <BtnEditSocialMedia />
       </div>

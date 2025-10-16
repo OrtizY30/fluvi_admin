@@ -58,11 +58,11 @@ export default function StoreForm({ open, onClose, branch }: StoreFormProps) {
       aria-describedby="alert-dialog-description"
       PaperProps={{
         sx: {
-          borderRadius: 6, // aquí sí se aplica
+          borderRadius: 2, // aquí sí se aplica
         },
       }}
     >
-      <div className=" w-xl h-full flex flex-col justify-between">
+      <div className=" md:w-xl w-full h-full flex flex-col justify-between">
         <div className="p-6 shadow-sm flex items-center justify-between">
           <div>
             <h2 className="text-lg font-semibold text-gray-900">

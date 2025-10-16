@@ -14,11 +14,9 @@ async function getCategories() {
     },
   });
   const json = await req.json();
-console.log('Categorias', json)
-  // const categories = jso n
+  
   const categories = CategoriesAPIResponseSchema.parse(json);
-  console.log("data: ", CategoriesAPIResponseSchema.parse(json))
-  // console.log('Categorias' , categories)
+  
   return categories;
 }
 
@@ -75,7 +73,7 @@ export default async function ProductsPage() {
   const categories = await getCategories();
 
   return (
-    <div className="flex-1 md:rounded-tl-3xl shadow-md  flex h-screen  flex-col ">
+    <div className="flex-1 md:rounded-tl-3xl shadow-md  flex  flex-col ">
       <ProductContainer categories={categories} />
     </div>
   );

@@ -11,10 +11,10 @@ import BtnNewStore from "../tiendas/BtnNewStore";
 
 export default function Branches({ branches }: { branches: Branch[] }) {
   return (
-    <div className="w-full p-8 mt-4 bg-white mx-auto space-y-3 border rounded-xl border-gray-200  shadow-md">
-      <div className="flex items-center justify-between">
-        <div className=" text-gray-800">
-          <h1 className="font-black text-xl">Tiendas disponibles</h1>
+    <div className="w-full md:p-8  mt-4 bg-white mx-auto space-y-3 border md:rounded-xl border-gray-200  shadow-md">
+      <div className="flex items-center justify-between px-2">
+        <div className=" text-gray-800 ">
+          <h1 className="font-black text-lg md:text-xl">Tiendas disponibles</h1>
           <p className="text-xs text-gray-500">
             Administra tus tiendas para que tus clientes seleccionen la tienda
             mas cercana
@@ -23,14 +23,14 @@ export default function Branches({ branches }: { branches: Branch[] }) {
         <BtnNewStore />
       </div>
 
-      <div className="space-y-2">
+      <div className="flex flex-col gap-2">
         {branches.length ? (
           branches.map((branch) => (
             <div
               key={branch.id}
               className=" rounded-md shadow-md border border-gray-100 overflow-hidden"
             >
-              <div className="p-6">
+              <div className="p-2 md:p-6">
                 <div className="flex items-start justify-between">
                   <div className="flex gap-4 flex-1">
                     <div className="flex-shrink-0 ">
@@ -55,7 +55,7 @@ export default function Branches({ branches }: { branches: Branch[] }) {
                         </div>
                       </div>
 
-                      <div className="flex flex-col md:flex-row gap-10 mt-4">
+                      <div className="flex flex-col md:flex-row gap-2 md:gap-10 mt-4">
                         <div className="flex items-center gap-2 text-sm text-gray-600">
                           <MapPin
                             className=" text-gray-400 size-4"

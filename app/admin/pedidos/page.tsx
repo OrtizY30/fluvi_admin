@@ -42,10 +42,13 @@ export default async function pedidosPage() {
      const branches = await getBranch();
      const methods = await getMethods()
   return (
-     <div className="flex-1 p-10 space-y-4 h-full flex-col bg-surface-base overflow-auto  overflow-x-hidden">
+     <div className="flex-1 h-full  bg-surface-base overflow-auto  overflow-x-hidden">
       <HeaderPedidos/>
+      <div className='md:p-10 pb-20 '>
+
       <PaymentMethod methods={methods} />
       <Branches branches={branches}/>
+      </div>
     </div>
   )
 }

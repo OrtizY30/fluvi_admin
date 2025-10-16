@@ -7,7 +7,7 @@ import React from "react";
 export default function HeaderTheme() {
   const router = useRouter();
   return (
-    <header className="w-full space-y-3 ">
+    <header className="w-full space-y-3 "> 
       <button
         title="Página anterior"
         onClick={() => router.push('/admin/productos')}

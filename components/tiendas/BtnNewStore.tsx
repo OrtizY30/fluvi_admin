@@ -21,9 +21,9 @@ export default function BtnNewStore() {
   };
   return (
     <>
-      <button onClick={openForm} type="button" className="bg-blue-700 px-4 items-center gap-1 flex text-white rounded-lg py-2 cursor-pointer ">
+      <button onClick={openForm} type="button" className="bg-blue-700 px-4 items-center gap-1 flex text-white md:rounded-lg rounded-sm py-2 cursor-pointer justify-center text-xs min-w-40">
         <Plus className="size-4 "  />
-        Crear Tienda
+        Crear tienda
       </button>
 
       <StoreForm open={open} onClose={closeDrawer} />
