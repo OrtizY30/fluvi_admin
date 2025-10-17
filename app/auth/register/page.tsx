@@ -40,7 +40,7 @@ export default function RegisterPage() {
         <nav className=" w-full flex pb-4 justify-center">
           <Link
             href="/auth/login"
-            className="text-xs text-right font-bold text-gray-600 hover:underline" >
+            className="text-xs text-right mt-3 font-bold text-gray-600 hover:underline" >
             ¿Ya tienes una cuenta?{" "}
             <span className="text-brand-primary font-black">Inicia Sesión</span>
           </Link>

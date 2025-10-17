@@ -39,11 +39,11 @@ export default function QrShare({ qrUrl }: { qrUrl: string }) {
   return (
     <div>
       <button
-        className="bg-blue-700 flex gap-2 p-2 px-3 text-white rounded-md text-sm cursor-pointer hover:bg-blue-400 transition-all"
+        className="bg-blue-700 flex gap-2 p-2 px-3 text-white rounded-md text-xs md:text-sm cursor-pointer hover:bg-blue-400 transition-all"
         id="fade-button"
         onClick={handleClick}
       >
-        <Share2 className="size-5" strokeWidth={1.5} /> Compartir
+        <Share2 className="size-4 md:size-5" strokeWidth={1.5} /> Compartir
       </button>
       <Menu
         id="fade-menu"

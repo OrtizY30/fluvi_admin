@@ -73,7 +73,7 @@ export default async function ProductsPage() {
   const categories = await getCategories();
 
   return (
-    <div className="flex-1 md:rounded-tl-3xl shadow-md  flex  flex-col ">
+    <div className="flex-1 md:rounded-tl-3xl shadow-md   flex  flex-col ">
       <ProductContainer categories={categories} />
     </div>
   );

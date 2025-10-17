@@ -11,7 +11,7 @@ type MenuItem = {
 
 const productItems: MenuItem[] = [
   { label: "Información del negocio", link: "setting-business" },
-  { label: "Qr-code", link: "Qr-code" },
+  { label: "Qr-code", link: "qr-code" },
 
 ];
 export default function MenuSetting() {

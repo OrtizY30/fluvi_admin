@@ -7,7 +7,16 @@ import { CreditCardIcon } from "@heroicons/react/24/outline";
 import { BoltIcon } from "@heroicons/react/16/solid";
 import { useUserStore } from "@/store/useUserStore";
 import { formatDate } from "@/src/utils";
-import { CalendarRange, ChevronDown, ChevronUp, Headset, LogOut, Settings } from "lucide-react";
+import {
+  CalendarRange,
+  ChevronDown,
+  ChevronUp,
+  ExternalLink,
+  Headset,
+  LogOut,
+  QrCode,
+  Settings,
+} from "lucide-react";
 import Link from "next/link";
 
 export default function AdminMenu() {
@@ -23,20 +32,15 @@ export default function AdminMenu() {
       {open && (
         <div className="absolute w-full rounded-t-sm overflow-hidden bg-surface-base  bottom-full left-0 z-50  animate-fade-in">
           <div className="border-b flex gap-3 items-center bg-white border-gray-300 py-4 px-2">
-           
-          
             <Avatar
               alt="Logo del restaurante"
               src={business?.logo ?? ""}
               sx={{ width: 32, height: 32 }}
             />
-          <div className=" text-sm">
-            <p className="font-bold text-slate-800">{user?.name}</p>
-            <p className="text-slate-700">
-              {user?.email}
-            </p>
-          </div>
-       
+            <div className=" text-sm">
+              <p className="font-bold text-slate-800">{user?.name}</p>
+              <p className="text-slate-700">{user?.email}</p>
+            </div>
           </div>
           {/* Contenido del menú */}
           <div className="text-slate-800 border-b border-gray-300 p-2 py-4 text-sm space-y-6">
@@ -98,40 +102,53 @@ export default function AdminMenu() {
               Cerrar sesión
             </button>
           </div>
-
-       
         </div>
       )}
 
       {/* Botón principal */}
-      <button
-      title="Abrir"
-        onClick={toggleMenu}
-        className="flex w-full justify-between p-3 px-5  bg-white  cursor-pointer gap-2 items-center z-10"
-      >
-        <div
-          className={`rounded-full p-[2px] bg-gradient-to-tr ${
-            business?.isOpen
-              ? "from-green-700 via-lime-500 to-green-700"
-              : "from-red-300 via-red-500 to-red-700"
-          }`}
-        >
-          <div className="rounded-full bg-white p-[1px]">
-            <Avatar
-              alt="Logo del restaurante"
-              src={business?.logo ?? ""}
-              sx={{ width: 42, height: 42 }}
-            />
-          </div>
+      <div>
+        <div className="bg-white flex flex-row items-center justify-between w-full border-b border-gray-300 h-12">
+          <Link target="_blank" className="w-full flex items-center justify-center gap-2 h-full text-blue-500 font-semibold text-center border-r border-gray-300" href={`https://${user?.domain}.fluvi.shop`}>
+            {" "}<ExternalLink className="size-4" />
+            Ver menú
+          </Link>
+          <Link className="w-full flex items-center justify-center gap-2 h-full text-blue-500 font-semibold text-center" href={'qr-code'}>
+          <QrCode className="size-4" />
+          Ver Qr
+          </Link>
         </div>
-
-        <p>
-        {open ? <ChevronUp className="zise-5 text-gray-500"  strokeWidth={2.5} /> :(
-<ChevronDown className="zise-5 text-gray-500"  strokeWidth={2.5} />
-        )}
-          
-        </p>
-      </button>
+        <button
+          title="Abrir"
+          onClick={toggleMenu}
+          className="flex w-full justify-between p-3 px-5  bg-white  cursor-pointer gap-2 items-center z-10"
+        >
+          <div className="flex gap-2 items-center">
+            <div
+              className={`rounded-full p-[2px] bg-gradient-to-tr ${
+                business?.isOpen
+                  ? "from-green-700 via-lime-500 to-green-700"
+                  : "from-red-300 via-red-500 to-red-700"
+              }`}
+            >
+              <div className="rounded-full bg-white p-[1px]">
+                <Avatar
+                  alt="Logo del restaurante"
+                  src={business?.logo ?? ""}
+                  sx={{ width: 42, height: 42 }}
+                />
+              </div>
+            </div>
+            <p className="font-bold">{user?.name}</p>
+          </div>
+          <p>
+            {open ? (
+              <ChevronUp className="zise-5 text-gray-500" strokeWidth={2.5} />
+            ) : (
+              <ChevronDown className="zise-5 text-gray-500" strokeWidth={2.5} />
+            )}
+          </p>
+        </button>
+      </div>
     </div>
   );
 }

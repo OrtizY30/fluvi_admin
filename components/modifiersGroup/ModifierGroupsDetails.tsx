@@ -137,7 +137,7 @@ export default function ModifierGroupsDetails({
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex w-full items-center justify-between">
-          <div className="flex gap-2 px-4 items-center">
+          <div className="flex w-full gap-2 px-4 items-center">
             <InputModifiersGroup
               name={formData.name}
               handleChange={handleChange}

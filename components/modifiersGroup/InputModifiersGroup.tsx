@@ -18,6 +18,7 @@ export default function InputModifiersGroup({ name, handleChange }: InputModifie
       onChange={handleChange}
       size="small"
       sx={{
+        width: "100%",
         "& .MuiInputBase-input": {
           fontSize: "1rem",
           padding: "0px 0",
