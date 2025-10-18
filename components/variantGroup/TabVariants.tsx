@@ -31,7 +31,7 @@ export default function TabVariants({
         <button
           disabled={!product.variantGroup}
           type="button"
-          onClick={handleClickSimple}
+          onClick={handleClickSimple} 
           className="disabled:bg-blue-600 disabled:text-white disabled:shadow-md disabled:border disabled:border-gray-300 font-semibold  py-1 rounded-lg w-full  cursor-pointer text-neutral-500 hover:bg-neutral-300 transition-all"
         >
           Simple

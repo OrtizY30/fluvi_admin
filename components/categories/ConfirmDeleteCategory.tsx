@@ -83,18 +83,16 @@ const closeModal = useCallback(() => {
 
       {/* Modal Content */}
       <div className="">
-        <div className="p-6">
+        <div className="p-2 md:p-6">
           <div className="flex items-center gap-3 p-4 bg-brand-primary/10 border border-brand-primary rounded-md mb-4">
             <TriangleAlert
               className="size-7 text-brand-primary flex-shrink-0"
               strokeWidth={1.5}
             />
             <div>
-              <p className="text-sm font-medium text-brand-primary">
-                Vas a eliminar una categoría.
-              </p>
+              
               <p className="text-xs text-brand-primary mt-1">
-                Esta categoría contiene productos que también serán eliminados, y sus productos no se pueden recuperar.
+                Esta categoría contiene productos que también serán eliminados.
               </p>
             </div>
           </div>

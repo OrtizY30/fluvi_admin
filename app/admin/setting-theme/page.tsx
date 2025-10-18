@@ -22,7 +22,7 @@ export default async function ThemePage() {
   const theme = await getTheme();
 
   return (
-    <div className="flex-1 space-y-4 flex min-h-screen flex-col bg-surface-base overflow-x-hidden overflow-y-auto">
+    <div className="flex-1 space-y-4 flex md:h-screen flex-col bg-surface-base md:overflow-x-hidden md:overflow-y-auto">
       <div className=" w-full mx-auto grid grid-cols-1 lg:grid-cols-3 h-full">
         <div className="lg:col-span-2 overflow-y-auto bg-surface-base-secundary relative">
 

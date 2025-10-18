@@ -42,7 +42,7 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
   children,
-}: Readonly<{
+}: Readonly<{ 
   children: React.ReactNode;
 }>) {
   const { user, modifiers, horaries, socialMedia, business } = await verifySession();
@@ -50,15 +50,15 @@ export default async function RootLayout({
   if(!business) return
 
   return (
-    <div className="overflow-hidden flex-col  flex h-screen bg-brand-primary">
+    <div className="relative bg-brand-primary">
       <SetUserClient business={business} socialMedia={socialMedia} horaries={horaries} modifiers={modifiers} user={user} />
       {/* Sidebar */}
         {/* <Header /> */}
 
-      <div className="w-full flex-1 flex overflow-hidden">
+      <div className="w-full pb-6 md:pb-0 relative flex">
       <Sidebar />
-      <BottomBar/>
         {children}
+      <BottomBar/>
       </div>
 
        <ToastNotification/>

@@ -43,7 +43,7 @@ function ColorField({ setBackgroundColor, value }: ColorFieldType) {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="absolute z-50 bottom-full mb-2 w-56 origin-bottom-left rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none p-3">
+          <Menu.Items className="absolute z-50 top-full mb-2 w-56 origin-top-left rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none p-3">
             <HexColorPicker
               color={value ?? ""}
               onChange={(newColor) => setBackgroundColor(newColor)}

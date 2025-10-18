@@ -36,7 +36,7 @@ export default function ProductMenu({ setOpen, product }: ProductMenuProps) {
 
         <MenuItems
           transition
-          anchor="bottom end"
+          anchor="top end"
           className="bg-surface-base border border-gray-200 shadow-md rounded-md"
         >
           <MenuItem>

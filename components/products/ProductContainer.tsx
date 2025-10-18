@@ -20,9 +20,9 @@ export default function ProductContainer({
 
   return (
     <div className="flex-1  shadow-md ">
-      <div className="w-full mx-auto grid   h-screen overflow-y-auto grid-cols-1 lg:grid-cols-3 ">
+      <div className="w-full mx-auto grid   md:h-screen md:overflow-y-auto grid-cols-1 lg:grid-cols-3 ">
         {/* SECCIÓN SCROLLEABLE */}
-        <div className="lg:col-span-2 pb-16 min-h-screen overflow-y-auto bg-surface-base-secundary relative">
+        <div className="lg:col-span-2 pb-16 md:min-h-screen md:overflow-y-auto bg-surface-base-secundary relative">
           {/* Encabezado */}
           <div className="h-46 w-full relative">
             <div className="absolute w-full h-full bg-blue-400">
