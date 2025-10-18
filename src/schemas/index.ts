@@ -237,6 +237,7 @@ export const ProductAPIResponseSchema = z.object({
   description: z.string(),
   image: z.string().nullable(),
   price: z.number(),
+  position: z.number(),
   isAvailable: z.boolean(),
   isOnSale: z.boolean(),
   discount: z.number(),

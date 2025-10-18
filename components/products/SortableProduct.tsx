@@ -2,7 +2,7 @@
 
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { Product } from "@/src/schemas";
+import { Category, Product } from "@/src/schemas";
 import { formatCurrency } from "@/src/utils";
 import { useUserStore } from "@/store/useUserStore";
 import { Grip, Hamburger } from "lucide-react";
@@ -12,12 +12,11 @@ import ProductForm from "./ProductForm";
 import Image from "next/image";
 import ProductMenu from "./ProductMenu";
 
-export default function SortableProduct({ product }: { product: Product }) {
+export default function SortableProduct({ product, category }: { product: Product, category: Category }) {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({
       id: product.id,
     });
-
   const user = useUserStore((state) => state.user);
   const [open, setOpen] = useState(false);
   const handleOpen = () => {
@@ -107,7 +106,7 @@ export default function SortableProduct({ product }: { product: Product }) {
 
           <ToggleAvailabilityButton product={product} />
 
-          <ProductMenu product={product} setOpen={() => setOpen(true)} />
+          <ProductMenu category={category} product={product} setOpen={() => setOpen(true)} />
         </div>
       </div>
       <ProductForm

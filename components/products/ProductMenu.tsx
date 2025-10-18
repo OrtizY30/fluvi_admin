@@ -4,13 +4,16 @@ import { EllipsisVertical, Pencil, Trash2 } from "lucide-react";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { Dialog, DialogContent } from "@mui/material";
 import ConfirmDeleteProduct from "./ConfirmDeleteProduct";
-import { Product } from "@/src/schemas";
+import { Category, Product } from "@/src/schemas";
+import ToggleAvailabilityMobile from "../ui/TooglevailabilityMobile";
+import MoveProductButtons from "./MoveProductButtons";
 
 type ProductMenuProps = {
   setOpen: () => void;
   product: Product;
+  category: Category
 };
-export default function ProductMenu({ setOpen, product }: ProductMenuProps) {
+export default function ProductMenu({ setOpen, product, category }: ProductMenuProps) {
   const [openDialog, setOpenDialog] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -37,11 +40,11 @@ export default function ProductMenu({ setOpen, product }: ProductMenuProps) {
         <MenuItems
           transition
           anchor="top end"
-          className="bg-surface-base border border-gray-200 shadow-md rounded-md"
+          className="bg-surface-base   border border-gray-200 shadow-md rounded-md"
         >
           <MenuItem>
             <div
-              className="hover:bg-gray-200 p-2 flex text-gray-700 items-center w-full gap-1 cursor-pointer"
+              className="hover:bg-gray-200 border-b border-gray-300  p-4 flex text-gray-700 items-center w-full gap-1 cursor-pointer"
               onClick={openForm} // abrir diálogo al hacer click
             >
               <Pencil className="size-4" strokeWidth={2} />
@@ -50,9 +53,15 @@ export default function ProductMenu({ setOpen, product }: ProductMenuProps) {
             </div>
           </MenuItem>
 
+          {/* Toogle button */}
+          <ToggleAvailabilityMobile product={product} />
+
+          {/* Move Button */}
+          <MoveProductButtons category={category} id={product.id} />
+
           <MenuItem>
             <div
-              className="flex items-center p-2 hover:bg-gray-200 w-full gap-1 cursor-pointer"
+              className="flex items-center   p-4 hover:bg-gray-200 w-full gap-1 cursor-pointer"
               onClick={handleClickOpen} // abrir diálogo al hacer click
             >
               <Trash2 className="text-red-600 size-4" />

@@ -7,7 +7,7 @@ import AdminMenu from "./AdminMenu";
 
 export default function Sidebar() {
   return (
-    <aside className="w-56 hidden h-screen md:flex justify-between flex-col flex-shrink-0">
+    <aside className="w-56 hidden bg-brand-primary h-screen md:flex justify-between flex-col flex-shrink-0">
       <div>
         <div
           className=" flex items-center justify-center w-full p-4

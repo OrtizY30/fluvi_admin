@@ -48,7 +48,6 @@ export function SortableCategory({
   expanded: boolean;
   toggleCategory: (id: number) => void;
 }) {
-  
   const router = useRouter();
   const [items, setItems] = useState<Product[]>(category.products);
   const { attributes, listeners, setNodeRef, transform, transition } =
@@ -57,6 +56,7 @@ export function SortableCategory({
   // si las categorías vienen del server y pueden cambiar, sincroniza:
   useEffect(() => setItems(category.products), [category.products]);
 
+  
   // server action state
   const [state, dispatch] = useActionState(updateProductOrder, {
     errors: [],
@@ -85,7 +85,7 @@ export function SortableCategory({
     (event: DragEndEvent) => {
       const { active, over } = event;
       if (!over) return;
-      if (active.id === over.id) return;
+      if (active.id === over.id) return; 
 
       // calcula usando el estado actual (fuera del updater)
       const oldIndex = items.findIndex((it) => it.id === active.id);
@@ -169,7 +169,7 @@ export function SortableCategory({
               {category.products.length}
             </div>
             <BtnNewProduct category={category} />
-            <DeleteCategory category={category} />
+            <DeleteCategory  category={category} />
           </div>
         </div>
       </AccordionSummary>
@@ -185,7 +185,7 @@ export function SortableCategory({
               strategy={verticalListSortingStrategy}
             >
               {items.map((product) => (
-                <SortableProduct key={product.id} product={product} />
+                <SortableProduct category={category} key={product.id} product={product}  />
               ))}
             </SortableContext>
           </DndContext>

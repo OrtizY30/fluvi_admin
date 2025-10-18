@@ -108,7 +108,10 @@ export default function AdminMenu() {
       {/* Botón principal */}
       <div>
         <div className="bg-white flex flex-row items-center justify-between w-full border-b border-gray-300 h-12">
-          <Link target="_blank" className="w-full flex items-center justify-center gap-2 h-full text-blue-500 font-semibold text-center border-r border-gray-300" href={`https://${user?.domain}.fluvi.shop`}>
+          <Link 
+          target="_blank" 
+          className="w-full flex items-center justify-center gap-2 h-full text-blue-500 font-semibold text-center border-r border-gray-300" 
+          href={`https://${user?.domain}.fluvi.shop`}>
             {" "}<ExternalLink className="size-4" />
             Ver menú
           </Link>
@@ -120,7 +123,7 @@ export default function AdminMenu() {
         <button
           title="Abrir"
           onClick={toggleMenu}
-          className="flex w-full justify-between p-3 px-5  bg-white  cursor-pointer gap-2 items-center z-10"
+          className="flex w-full justify-between p-3 px-5 md:p-2  bg-white  cursor-pointer gap-2 items-center z-10"
         >
           <div className="flex gap-2 items-center">
             <div

@@ -9,7 +9,7 @@ export default function PasswordRestHandler() {
   const [isValidToken, setIsValidToken] = useState(false);
   return (
     <div className=" w-full max-w-md mx-4 space-y-5 bg-surface-base border-gray-100 border shadow-xs shadow-black/50  rounded-md  py-6 ">
-      {!isValidToken ? (
+      {!isValidToken ? ( 
         <ValidateTokenForm
           token={token}
           setToken={setToken}

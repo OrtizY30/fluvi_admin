@@ -9,17 +9,17 @@ import LogoProfileUpload from "../profile/LogoProfileUpload";
 import ImageProfileUpload from "../profile/ImageProfileUpload";
 import SettingMenu from "./SettingMenu";
 import ContainerPhone from "../ui/ContainerPhone";
+
 export default function ProductContainer({
-  categories,
-}: {
-  categories: Category[];
+  categories
+}: { categories: Category[]
 }) {
   const user = useUserStore((state) => state.user);
 
   const business = user?.business;
 
   return (
-    <div className="flex-1  shadow-md ">
+    <div className="flex-1">
       <div className="w-full mx-auto grid   md:h-screen md:overflow-y-auto grid-cols-1 lg:grid-cols-3 ">
         {/* SECCIÓN SCROLLEABLE */}
         <div className="lg:col-span-2 pb-16 md:min-h-screen md:overflow-y-auto bg-surface-base-secundary relative">

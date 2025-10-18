@@ -45,13 +45,13 @@ export default async function RootLayout({
 }: Readonly<{ 
   children: React.ReactNode;
 }>) {
-  const { user, modifiers, horaries, socialMedia, business } = await verifySession();
+  const { user, modifiers, horaries, socialMedia, business, categories } = await verifySession();
 
   if(!business) return
 
   return (
-    <div className="relative bg-brand-primary">
-      <SetUserClient business={business} socialMedia={socialMedia} horaries={horaries} modifiers={modifiers} user={user} />
+    <div className="relative bg-surface-base-secundary">
+      <SetUserClient categories={categories} business={business} socialMedia={socialMedia} horaries={horaries} modifiers={modifiers} user={user} />
       {/* Sidebar */}
         {/* <Header /> */}
 

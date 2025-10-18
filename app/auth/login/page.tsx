@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import LoginForm from "@/components/auth/LoginForm";
 import Link from "next/link";
-import Image from "next/image";
+import Logotipo from "@/components/ui/Logotipo";
 
 export const metadata: Metadata = {
   title: "Fluvi – Accede a tu Panel de Restaurante",
@@ -23,12 +23,9 @@ export const metadata: Metadata = {
 export default function loginPage() {
   return (
     <div className="flex  flex-col h-screen  items-center justify-between gap-6 mx-auto w-full">
-      <div className="h-[25%] flex items-center justify-end flex-col">
-        <div className="w-[400px] h-20 relative ">
-          <Image src={"/logo-fluvi.svg"} fill alt="logo fluvi" />
-        </div>
-        <p className="text-white text-center font-bold">Tu mejor opción</p>
-      </div>
+      
+        <Logotipo/>
+      
       
       <div className="bg-white h-[70%] p-7 w-full max-w-md rounded-t-4xl">
         <LoginForm />
