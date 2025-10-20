@@ -141,7 +141,7 @@ export default function AdminMenu() {
                 />
               </div>
             </div>
-            <p className="font-bold md:text-lg text-sm">{user?.name}</p>
+            <p className="font-bold md:text-[16px] text-sm">{user?.name}</p>
           </div>
           <p>
             {open ? (
