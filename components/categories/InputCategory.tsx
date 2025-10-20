@@ -60,7 +60,7 @@ export default function InputCategory({ category }: { category: Category }) {
             dispatch(fd);
           });
         }
-      }, 1000); // ⏳ espera 600ms desde la última tecla
+      }, 2000); // ⏳ espera 600ms desde la última tecla
     },
     [category.name, dispatch]
   );

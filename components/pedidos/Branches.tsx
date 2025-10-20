@@ -11,7 +11,7 @@ import BtnNewStore from "../tiendas/BtnNewStore";
 
 export default function Branches({ branches }: { branches: Branch[] }) {
   return (
-    <div className="w-full md:p-8  mt-4 bg-white mx-auto space-y-3 border md:rounded-xl border-gray-200  shadow-md">
+    <div className="w-full md:p-8  mt-4 bg-white mx-auto space-y-3 border md:rounded-xl border-gray-200  md:shadow-md">
       <div className="flex items-center justify-between px-2">
         <div className=" text-gray-800 ">
           <h1 className="font-black text-lg md:text-xl">Tiendas disponibles</h1>
@@ -28,7 +28,7 @@ export default function Branches({ branches }: { branches: Branch[] }) {
           branches.map((branch) => (
             <div
               key={branch.id}
-              className=" rounded-md shadow-md border border-gray-100 overflow-hidden"
+              className=" md:rounded-md md:shadow-md border border-gray-100 overflow-hidden"
             >
               <div className="p-2 md:p-6">
                 <div className="flex items-start justify-between">
@@ -80,7 +80,7 @@ export default function Branches({ branches }: { branches: Branch[] }) {
             </div>
           ))
         ) : (
-          <p className="text-md font-bold text-gray-500">No tienes tiendas disponibles</p>
+          <p className="text-md font-bold text-center text-gray-500 p-6">No tienes tiendas disponibles</p>
         )}
       </div>
     </div>

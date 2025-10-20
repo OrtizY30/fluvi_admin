@@ -55,10 +55,15 @@ export default function InputVariant({ variant }: { variant: Variant }) {
         fd.append("value", value);  // 👈 el valor actualizado
 
         startTransition(() => {
+           if (value.trim() === "") {
+            return;
+          }
+
+          // Para todo lo demás, sí la disparamos
           dispatch(fd);
         });
       }
-    }, 1000);
+    }, 2000);
   },
   [variant, dispatch]
 );

@@ -123,7 +123,7 @@ export default function AdminMenu() {
         <button
           title="Abrir"
           onClick={toggleMenu}
-          className="flex w-full justify-between p-3 px-5 md:p-2  bg-white  cursor-pointer gap-2 items-center z-10"
+          className="flex w-full justify-between p-3 pr-5    bg-white  cursor-pointer gap-2 items-center z-10"
         >
           <div className="flex gap-2 items-center">
             <div
@@ -141,7 +141,7 @@ export default function AdminMenu() {
                 />
               </div>
             </div>
-            <p className="font-bold">{user?.name}</p>
+            <p className="font-bold md:text-lg text-sm">{user?.name}</p>
           </div>
           <p>
             {open ? (

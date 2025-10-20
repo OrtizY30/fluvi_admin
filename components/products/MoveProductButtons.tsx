@@ -83,7 +83,7 @@ export default function MoveProductButtons({ id, category }: Props) {
             isPending && "opacity-10"
           } font-semibold hover:bg-gray-200 border-b border-gray-300 p-4 md:hidden flex text-gray-700 items-center w-full gap-1 cursor-pointer`}
         >
-          <ArrowUp className="size-4" strokeWidth={2} /> Subir producto
+          <ArrowUp className="size-4" strokeWidth={2} /> Mover hacia arriba
         </button>
       </MenuItem>
       {/* Botón para bajar */}
@@ -96,7 +96,7 @@ export default function MoveProductButtons({ id, category }: Props) {
             isPending && "opacity-10"
           } font-semibold hover:bg-gray-200 border-b border-gray-300 p-4 flex text-gray-700 items-center w-full gap-1 cursor-pointer`}
         >
-          <ArrowDown className="size-4" strokeWidth={2} /> Bajar producto
+          <ArrowDown className="size-4" strokeWidth={2} />Mover hacia abajo
         </button>
       </MenuItem>
     </div>

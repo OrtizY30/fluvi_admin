@@ -50,7 +50,7 @@ export default function ModalMethodForm() {
       <button
         type="button"
         onClick={handleOpen}
-        className="cursor-pointer text-blue-600 font-semibold flex items-center gap-1 hover:underline text-sm"
+        className="cursor-pointer text-blue-600 font-semibold flex items-center gap-1 hover:underline text-sm pb-3"
       >
         <Plus className="size-4 " strokeWidth={2} /> Agregar método de pago
       </button>
@@ -64,9 +64,9 @@ export default function ModalMethodForm() {
         }}
       >
         <DialogTitle>
-          <div className="flex items-center gap-6 justify-between">
+          <div className="flex items-center justify-between">
             <p className="text-sm font-black text-gray-800">
-              Agrega un nuevo método de pago
+              Nuevo método de pago
             </p>
             <IconButton onClick={handleClose}>
               <X className="size-6" />
@@ -94,7 +94,7 @@ export default function ModalMethodForm() {
             disabled={isPending}
             type="submit" className="btn-form w-full mt-2 disabled:opacity-50">
               {isPending ? (
-                <CircularProgress sx={{color: 'blue'}} size={'20px'}/>
+                <CircularProgress sx={{color: 'white'}} size={'20px'}/>
               ): 'Guardar'}
             </button>
           </form>

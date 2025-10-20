@@ -66,7 +66,7 @@ export default function ModifiersGroupDrawer({
 
           <>
             {modifierGroups.length === 0 ? (
-              <p className="text-gray-500 mt-4 text-center text-lg font-bold">
+              <p className="text-gray-500 p-6 text-center text-lg font-bold">
                 No hay modificadores aún.
               </p>
             ) : (

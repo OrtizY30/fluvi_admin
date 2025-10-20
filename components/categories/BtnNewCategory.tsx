@@ -41,7 +41,7 @@ export default function BtnNewCategory() {
       className="btn text-xs min-w-32 "
     >
       {isPending ? (
-        <CircularProgress size="20px" />
+        <CircularProgress size="20px" sx={{color: 'white'}} />
       ) : (
         <>
           <PlusIcon className="size-4 font-extrabold" />

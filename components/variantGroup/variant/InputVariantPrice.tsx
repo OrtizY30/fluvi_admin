@@ -72,7 +72,7 @@ export default function InputVariantPrice({ variant }: { variant: Variant }) {
             dispatch(fd);
           });
         }
-      }, 1000);
+      }, 2000);
     },
     [variant, dispatch]
   );

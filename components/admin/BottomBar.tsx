@@ -21,7 +21,7 @@ export default function BottomBar() {
     <>
       <div className="md:hidden h-16 w-full  fixed bottom-0 left-0 bg-brand-primary z-50 flex items-center ">
        <button
-        className={`flex cursor-pointer px-6 h-full w-full text-xs font-bold ${
+        className={`flex items-center justify-center cursor-pointer px-6 h-full w-full text-xs font-bold ${
           pathname === "/admin/setting-theme" ? "text-white bg-[#c00]" : "text-white"
         }`}
       >
@@ -35,7 +35,7 @@ export default function BottomBar() {
       </button>
 
       <button
-        className={`flex cursor-pointer px-6 h-full w-full text-xs font-bold ${
+        className={`flex items-center justify-center cursor-pointer px-6 h-full w-full text-xs font-bold ${
           pathname === "/admin/productos" ? "text-white bg-[#c00]" : "text-white"
         }`}
       >
@@ -49,7 +49,7 @@ export default function BottomBar() {
       </button>
         <button
           onClick={() => setOpen(true)}
-          className="flex cursor-pointer  px-6 w-full  text-white text-xs font-bold"
+          className="flex cursor-pointer items-center justify-center  px-6 w-full  text-white text-xs font-bold"
         >
           <p className="flex w-full flex-col items-center justify-center">
             <Menu className="size-6" strokeWidth={2} />

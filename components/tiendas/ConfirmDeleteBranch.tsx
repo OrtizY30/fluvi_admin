@@ -49,7 +49,7 @@ export default function ConfirmDeleteBranch({
       closedModal();
       router.refresh();
     }
-  }, [state, closedModal, router]);
+  }, [state, router]);
 
   return (
     <>
@@ -59,11 +59,11 @@ export default function ConfirmDeleteBranch({
           <div className="flex items-center justify-between p-2 md:p-6">
             <div className="flex items-center gap-3">
               <div className="icon-header">
-                <ExclamationTriangleIcon className="size-7 " />
+                <ExclamationTriangleIcon  className="size-7 text-red-500" />
               </div>
               <div>
                 <h3 className="text-sm md:text-lg font-semibold text-gray-900">
-                  Eliminar Sucursal de tienda
+                  Eliminar tienda
                 </h3>
                 <p className="md:text-sm text-xs font-normal text-gray-600 mt-1">
                   Esta acción no se puede deshacer
@@ -77,26 +77,13 @@ export default function ConfirmDeleteBranch({
       {/* Modal Content */}
       <div className="">
         <div className="p-2 md:p-6">
-          <div className="flex items-center gap-3 p-4 bg-brand-primary/10 border border-brand-primary rounded-lg mb-4">
-            <ExclamationTriangleIcon className="size-7 text-brand-primary flex-shrink-0" />
-            <div>
-              <p className="text-sm font-medium text-brand-primary">
-                Vas a eliminar una sucursal
-              </p>
-              <p className="text-xs text-brand-primary mt-1">
-                Esta surcursal será eliminada para siempre 
-              </p>
-            </div>
-          </div>
-
+          
           <div className="space-y-2 text-sm text-gray-600">
             <p>
               <strong>Ingresa tu contraseña</strong> para confirmar la
-              eliminación de esta sucursal
+              eliminación de esta tienda
             </p>
-            <p className="text-xs">
-              Una sucursal eliminada no se puede recuperar.
-            </p>
+           
           </div>
         </div>
 
@@ -106,7 +93,7 @@ export default function ConfirmDeleteBranch({
               htmlFor="password"
               className="text-sm font-medium text-gray-700"
             >
-              Contraseña de confirmación
+              Contraseña
             </label>
             <div className="border flex items-center rounded-lg w-full border-gray-300 focus:outline-none shadow-xs">
               <input
@@ -142,7 +129,7 @@ export default function ConfirmDeleteBranch({
               className="flex text-xs md:text-sm items-center justify-center bg-brand-primary  hover:bg-red-900 text-white disabled:opacity-50 disabled:cursor-not-allowed transition-all  rounded-lg p-2 cursor-pointer"
             >
               <TrashIcon className="md:size-5 size-4 mr-2 " />
-              Eliminar Tienda
+              Eliminar
             </button>
           </div>
         </form>

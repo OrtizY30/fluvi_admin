@@ -66,7 +66,7 @@ export default function HoraryForm({ horary }: HoraryFormProps) {
           (horary.openTime !== "00:00" && horary.closeTime !== "00:00") ? (
             <div className="flex items-center gap-4">
               {editingDay === horary.day ? (
-                <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+                <div className="flex w-full justify-between items-center gap-3">
                   <form
                     action={dispatch}
                     id={`horary-form-${horary.day}`}

@@ -49,7 +49,7 @@ export default function StoreForm({ open, onClose, branch }: StoreFormProps) {
       onClose();
       router.refresh();
     }
-  }, [state, onClose, router]);
+  }, [state, router]);
   return (
     <Dialog
       open={open}

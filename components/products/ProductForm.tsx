@@ -99,11 +99,15 @@ export default function ProductForm({
         );
 
         startTransition(() => {
-          if (value !== "") {
-            dispatch(fd);
+          // Si es el campo "name" y está vacío, no disparamos la acción
+          if (name === "name" && value.trim() === "") {
+            return;
           }
+
+          // Para todo lo demás, sí la disparamos
+          dispatch(fd);
         });
-      }, 1000); // ⏳ espera 1s desde la última tecla
+      }, 2000); // ⏳ espera 2s desde la última tecla
     },
     [product, dispatch]
   );
@@ -134,7 +138,7 @@ export default function ProductForm({
     >
       <div className="md:w-md w-screen  overflow-hidden bg-slate-50 relative h-full flex flex-col">
         {/* Imagen */}
-        <div className="absolute  z-50 top-2 bg-black/50 rounded-full left-2 cursor-pointer text-white">
+        <div className="absolute  z-50 top-2 bg-black/50 rounded-full left-2 cursor-pointer text-white p-2">
           <X onClick={onClose} className="size-6" />
         </div>
         <ImageUpload

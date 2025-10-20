@@ -29,7 +29,7 @@ export default function PaymentMethod({ methods }: { methods: Methods[] }) {
             </div>
           ))
         ) : (
-          <p className="text-sm text-gray-400 font-bold">
+          <p className="text-sm p-4 text-gray-400 font-bold">
             No tienes métodos de pagos disponibles
           </p>
         )}

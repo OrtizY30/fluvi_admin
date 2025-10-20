@@ -67,9 +67,12 @@ export default function ModifierDetailsDrawer({
       // disparar el update al backend con el campo cambiado
       debounceRef.current = setTimeout(() => {
         startTransition(() => {
+           if (name === "name" && value.trim() === "") {
+            return;
+          }
           dispatch({ [name]: parsedValue === "" ? null : parsedValue });
         });
-      }, 1000);
+      }, 2000);
     },
     [dispatch]
   );

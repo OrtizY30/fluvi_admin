@@ -43,10 +43,11 @@ export default function ModifierGroupsDetails({
 
   const debounceRef = useRef<NodeJS.Timeout | null>(null);
 
-  const [state, dispatch] = useActionState(updateModifierGroup.bind(null, modifiersGroups.id),
-    { 
-      errors: [], 
-      success: "" 
+  const [state, dispatch] = useActionState(
+    updateModifierGroup.bind(null, modifiersGroups.id),
+    {
+      errors: [],
+      success: "",
     } // 👈 estado inicial
   );
 
@@ -88,9 +89,13 @@ export default function ModifierGroupsDetails({
         const fd = new FormData();
         fd.append(name, String(parsedValue)); // 👈 el backend recibe { [name]: value }
         startTransition(() => {
+          if (name === "name" && value.trim() === "") {
+            return;
+          }
+          // Para todo lo demás, sí la disparamos
           dispatch({ [name]: parsedValue });
         });
-      }, 1000);
+      }, 2000);
     },
     [dispatch]
   );

@@ -148,7 +148,7 @@ export default function InfoBusiness({ branches }: ContentTiendaProps) {
               </div>
             ))
           ) : (
-            <p className="text-gray-500 font-bold">
+            <p className="text-gray-500 text-xs">
               No tienes tiendas disponibles
             </p>
           )}
