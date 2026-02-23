@@ -222,6 +222,7 @@ export const VariantApiResponseSchema = z.object({
   price: z.number(),
   discount: z.number(),
   variantGroupId: z.number(),
+  recipeItems: z.array(z.any()).optional(),
 });
 
 export const VariantGroupApiResponseSchema = z.object({
@@ -265,6 +266,71 @@ export const ProductAPIResponseSchema = z.object({
     })
   ),
   variantGroup: VariantGroupApiResponseSchema.nullable(),
+  recipeItems: z.array(z.any()).optional(),
+});
+
+// --- Esquemas de Inventario ---
+
+export const IngredientUnitEnum = z.enum(["GRAMS", "MILLILITERS", "UNITS", "KILOGRAMS", "LITERS"]);
+
+export const IngredientSchema = z.object({
+  id: z.number(),
+  name: z.string(),
+  stock: z.number(),
+  minStock: z.number(),
+  unit: IngredientUnitEnum,
+  averageCost: z.number(),
+  businessId: z.number(),
+});
+
+export const DraftIngredientSchema = z.object({
+  name: z.string().min(1, "El nombre es obligatorio"),
+  unit: IngredientUnitEnum,
+  stock: z.coerce.number().min(0, "El stock no puede ser negativo"),
+  minStock: z.coerce.number().min(0, "El stock mínimo no puede ser negativo"),
+  averageCost: z.coerce.number().min(0, "El costo no puede ser negativo"),
+});
+
+export const RecipeItemSchema = z.object({
+  id: z.number(),
+  ingredientId: z.number(),
+  quantity: z.number(),
+  productId: z.number().nullable().optional(),
+  variantId: z.number().nullable().optional(),
+  modifierId: z.number().nullable().optional(),
+  ingredient: IngredientSchema.optional(),
+});
+
+export const IngredientMovementSchema = z.object({
+  id: z.number(),
+  type: z.enum(["IN", "OUT"]),
+  quantity: z.number(),
+  previousStock: z.number(),
+  newStock: z.number(),
+  cost: z.number().nullable(),
+  description: z.string().nullable(),
+  createdAt: z.string(),
+});
+
+// --- Esquemas de Pedidos ---
+
+export const OrderItemSchema = z.object({
+  productId: z.number(),
+  variantId: z.number().nullable().optional(),
+  quantity: z.number(),
+  unitPrice: z.number(),
+  subtotal: z.number(),
+  modifiers: z.array(z.number()).optional(),
+});
+
+export const OrderSchema = z.object({
+  id: z.number(),
+  businessId: z.number(),
+  total: z.number(),
+  customerName: z.string(),
+  status: z.enum(["PENDING", "CONFIRMED", "CANCELLED"]),
+  items: z.array(OrderItemSchema),
+  createdAt: z.string(),
 });
 
 // Enum correspondiente a SubscriptionType
@@ -340,6 +406,7 @@ export const ModifierAPIResponseSchema = z.object({
   id: z.coerce.number(),
   name: z.string(),
   price: z.number().nullable(),
+  recipeItems: z.array(z.any()).optional(),
 });
 
 export const SocialMediaApiResponseSchema = z.object({
@@ -387,6 +454,11 @@ export type Variant = z.infer<typeof VariantApiResponseSchema>;
 export type VariantGroup = z.infer<typeof VariantGroupApiResponseSchema>;
 export type Methods = z.infer<typeof MethodApiResponse>;
 export type Theme = z.infer<typeof ThemeApiResponseSchema>;
+export type Ingredient = z.infer<typeof IngredientSchema>;
+export type RecipeItem = z.infer<typeof RecipeItemSchema>;
+export type Order = z.infer<typeof OrderSchema>;
+export type IngredientMovement = z.infer<typeof IngredientMovementSchema>;
+export type IngredientUnit = z.infer<typeof IngredientUnitEnum>;
 
 // types.ts o donde prefieras
 export type RegisterFormFields = {

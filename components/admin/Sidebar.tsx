@@ -1,15 +1,17 @@
-'use client'
+"use client";
 import Logo from "../ui/Logo";
 import MenuProduct from "./MenuProduct";
 import MenuSetting from "./MenuSetting";
+import MenuPedidos from "./MenuPedidos";
+import MenuInventory from "./MenuInventory";
 import NavItem from "../ui/NavItem";
 import { LogOut } from "lucide-react";
 import { logout } from "@/actions/auth/logout-user-action";
 
 export default function Sidebar() {
   return (
-    <aside className="w-56 hidden h-screen md:flex justify-between flex-col flex-shrink-0">
-      <div>
+    <aside className="w-56 hidden h-screen md:flex justify-between flex-col flex-shrink-0 border-r border-white/10">
+      <div className="flex flex-col h-full overflow-hidden">
         <div
           className=" flex items-center justify-center w-full p-4
       "
@@ -19,13 +21,11 @@ export default function Sidebar() {
           </div>
         </div>
 
-        <nav className="flex space-y-1 flex-col justify-between h-full">
-          <div className="space-y-1 px-4">
-            <MenuProduct />
-            {/* <MenuPedidos/> */}
-            <NavItem label={"Pedidos"} link={"pedidos"} />
-            <MenuSetting />
-          </div>
+        <nav className="flex-1 overflow-y-auto px-4 space-y-1 pb-4 custom-scroll">
+          <MenuProduct />
+          <MenuPedidos />
+          <MenuInventory />
+          <MenuSetting />
         </nav>
       </div>
       <div className="p-4 ">

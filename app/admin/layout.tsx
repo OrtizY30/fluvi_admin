@@ -1,4 +1,3 @@
-
 import Sidebar from "@/components/admin/Sidebar";
 import { verifySession } from "@/src/auth/dal";
 import SetUserClient from "@/components/setUserClient";
@@ -45,23 +44,31 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { user, modifiers, horaries, socialMedia, business } = await verifySession();
+  const { user, modifiers, horaries, socialMedia, business } =
+    await verifySession();
 
-  if(!business) return
+  console.log(business, user);
+  if (!business) return <div>hrlo</div>;
 
   return (
     <div className="overflow-hidden flex-col max-h-screen flex h-screen bg-brand-primary">
-      <SetUserClient business={business} socialMedia={socialMedia} horaries={horaries} modifiers={modifiers} user={user} />
+      <SetUserClient
+        business={business}
+        socialMedia={socialMedia}
+        horaries={horaries}
+        modifiers={modifiers}
+        user={user}
+      />
       {/* Sidebar */}
-        {/* <Header /> */}
+      {/* <Header /> */}
 
       <div className="w-full flex-1 flex overflow-hidden">
-      <Sidebar />
-      <BottomBar/>
+        <Sidebar />
+        <BottomBar />
         {children}
       </div>
 
-       <ToastNotification/>
+      <ToastNotification />
     </div>
   );
 }

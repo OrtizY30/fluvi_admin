@@ -7,7 +7,18 @@ import {
   Cog6ToothIcon,
 } from "@heroicons/react/24/outline";
 import { IoStorefrontOutline } from "react-icons/io5";
-import { Clock3, Hamburger, Headset, Layers, LinkIcon, QrCode, ShoppingCart, TvMinimal, UserRound } from 'lucide-react';
+import {
+  Clock3,
+  Hamburger,
+  Headset,
+  Layers,
+  LinkIcon,
+  Package,
+  QrCode,
+  ShoppingCart,
+  TvMinimal,
+  UserRound,
+} from "lucide-react";
 
 type NavItemProps = {
   link: string;
@@ -27,22 +38,22 @@ export default function NavItem({ link, label }: NavItemProps) {
         return <Layers className="size-5" strokeWidth={2} />;
 
       case "pedidos":
-        return <ShoppingCart strokeWidth={2} className="size-5"  />;
+        return <ShoppingCart strokeWidth={2} className="size-5" />;
 
       case "banner":
         return <TvMinimal className="size-5" strokeWidth={2} />;
 
       case "tiendas":
-        return <IoStorefrontOutline className="size-5"  strokeWidth={2} />;
+        return <IoStorefrontOutline className="size-5" strokeWidth={2} />;
 
       case "horarios":
-        return <Clock3  className="size-5" strokeWidth={2} />;
+        return <Clock3 className="size-5" strokeWidth={2} />;
 
       case "sociales":
         return <LinkIcon className="size-5" strokeWidth={2} />;
 
       case "perfil":
-        return <UserRound strokeWidth={2}   className="size-5"/>;
+        return <UserRound strokeWidth={2} className="size-5" />;
 
       case "qr-code":
         return <QrCode className="size-5" strokeWidth={2} />;
@@ -53,6 +64,8 @@ export default function NavItem({ link, label }: NavItemProps) {
       case "logout":
         return <ArrowRightStartOnRectangleIcon className="size-5" />;
 
+      case "inventario":
+        return <Package className="size-5" strokeWidth={2} />;
       case "settings":
         return <Cog6ToothIcon className="size-5" />;
       default:
@@ -66,10 +79,12 @@ export default function NavItem({ link, label }: NavItemProps) {
       className={`flex w-full font-bold items-center gap-3 text-sm  transition-all rounded-xl px-3 py-2 ${
         isActive
           ? "bg-white shadow-md text-neutral-600"
-          :  " text-white  hover:bg-gray-500"
+          : " text-white  hover:bg-gray-500"
       }`}
     >
-      <span className={isActive ? "text-white p-1 rounded-md bg-brand-primary" : ""}>
+      <span
+        className={isActive ? "text-white p-1 rounded-md bg-brand-primary" : ""}
+      >
         {getIcon(link)}
       </span>
       {label}

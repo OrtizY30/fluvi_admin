@@ -1,37 +1,38 @@
 "use client";
-import { ShoppingCart } from "lucide-react";
-import NavSubItem from "../ui/NavSubItem";
+import { Package } from "lucide-react";
 import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 import { ExpandMore } from "@mui/icons-material";
+import NavSubItem from "../ui/NavSubItem";
 
 type MenuItem = {
   label: string;
   link: string;
 };
 
-const productItems: MenuItem[] = [
-  { label: "Listado de pedidos", link: "lista-pedidos" },
-  { label: "Configuración de pedidos", link: "pedidos" },
-  { label: "Configuración de tienda", link: "tiendas" },
+const inventoryItems: MenuItem[] = [
+  { label: "Control de stock", link: "inventario" },
+  { label: "Movimientos", link: "inventario/movimientos" },
 ];
-export default function MenuPedidos() {
+
+export default function MenuInventory() {
   return (
     <>
       <Accordion
         sx={{
-          boxShadow: "none", // sin sombra
-          border: "none", // sin borde
-          "&:before": { display: "none" }, // quita la línea superior que mete MUI
-          background: "transparent", // sin fondo
-          borderRadius: 0, // sin esquinas redondeadas
-          m: 0, // sin márgenes
-          p: 0, // sin padding
+          boxShadow: "none",
+          border: "none",
+          "&:before": { display: "none" },
+          background: "transparent",
+          borderRadius: 0,
+          m: 0,
+          p: 0,
         }}
       >
         <AccordionSummary
           sx={{
             m: 0,
-            p: 0,
+            py: 1,
+            px: 0,
             minHeight: "auto",
             "& .MuiAccordionSummary-content": {
               m: 0,
@@ -44,10 +45,8 @@ export default function MenuPedidos() {
         >
           <div className="flex items-center justify-between w-full px-3 py-2 rounded-lg ">
             <div className="flex w-full text-white font-bold items-center gap-3 text-sm  transition-all">
-              {/* <ReceiptText className="size-5" strokeWidth={1.5} /> */}
-              {/* <TbReceipt className="size-6"/> */}
-              <ShoppingCart className="size-5" />
-              <p>Pedidos</p>
+              <Package className="size-5" />
+              <p>Inventario</p>
             </div>
           </div>
         </AccordionSummary>
@@ -61,7 +60,7 @@ export default function MenuPedidos() {
           <ul
             className={` ml-6 transition-all mt-1 space-y-2 border-l border-white text-xs  pl-3 `}
           >
-            {productItems.map((item) => (
+            {inventoryItems.map((item) => (
               <li key={item.label}>
                 <NavSubItem link={item.link} label={item.label} />
               </li>

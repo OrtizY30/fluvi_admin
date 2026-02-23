@@ -5,9 +5,10 @@ import {
   AccordionSummary,
   AccordionDetails,
   IconButton,
+  Box,
 } from "@mui/material";
 import { ExpandMore } from "@mui/icons-material";
-import { Grip } from "lucide-react";
+import { Grip, ClipboardList } from "lucide-react";
 import { Product, Variant } from "@/src/schemas";
 import { useActionState, useEffect, useState } from "react";
 import { updateProductOrder } from "@/actions/product/order-products";
@@ -19,12 +20,13 @@ import { formatCurrency } from "@/src/utils";
 import { useUserStore } from "@/store/useUserStore";
 import InputVariantPrice from "./variant/InputVariantPrice";
 import { useRouter } from "next/navigation";
+import RecipeManager from "../inventory/RecipeManager";
 
 export function VariantGroupDetails({ product }: { product: Product }) {
   const router = useRouter();
   const user = useUserStore((state) => state.user);
   const [items, setItems] = useState<Variant[]>(
-    product?.variantGroup?.variants ?? []
+    product?.variantGroup?.variants ?? [],
   );
 
   const [expanded, setExpanded] = useState<Record<number, boolean>>({});
@@ -36,7 +38,7 @@ export function VariantGroupDetails({ product }: { product: Product }) {
   // efecto seguro
   useEffect(
     () => setItems(product?.variantGroup?.variants ?? []),
-    [product?.variantGroup?.variants]
+    [product?.variantGroup?.variants],
   );
 
   // server action state
@@ -49,12 +51,12 @@ export function VariantGroupDetails({ product }: { product: Product }) {
   useEffect(() => {
     if (state.errors.length) {
       state.errors.forEach((msg) =>
-        toast.error(<FluviToast type="error" msg={msg} />)
+        toast.error(<FluviToast type="error" msg={msg} />),
       );
     }
     if (state.success) {
       toast.success(<FluviToast type="success" msg={state.success} />);
-       router.refresh(); // 👈 refrescar la página para ver los cambios
+      router.refresh(); // 👈 refrescar la página para ver los cambios
     }
   }, [state, router]);
 
@@ -121,8 +123,15 @@ export function VariantGroupDetails({ product }: { product: Product }) {
           </div>
         </AccordionSummary>
 
-        <AccordionDetails sx={{ borderRadius: 2, padding: "10px 20px" }}>
+        <AccordionDetails sx={{ borderRadius: 2, padding: "10px 20px 20px" }}>
           <InputVariantPrice variant={variant} />
+
+          <Box className="mt-4 pt-4 border-t border-gray-100">
+            <RecipeManager
+              variantId={variant.id}
+              initialRecipe={variant.recipeItems}
+            />
+          </Box>
         </AccordionDetails>
       </Accordion>
     ))

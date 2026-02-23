@@ -16,19 +16,20 @@ import { Product } from "@/src/schemas";
 import OpenDrawerModifiersGroup from "../modifiersGroup/OpenDrawerModifiersGroup";
 import { useModifiersStore } from "@/store/useModifiersStore";
 import ModifiersDetail from "../modifiersGroup/Modifiers/ModifiersDetail";
+import RecipeManager from "../inventory/RecipeManager";
 type modifiersGroup = {
+  id: number;
+  name: string;
+  modifiers: {
     id: number;
     name: string;
-    modifiers: {
-        id: number;
-        name: string;
-        price: number | null;
-        discount?: number | undefined;
-    }[];
-    required: boolean;
-    position: number;
-    maxSelections: number;
-  }
+    price: number | null;
+    discount?: number | undefined;
+  }[];
+  required: boolean;
+  position: number;
+  maxSelections: number;
+};
 type FormData = {
   name: string;
   price: number;
@@ -43,7 +44,7 @@ type FormData = {
 type Props = {
   modifiers: number[];
   onChange: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => void;
   setFormData: React.Dispatch<React.SetStateAction<FormData>>;
   formData: FormData;
@@ -88,7 +89,7 @@ export default function OpcionesAvanzadas({
             <div>
               <label className="label-input">Producto en oferta</label>
               <p className="text-xs text-gray-600">
-                Activa si el producto tiene descuento 
+                Activa si el producto tiene descuento
               </p>
             </div>
 
@@ -173,6 +174,11 @@ export default function OpcionesAvanzadas({
                 modifiersGroup={group}
               />
             ))}
+
+            <RecipeManager
+              productId={product.id}
+              initialRecipe={product.recipeItems}
+            />
           </div>
         </div>
       </AccordionDetails>
