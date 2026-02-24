@@ -6,7 +6,6 @@ import React, {
 } from "react";
 import { toast } from "react-toastify";
 import { FluviToast } from "../ui/FluviToast";
-import { TrashIcon } from "@heroicons/react/24/outline";
 import { CircularProgress, Dialog, DialogContent, DialogTitle } from "@mui/material";
 import { VariantGroup } from "@/src/schemas";
 import { deleteVariantGroup } from "@/actions/variantGroup/delete-variantGroup-action";
@@ -30,20 +29,22 @@ export default function ConfirmDeleteVariants({
     success: "",
   });
 
-  useEffect(() => {
-    if (state.errors) {
-      state.errors.forEach((error) => {
-        toast.error(<FluviToast type={"error"} msg={error} />);
-      });
-    }
+useEffect(() => {
+  if (state.errors) {
+    state.errors.forEach((error) => {
+      toast.error(<FluviToast type={"error"} msg={error} />);
+    });
+  }
 
-    if (state.success) {
-      toast.success(<FluviToast type="success" msg={state.success} />, {});
-      router.refresh();
-      handleClose();
-      onDeleted();
-    }
-  }, [state, router, handleClose, onDeleted]);
+  if (state.success) {
+    toast.success(<FluviToast type="success" msg={state.success} />, {});
+       router.refresh()   // ⛔️ Esto vuelve a causar render → vuelve a entrar al useEffect
+    handleClose();
+    onDeleted();
+  }
+}, [state, router ]);
+
+
 
   const handleDeleteGroup = () => {
     const formData = new FormData();
@@ -89,10 +90,9 @@ export default function ConfirmDeleteVariants({
               type="button"
               onClick={handleDeleteGroup}
               disabled={isPending}
-              className="flex items-center bg-red-500 hover:bg-red-800 text-white disabled:opacity-50 disabled:cursor-not-allowed transition-all  justify-center  rounded-sm p-2 cursor-pointer w-42"
+              className="flex items-center bg-blue-600 hover:bg-blue-800 text-white disabled:opacity-50 disabled:cursor-not-allowed transition-all  justify-center  rounded-sm p-2 cursor-pointer w-42"
             >
-                 {isPending ? <CircularProgress size="20px" sx={{ color: "white" }} /> : <> <TrashIcon className="size-5 mr-2 " />
-              Eliminar</>}
+                 {isPending ? <CircularProgress size="20px" sx={{ color: "white" }} /> : 'Cambiar'}
              
             </button>
           </div>

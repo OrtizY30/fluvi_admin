@@ -38,7 +38,7 @@ export default function ModifiersGroupDrawer({
         },
       }}
     >
-      <div className="flex md:w-xl w-full flex-col h-full bg-slate-50">
+      <div className="flex md:w-xl w-screen flex-col h-full bg-slate-50">
         {/* Header */}
         <div className="flex justify-between items-center px-4 py-3 shadow-sm">
           <p className="font-bold text-lg">Gestionar Modificadores</p>
@@ -66,7 +66,7 @@ export default function ModifiersGroupDrawer({
 
           <>
             {modifierGroups.length === 0 ? (
-              <p className="text-gray-500 mt-4 text-center text-lg font-bold">
+              <p className="text-gray-500 p-6 text-center text-lg font-bold">
                 No hay modificadores aún.
               </p>
             ) : (

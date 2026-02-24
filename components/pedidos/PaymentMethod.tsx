@@ -9,9 +9,9 @@ export default function PaymentMethod({ methods }: { methods: Methods[] }) {
 
 
   return (
-    <div className="w-full p-8 s bg-white mx-auto space-y-3 border rounded-xl border-gray-200  shadow-md">
+    <div className="w-full md:p-8 p-2 bg-white mx-auto space-y-3 border md:rounded-xl border-gray-200  md:shadow-md">
       <div className="flex flex-col text-gray-800">
-        <h1 className="font-black text-xl">Metodos de Pago</h1>
+        <h1 className="font-black text-lg md:text-xl">Metodos de Pago</h1>
         <p className="text-xs text-gray-500">
           Selecciona los metodos de pagos que aceptes en tus pedidos{" "}
         </p>
@@ -29,7 +29,7 @@ export default function PaymentMethod({ methods }: { methods: Methods[] }) {
             </div>
           ))
         ) : (
-          <p className="text-sm text-gray-400 font-bold">
+          <p className="text-sm p-4 text-gray-400 font-bold">
             No tienes métodos de pagos disponibles
           </p>
         )}

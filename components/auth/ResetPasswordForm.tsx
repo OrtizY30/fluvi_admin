@@ -37,7 +37,7 @@ export default function ResetPasswordForm({ token }: { token: string }) {
   }, [state, router]);
 
   return (
-    <form action={dispatch} className=" p-4 space-y-5" noValidate>
+    <form action={dispatch} className=" p-4 space-y-5" noValidate> 
       <div className="flex flex-col gap-5">
         <label className="font-bold text-lg">Password</label>
 

@@ -9,20 +9,20 @@ import LogoProfileUpload from "../profile/LogoProfileUpload";
 import ImageProfileUpload from "../profile/ImageProfileUpload";
 import SettingMenu from "./SettingMenu";
 import ContainerPhone from "../ui/ContainerPhone";
+
 export default function ProductContainer({
-  categories,
-}: {
-  categories: Category[];
+  categories
+}: { categories: Category[]
 }) {
   const user = useUserStore((state) => state.user);
 
   const business = user?.business;
 
   return (
-    <div className="flex-1 h-screen  shadow-md">
-      <div className="w-full mx-auto grid grid-cols-1 lg:grid-cols-3 h-full">
+    <div className="flex-1">
+      <div className="w-full mx-auto grid   md:h-screen md:overflow-y-auto grid-cols-1 lg:grid-cols-3 ">
         {/* SECCIÓN SCROLLEABLE */}
-        <div className="lg:col-span-2 overflow-y-auto bg-surface-base-secundary relative">
+        <div className="lg:col-span-2 pb-16 md:min-h-screen md:overflow-y-auto bg-surface-base-secundary relative">
           {/* Encabezado */}
           <div className="h-46 w-full relative">
             <div className="absolute w-full h-full bg-blue-400">
@@ -36,8 +36,8 @@ export default function ProductContainer({
           </div>
 
           {/* Contenedor de categorias y productos */}
-          <div className="relative space-y-3 p-3 pb-16">
-            <CategoryTabs />
+          <div className="relative space-y-3 p-3 ">
+            <CategoryTabs  categories={categories} />
             <CategoryList categories={categories} />
           </div>
         </div>

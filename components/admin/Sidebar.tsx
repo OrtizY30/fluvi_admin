@@ -5,12 +5,11 @@ import MenuSetting from "./MenuSetting";
 import MenuPedidos from "./MenuPedidos";
 import MenuInventory from "./MenuInventory";
 import NavItem from "../ui/NavItem";
-import { LogOut } from "lucide-react";
-import { logout } from "@/actions/auth/logout-user-action";
+import AdminMenu from "./AdminMenu";
 
 export default function Sidebar() {
   return (
-    <aside className="w-56 hidden h-screen md:flex justify-between flex-col flex-shrink-0 border-r border-white/10">
+    <aside className="w-56 hidden bg-brand-primary h-screen md:flex justify-between flex-col flex-shrink-0 border-r border-white/10">
       <div className="flex flex-col h-full overflow-hidden">
         <div
           className=" flex items-center justify-center w-full p-4
@@ -28,7 +27,8 @@ export default function Sidebar() {
           <MenuSetting />
         </nav>
       </div>
-      <div className="p-4 ">
+      <AdminMenu />
+      {/* <div className="p-4 ">
         <button
           className="w-full text-white flex items-center gap-3 px-3 py-2 text-sm font-bold cursor-pointer transition-all"
           onClick={async () => {
@@ -38,7 +38,7 @@ export default function Sidebar() {
           <LogOut className="size-5" strokeWidth={2.5} />
           Cerrar sesión
         </button>
-      </div>
+      </div> */}
       {/* <AdminMenu/> */}
     </aside>
   );

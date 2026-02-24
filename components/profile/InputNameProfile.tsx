@@ -59,7 +59,7 @@ export default function InputNameProfile({ name }: { name: Business["name"] }) {
       if (debounceRef.current) clearTimeout(debounceRef.current);
 
       // disparar el update al backend con el campo cambiado
-      debounceRef.current = setTimeout(() => {
+      debounceRef.current = setTimeout(() => { 
         startTransition(() => {
           if (parsedValue !== "") {
             // solo mando si hay valor

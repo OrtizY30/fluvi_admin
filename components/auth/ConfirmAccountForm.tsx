@@ -51,9 +51,9 @@ export default function ConfirmAccountForm() {
     setIsComplete(true);
   };
   return (
-    <>
+    <div className=" w-full max-w-md mx-4 space-y-5 bg-surface-base border-gray-100 border shadow-xs shadow-black/50  rounded-md  py-6 ">
       {" "}
-      <p className="text-md text-brand-primary text-center font-semibold">
+        <p className="text-md text-brand-primary text-center font-semibold">
         Ingresa el código que recibiste
         <span className=" text-white bg-brand-primary p-1 rounded-md ml-1">
           {" "}
@@ -74,6 +74,6 @@ export default function ConfirmAccountForm() {
           <PinInputField className="w-10 h-14 text-black text-center border border-gray-300  rounded-lg bg-white " />
         </PinInput>
       </div>
-    </>
+    </div>
   );
 }

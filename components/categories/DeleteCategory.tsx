@@ -5,6 +5,7 @@ import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import ConfirmDeleteCategory from "./ConfirmDeleteCategory";
 import { Dialog, DialogContent } from "@mui/material";
 import { Category } from "@/src/schemas";
+import MoveCategoryButtons from "./MoveCategoryButton";
 
 export default function DeleteCategory({ category }: { category: Category }) {
   const [openDialog, setOpenDialog] = React.useState(false);
@@ -26,14 +27,16 @@ export default function DeleteCategory({ category }: { category: Category }) {
           </IconButton>
         </MenuButton>
 
+
         <MenuItems
           transition
-          anchor="bottom end"
-          className="bg-surface-base shadow-md p-2 rounded-md"
+          anchor="top end"
+          className="bg-surface-base   border border-gray-200 shadow-md rounded-md"
         >
+        <MoveCategoryButtons id={category.id}  />
           <MenuItem>
             <div
-              className="flex items-center w-full gap-1 cursor-pointer"
+              className="flex items-center w-full gap-1 p-4 cursor-pointer"
               onClick={handleClickOpen} // abrir diálogo al hacer click
             >
               <Trash2 className="text-red-600 size-4" />

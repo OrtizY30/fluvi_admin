@@ -111,13 +111,13 @@ export default function ImageProfileUpload({
                 <div
                   onClick={handleClickOpen}
                   title="Cambiar imagen"
-                  className=" cursor-pointer z-10 absolute hover:bg-blue-500 transition bg-btn-secondary p-2 rounded-full text-gray-100 "
+                  className=" cursor-pointer z-1 absolute hover:bg-blue-500 transition bg-btn-secondary p-2 rounded-full text-gray-100 "
                 >
                   <Camera className="size-7" strokeWidth={2.5} />
                 </div>
                 <Image
                   fill
-                  // className="rounded-full p-2  "
+                  className="z-0"
                   src={getImagetPath(image)}
                   alt="Imagen del portada"
                   style={{ objectFit: "cover" }}
@@ -128,13 +128,13 @@ export default function ImageProfileUpload({
                 <div
                   onClick={handleClickOpen}
                   title="Cambiar imagen"
-                  className=" cursor-pointer z-1 absolute hover:bg-blue-500 transition bg-btn-secondary p-2 rounded-full text-gray-100 "
+                  className="cursor-pointer z-1 absolute hover:bg-blue-500 transition bg-btn-secondary p-2 rounded-full text-gray-100 "
                 >
                   <Camera className="size-7" strokeWidth={2.5} />
                 </div>
                 <Image
                   fill
-                  // className="rounded-full p-2"
+                  className="z-0"
                   src={imageUrl}
                   alt="Imagen de portada"
                   style={{ objectFit: "cover" }}
@@ -152,7 +152,7 @@ export default function ImageProfileUpload({
                   <div className=" cursor-pointer  hover:bg-blue-500 transition  bg-btn-secondary p-1.5 rounded-full text-gray-100 ">
                     <Camera className="size-6" strokeWidth={2.5} />
                   </div>
-                  <p className="text-xs font-bold text-btn-secondary">
+                  <p className="text-[8px] font-bold text-btn-secondary">
                     Subir Imagen
                   </p>
                 </div>

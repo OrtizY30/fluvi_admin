@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import RegisterForm from "@/components/auth/RegisterForm";
 import Link from "next/link";
-import Image from "next/image";
+import Logotipo from "@/components/ui/Logotipo";
 
 export const metadata: Metadata = {
   title: "Fluvi | Crear Cuenta – Empieza a Vender con tu Menú Digital",
@@ -26,10 +26,7 @@ export default function RegisterPage() {
     <div className="flex  flex-col  items-center justify-between gap-6 mx-auto w-full">
       {/* Logo */}
       <div className=" pt-6 flex items-center justify-end flex-col">
-        <div className="w-[400px] h-20 relative ">
-          <Image src={"/logo-fluvi.svg"} fill alt="logo fluvi" />
-        </div>
-        <p className="text-white text-center font-bold">Tu mejor opción</p>
+        <Logotipo/>
       </div>
 
       {/* Formulario */}
@@ -40,7 +37,7 @@ export default function RegisterPage() {
         <nav className=" w-full flex pb-4 justify-center">
           <Link
             href="/auth/login"
-            className="text-xs text-right font-bold text-gray-600 hover:underline" >
+            className="text-xs text-right mt-3 font-bold text-gray-600 hover:underline" >
             ¿Ya tienes una cuenta?{" "}
             <span className="text-brand-primary font-black">Inicia Sesión</span>
           </Link>

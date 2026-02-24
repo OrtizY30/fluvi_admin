@@ -26,19 +26,16 @@ export default function BtnCreateVariantGroup({
     }
   );
 
-  useEffect(() => {
-    if (state.errors) {
-      state.errors.forEach((error) => {
-        toast.error(<FluviToast type={"error"} msg={error} />);
-      });
-    }
-
-    if (state.success) {
-      toast.success(<FluviToast type="success" msg={state.success} />, {});
-      onCreated();
-      router.refresh(); // 👈 refrescar la página para ver los cambios
-    }
-  }, [state, onCreated, router]);
+useEffect(() => { 
+  if (state.errors) { 
+    state.errors.forEach((error) => { toast.error(<FluviToast type={"error"} msg={error} />); }); 
+  } 
+  if (state.success) { 
+    toast.success(<FluviToast type="success" msg={state.success} />, {}); 
+    onCreated(); 
+      router.refresh()   
+  } 
+}, [state, router]);
 
   const handleCreate = () => {
     startTransition(() => {
@@ -50,10 +47,10 @@ export default function BtnCreateVariantGroup({
       disabled={isPending || !!product.variantGroup}
       onClick={handleCreate}
       type="button"
-      className="disabled:bg-white disabled:text-gray-800 disabled:shadow-md disabled:border disabled:border-gray-300 font-bold  py-1 rounded-lg w-full  cursor-pointer text-neutral-500 hover:bg-neutral-300 transition-all"
+      className="disabled:bg-blue-600 disabled:text-white disabled:shadow-md disabled:border disabled:border-gray-300 font-semibold  py-1 rounded-lg w-full  cursor-pointer text-neutral-500 hover:bg-neutral-300 transition-all"
     >
       {isPending ? (
-        <CircularProgress size="16px" sx={{ color: "black" }} />
+        <CircularProgress size="16px" sx={{ color: "white" }} />
       ) : (
         "Variante"
       )}

@@ -65,7 +65,7 @@ export default function BtnDeleteModifiersGroup({
       >
         <MenuItem>
           <div
-            className="flex items-center p-2 hover:bg-gray-200 w-full gap-1 cursor-pointer"
+            className="flex items-center p-4 hover:bg-gray-200 w-full gap-1 cursor-pointer"
             onClick={handleDelete}
           >
             <Trash2 className="text-red-600 size-4" />

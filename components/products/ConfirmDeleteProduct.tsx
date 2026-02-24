@@ -12,27 +12,26 @@ import { FluviToast } from "../ui/FluviToast";
 import { deleteProduct } from "@/actions/product/delete-product-action";
 import {
   ExclamationTriangleIcon,
-  TrashIcon,
 } from "@heroicons/react/24/outline";
-import { DialogTitle } from "@mui/material";
+import { CircularProgress, DialogTitle } from "@mui/material";
 import { Product } from "@/src/schemas";
 
 type ConfirmDeleteProductProps = {
   setOpen: Dispatch<SetStateAction<boolean>>;
-  product: Product
+  product: Product;
 };
 export default function ConfirmDeleteProduct({
   setOpen,
-  product
+  product,
 }: ConfirmDeleteProductProps) {
   const router = useRouter();
 
- const closeModal = useCallback(() => {
-  setOpen(false);
-}, [setOpen]); 
+  const closeModal = useCallback(() => {
+    setOpen(false);
+  }, [setOpen]);
 
   const deleteProductWithId = deleteProduct.bind(null, product.id);
-  const [state, dispatch] = useActionState(deleteProductWithId, {
+  const [state, dispatch, isPending] = useActionState(deleteProductWithId, {
     errors: [],
     success: "",
   });
@@ -62,7 +61,7 @@ export default function ConfirmDeleteProduct({
       {/* Modal Header */}
       <DialogTitle sx={{ padding: 0 }} id="alert-dialog-title">
         <div className=" border-b border-gray-100">
-          <div className="flex items-center justify-between p-6">
+          <div className="flex items-center justify-between p-2 md:p-6">
             <div className="flex items-center gap-3">
               <div className="icon-header">
                 <ExclamationTriangleIcon className="size-7 text-red-500" />
@@ -71,9 +70,6 @@ export default function ConfirmDeleteProduct({
                 <h3 className="text-lg font-semibold text-gray-900">
                   Eliminar Producto
                 </h3>
-                <p className="text-sm font-normal text-gray-600 mt-1">
-                  Esta acción no se puede deshacer
-                </p>
               </div>
             </div>
           </div>
@@ -82,31 +78,16 @@ export default function ConfirmDeleteProduct({
 
       {/* Modal Content */}
       <div className="">
-        <div className="p-6">
-          <div className="flex items-center gap-3 p-4 text-red-600 bg-red-500/10 border border-red-500 rounded-lg mb-4">
-            <ExclamationTriangleIcon className="size-7  flex-shrink-0" />
-            <div>
-              <p className="text-sm font-medium">
-                Vas a eliminar un producto.
-              </p>
-            </div>
-          </div>
-
-          <div className="space-y-2 text-sm text-gray-600">
-            <p>
-              <strong>Ingresa tu contraseña</strong> para confirmar la
-              eliminación de este producto.
-            </p>
-            <p className="text-xs">
-              Un productos eliminado no se puede recuperar.
-            </p>
-          </div>
+        <div className="p-2 md:p-6">
+          <p className="text-xs text-gray-600">
+            Un productos eliminado no se puede recuperar.
+          </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-5 p-6 border-t border-gray-100 bg-gray-50 rounded-b-xl">
+        <div className="grid grid-cols-2 gap-5 p-2 md:p-6 border-t border-gray-100 bg-gray-50 rounded-b-xl">
           <button
             type="button"
-            className="flex-1 hover:bg-neutral-700 hover:text-white cursor-pointer rounded-lg p-2 border border-gray-300 bg-transparent transition-all"
+            className="flex-1  text-xs md:text-lg hover:bg-neutral-700 hover:text-white cursor-pointer rounded-lg p-2 border border-gray-300 bg-transparent transition-all"
             onClick={closeModal}
           >
             Cancelar
@@ -114,11 +95,14 @@ export default function ConfirmDeleteProduct({
           <button
             type="button"
             onClick={handleClick}
-            // disabled={!password}
-            className="flex items-center bg-red-500 hover:bg-red-800 text-white disabled:opacity-50 disabled:cursor-not-allowed transition-all  rounded-lg p-2 cursor-pointer"
+            disabled={isPending}
+            className=" text-xs md:text-lg bg-red-500 hover:bg-red-800 text-white disabled:opacity-50 disabled:cursor-not-allowed transition-all  rounded-lg p-2 cursor-pointer"
           >
-            <TrashIcon className="size-5 mr-2 " />
-            Eliminar Producto
+            {isPending ? (
+              <CircularProgress size="16px" sx={{ color: "white" }} />
+            ) : (
+              "Eliminar"
+            )}
           </button>
         </div>
       </div>

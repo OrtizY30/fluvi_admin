@@ -155,7 +155,7 @@ export default function LogoProfileUpload({
                     <div className="cursor-pointer  hover:bg-blue-500 transition  bg-btn-secondary p-1.5 rounded-full text-gray-100 ">
                       <Camera className="size-6" strokeWidth={2.5} />
                     </div>
-                    <p className="text-xs font-bold text-btn-secondary">
+                    <p className="text-xs font-semibold text-btn-secondary">
                       Subir Imagen
                     </p>
                   </div>

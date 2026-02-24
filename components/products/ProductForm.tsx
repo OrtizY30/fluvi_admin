@@ -99,9 +99,15 @@ export default function ProductForm({
         );
 
         startTransition(() => {
+          // Si es el campo "name" y está vacío, no disparamos la acción
+          if (name === "name" && value.trim() === "") {
+            return;
+          }
+
+          // Para todo lo demás, sí la disparamos
           dispatch(fd);
         });
-      }, 1000); // ⏳ espera 1s desde la última tecla
+      }, 2000); // ⏳ espera 2s desde la última tecla
     },
     [product, dispatch]
   );
@@ -121,16 +127,19 @@ export default function ProductForm({
       onClose={onClose}
       anchor="right"
       PaperProps={{
-        sx: {
-          borderTopLeftRadius: "26px",
-          overflow: "hidden", // para que no sobresalga el contenido
-        },
+        sx: (theme) => ({
+          borderTopLeftRadius: 0, // por defecto en mobile (xs)
+          overflow: "hidden",
+          [theme.breakpoints.up("md")]: {
+            borderTopLeftRadius: "26px", // en md o superior
+          },
+        }),
       }}
     >
-      <div className="md:w-md w-full md:rounded-tl-2xl overflow-hidden bg-slate-50 relative h-full flex flex-col">
+      <div className="md:w-md w-screen  overflow-hidden bg-slate-50 relative h-full flex flex-col">
         {/* Imagen */}
-        <div>
-          <X onClick={onClose} className="absolute z-50 top-2 bg-white/50 rounded-full left-2 cursor-pointer text-gray-800" />
+        <div className="absolute  z-50 top-2 bg-black/50 rounded-full left-2 cursor-pointer text-white p-2">
+          <X onClick={onClose} className="size-6" />
         </div>
         <ImageUpload
           setImageUrl={setImageUrl}
@@ -139,7 +148,7 @@ export default function ProductForm({
           onChangeField={handleChangeField}
         />
 
-        <div className="flex-1 overflow-y-auto p-6">
+        <div className="flex-1 overflow-y-auto p-2 py-6 md:p-6">
           <form id="product-form" noValidate className="space-y-6">
             {/* 👇 Modo oculto */}
 

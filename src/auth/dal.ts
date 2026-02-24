@@ -8,6 +8,7 @@ import {
   HorariesApiResponseSchema,
   businessSchema,
   SocialMediaApiResponseSchema,
+  CategoriesAPIResponseSchema,
 } from "../schemas";
 import getToken from "./token";
 
@@ -94,7 +95,21 @@ export const verifySession = cache(async () => {
     };
   }
 
-  // 6. Retornar todo junto
+  const categoriesReq = await fetch(`${process.env.API_URL}/categories`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    cache: "no-store",
+  });
+  const categoriesJson = await categoriesReq.json();
+  const parseCategories = CategoriesAPIResponseSchema.safeParse(categoriesJson);
+
+  if (!parseCategories.success) {
+    console.error("Error al parsear categories:", parseCategories.error);
+  }
+    
+
+  // 7. Retornar todo junto
   return {
     isAuth: true,
     user: parsedUser.data,
@@ -102,5 +117,6 @@ export const verifySession = cache(async () => {
     modifiers: parsedModifiers.success ? parsedModifiers.data : [],
     horaries: parsedHoraries.success ? parsedHoraries.data : [],
     socialMedia, // 👈 aquí usamos el objeto correcto
+    categories: parseCategories.success ? parseCategories.data : [],
   };
 });

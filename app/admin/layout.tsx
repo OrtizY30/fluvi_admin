@@ -44,15 +44,16 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { user, modifiers, horaries, socialMedia, business } =
+  const { user, modifiers, horaries, socialMedia, business, categories } =
     await verifySession();
 
   console.log(business, user);
   if (!business) return <div>hrlo</div>;
 
   return (
-    <div className="overflow-hidden flex-col max-h-screen flex h-screen bg-brand-primary">
+    <div className="relative bg-surface-base-secundary overflow-hidden flex-col max-h-screen flex h-screen">
       <SetUserClient
+        categories={categories}
         business={business}
         socialMedia={socialMedia}
         horaries={horaries}
@@ -64,8 +65,8 @@ export default async function RootLayout({
 
       <div className="w-full flex-1 flex overflow-hidden">
         <Sidebar />
+        <div className="flex-1 overflow-auto">{children}</div>
         <BottomBar />
-        {children}
       </div>
 
       <ToastNotification />

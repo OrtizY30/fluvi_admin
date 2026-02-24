@@ -28,7 +28,7 @@ export default function PreguntasFrecuentes() {
   {
     id: 3,
     category: "facturacion",
-    question: "¿Qué pasa si no cancelo mi suscripción a tiempo?",
+    question: "¿Qué pasa si no pago mi suscripción a tiempo?",
     answer:
       "Tienes un plazo de 5 días para cancelar el pago de tu suscripción. Si no lo haces, tu cuenta será suspendida temporalmente hasta regularizar el pago.",
     tags: ["suscripción", "facturación", "plazo"],
@@ -109,9 +109,9 @@ export default function PreguntasFrecuentes() {
 
   return (
     <div className="shadow-md max-w-7xl mx-auto rounded-md border border-gray-100">
-      <div className=" p-6">
+      <div className="p-6">
         <p className="text-xl font-bold">Preguntas Frecuentes</p>
-        <p className="text-sm text-gray-500 ">
+        <p className="text-xs text-gray-500 ">
           Respondemos tus dudas más comunes
         </p>
       </div>
@@ -121,7 +121,7 @@ export default function PreguntasFrecuentes() {
           <AccordionSummary  expandIcon={<ExpandMoreIcon />}>
           <div>
 
-            <p className="text-xl font-semibold">{item.question}</p>
+            <p className="md:text-xl text-lg font-semibold">{item.question}</p>
 
             <div className="flex gap-1 mt-1">
               {item.tags.map((tag, index) => (
@@ -136,7 +136,7 @@ export default function PreguntasFrecuentes() {
             </div>
           </AccordionSummary>
           <AccordionDetails>
-            <p className="text-md text-slate-500 font-semibold">
+            <p className="text-xs md:text-sm text-gray-500">
               {item.answer}
             </p>
           </AccordionDetails>

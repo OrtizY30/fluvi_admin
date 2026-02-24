@@ -4,11 +4,20 @@ import * as React from "react";
 import { logout } from "@/actions/auth/logout-user-action";
 import { Avatar } from "@mui/material";
 import { CreditCardIcon } from "@heroicons/react/24/outline";
-import NavItem from "../ui/NavSubItem";
 import { BoltIcon } from "@heroicons/react/16/solid";
 import { useUserStore } from "@/store/useUserStore";
 import { formatDate } from "@/src/utils";
-import { CalendarRange, LogOut } from "lucide-react";
+import {
+  CalendarRange,
+  ChevronDown,
+  ChevronUp,
+  ExternalLink,
+  Headset,
+  LogOut,
+  QrCode,
+  Settings,
+} from "lucide-react";
+import Link from "next/link";
 
 export default function AdminMenu() {
   const [open, setOpen] = React.useState(false);
@@ -18,14 +27,25 @@ export default function AdminMenu() {
   const toggleMenu = () => setOpen((prev) => !prev);
 
   return (
-    <div className="relative m-1 shadow-md bg-surface-base rounded-xl py-3 px-1 mb-4">
+    <div className="relative w-full">
       {/* Menú que aparece ARRIBA */}
       {open && (
-        <div className="absolute w-full bg-surface-base pb-4 bottom-full left-0 -mb-3 z-50 rounded-t-xl py-2 px-1 animate-fade-in">
+        <div className="absolute w-full rounded-t-sm overflow-hidden bg-surface-base  bottom-full left-0 z-50  animate-fade-in">
+          <div className="border-b flex gap-3 items-center bg-white border-gray-300 py-4 px-2">
+            <Avatar
+              alt="Logo del restaurante"
+              src={business?.logo ?? ""}
+              sx={{ width: 32, height: 32 }}
+            />
+            <div className=" text-sm">
+              <p className="font-bold text-slate-800">{user?.name}</p>
+              <p className="text-slate-700">{user?.email}</p>
+            </div>
+          </div>
           {/* Contenido del menú */}
-          <div className="text-slate-800 capitalize text-sm space-y-3">
+          <div className="text-slate-800 border-b border-gray-300 p-2 py-4 text-sm space-y-6">
             <div className="flex justify-between items-center">
-              <p className="flex items-center gap-2 text-xs">
+              <p className="flex items-center gap-2 ">
                 <CreditCardIcon className="size-5" />
                 Suscripción
               </p>
@@ -44,25 +64,36 @@ export default function AdminMenu() {
             </div>
 
             <div className="flex justify-between items-center">
-              <p className="flex items-center gap-2 text-xs">
+              <p className="flex items-center gap-2 ">
                 <CalendarRange className="size-5" strokeWidth={1.5} />
                 Fecha de pago
               </p>
-              <p className="font-bold text-xs">
-                {user?.subscriptionEnd ? formatDate(user.subscriptionEnd) : "-----"}
+              <p className="font-bold  mr-2">
+                {user?.subscriptionEnd
+                  ? formatDate(user.subscriptionEnd)
+                  : "-----"}
               </p>
             </div>
-          </div>
-
-          <div className="bg-brand-primary mt-4 rounded-md">
-            <div className="hover:bg-surface-base transition-all" onClick={toggleMenu}>
-              <NavItem link="settings" label="configuracion" />
+            <div
+              className="hover:text-brand-primary transition-all"
+              onClick={toggleMenu}
+            >
+              <Link href={"#"} className="flex items-center gap-2 ">
+                <Settings className="size-5" strokeWidth={1.5} />
+                Configuración
+              </Link>
             </div>
-            <div className="hover:bg-surface-base transition-all" onClick={toggleMenu}>
-              <NavItem link="soporte" label="soporte" />
+            <div
+              className="hover:text-brand-primary transition-all"
+              onClick={toggleMenu}
+            >
+              <Link className="flex items-center gap-2" href={"/admin/soporte"}>
+                <Headset className="size-5" strokeWidth={1.5} />
+                Soporte
+              </Link>
             </div>
             <button
-              className="w-full text-white flex items-center gap-3 px-3 py-2 text-xs hover:bg-surface-base hover:text-brand-primary transition-all"
+              className="w-full cursor-pointer text-slate-800 text-sm flex items-center gap-2 hover:text-brand-primary transition-all"
               onClick={async () => {
                 await logout();
               }}
@@ -75,31 +106,52 @@ export default function AdminMenu() {
       )}
 
       {/* Botón principal */}
-      <button
-        onClick={toggleMenu}
-        className="flex w-full cursor-pointer gap-2 items-center z-10"
-      >
-        <div
-          className={`rounded-full p-[2px] bg-gradient-to-tr ${
-            business?.isOpen
-              ? "from-green-700 via-lime-500 to-green-700"
-              : "from-red-300 via-red-500 to-red-700"
-          }`}
+      <div>
+        <div className="bg-white flex flex-row items-center justify-between w-full border-b border-gray-300 h-12">
+          <Link 
+          target="_blank" 
+          className="w-full flex items-center justify-center gap-2 h-full text-blue-500 font-semibold text-center border-r border-gray-300" 
+          href={`https://${user?.domain}.fluvi.shop`}>
+            {" "}<ExternalLink className="size-4" />
+            Ver menú
+          </Link>
+          <Link className="w-full flex items-center justify-center gap-2 h-full text-blue-500 font-semibold text-center" href={'qr-code'}>
+          <QrCode className="size-4" />
+          Ver Qr
+          </Link>
+        </div>
+        <button
+          title="Abrir"
+          onClick={toggleMenu}
+          className="flex w-full justify-between p-3 pr-5    bg-white  cursor-pointer gap-2 items-center z-10"
         >
-          <div className="rounded-full bg-white p-[1px]">
-            <Avatar
-              alt="Logo del restaurante"
-              src={business?.logo ?? "/default-logo.png"}
-              sx={{ width: 42, height: 42 }}
-            />
+          <div className="flex gap-2 items-center">
+            <div
+              className={`rounded-full p-[2px] bg-gradient-to-tr ${
+                business?.isOpen
+                  ? "from-green-700 via-lime-500 to-green-700"
+                  : "from-red-300 via-red-500 to-red-700"
+              }`}
+            >
+              <div className="rounded-full bg-white p-[1px]">
+                <Avatar
+                  alt="Logo del restaurante"
+                  src={business?.logo ?? ""}
+                  sx={{ width: 42, height: 42 }}
+                />
+              </div>
+            </div>
+            <p className="font-bold md:text-[16px] text-sm">{user?.name}</p>
           </div>
-        </div>
-
-        <div className="text-left">
-          <p className="text-sm font-bold capitalize">{business?.name}</p>
-          <p className="text-xs text-gray-700">{user?.domain}.fluvi.net</p>
-        </div>
-      </button>
+          <p>
+            {open ? (
+              <ChevronUp className="zise-5 text-gray-500" strokeWidth={2.5} />
+            ) : (
+              <ChevronDown className="zise-5 text-gray-500" strokeWidth={2.5} />
+            )}
+          </p>
+        </button>
+      </div>
     </div>
   );
 }

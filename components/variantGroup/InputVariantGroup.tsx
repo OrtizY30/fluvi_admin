@@ -69,7 +69,7 @@ export default function InputVariantGroup({
             dispatch(fd);
           });
         }
-      }, 1000); // ⏳ espera 600ms desde la última tecla
+      }, 2000); // ⏳ espera 2s desde la última tecla
     },
     [variantGroup?.title, dispatch]
   );

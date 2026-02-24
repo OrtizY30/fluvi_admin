@@ -71,7 +71,7 @@ export default function SocialMediaForm({ setOpen }: SocialMediaFormProps) {
   return (
     <form action={dispatch} className="p-3 w-full space-y-6">
       <div className="flex gap-2 items-center">
-        <PiWhatsappLogo className="size-9 text-gray-600" />
+        <PiWhatsappLogo className="size-7 md:size-9 text-gray-600" />
         <PhoneInput
           name="whatsapp" // Muy importante para server action
           defaultCountry={country}
@@ -82,7 +82,7 @@ export default function SocialMediaForm({ setOpen }: SocialMediaFormProps) {
         />
       </div>
       <div className="flex gap-2 items-center">
-        <Instagram className="size-9 text-gray-600" strokeWidth={1.5} />
+        <Instagram className="size-7 md:size-9 text-gray-600" strokeWidth={1.5} />
 
         <TextField
           className="w-full"
@@ -111,7 +111,7 @@ export default function SocialMediaForm({ setOpen }: SocialMediaFormProps) {
       </div>
 
       <div className="flex gap-2 items-center">
-        <Facebook className="size-9 text-gray-600" strokeWidth={1.5} />
+        <Facebook className="size-7 md:size-9 text-gray-600" strokeWidth={1.5} />
 
         <TextField
           className="w-full"
@@ -139,7 +139,7 @@ export default function SocialMediaForm({ setOpen }: SocialMediaFormProps) {
       </div>
 
       <div className="flex gap-2 items-center">
-        <PiTiktokLogo className="size-9 text-gray-600" />
+        <PiTiktokLogo className="size-7 md:size-9 text-gray-600" />
 
         <TextField
           className="w-full"
