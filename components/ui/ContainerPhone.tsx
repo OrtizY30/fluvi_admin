@@ -14,7 +14,11 @@ export default function ContainerPhone() {
     }
   };
 
-  const domainUrl = `https://${user?.domain}.fluvi.shop/menu`;
+  // Use environment variable for local development URL or fallback to production
+  const baseUrl = process.env.NEXT_PUBLIC_MENU_URL || "https://fluvi.shop/menu";
+  const domainUrl = baseUrl.includes("localhost")
+    ? `http://${user?.domain}.localhost:3000/menu`
+    : `https://${user?.domain}.fluvi.shop/menu`;
   return (
     <div className="lg:col-span-1 pt-4 gap-6 bg-[#f4f6f8] hidden lg:flex flex-col items-center justify-center h-screen overflow-hidden">
       {/* Simulador de Celular */}
@@ -33,25 +37,29 @@ export default function ContainerPhone() {
 
         {/* Vista del subdominio dentro del teléfono */}
         <div
-          className="absolute scrollbar-hide overflow-hidden rounded-4xl left-0 origin-top-left "
+          className="absolute scrollbar-hide overflow-hidden rounded-4xl left-0 origin-top-left flex items-center justify-center bg-white"
           style={{
-            transform: "scale(0.68)", // <-- ajusta este valor (0.6, 0.8, etc.)
-            width: "390px", // compensar el ancho por la escala
-            height: "780px", // compensar el alto
+            transform: "scale(0.68)",
+            width: "390px",
+            height: "780px",
           }}
         >
-          <iframe
-          className="scrollbar-hide"
-            ref={iframeRef}
-            src={domainUrl}
-            width="100%"
-            height="100%"
-            style={{
-              border: "none",
-
-              // borderRadius: "20px",
-            }}
-          ></iframe>
+          {user?.domain ? (
+            <iframe
+              className="scrollbar-hide"
+              ref={iframeRef}
+              src={domainUrl}
+              width="100%"
+              height="100%"
+              style={{
+                border: "none",
+              }}
+            ></iframe>
+          ) : (
+            <div className="flex flex-col items-center text-gray-400">
+              <span className="text-sm">Cargando preview...</span>
+            </div>
+          )}
         </div>
       </div>
 
