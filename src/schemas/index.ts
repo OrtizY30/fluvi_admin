@@ -329,7 +329,7 @@ export const OrderSchema = z.object({
   businessId: z.number(),
   total: z.number(),
   customerName: z.string(),
-  status: z.enum(["PENDING", "CONFIRMED", "CANCELLED"]),
+  status: z.enum(["PENDING", "CONFIRMED", "DELIVERED", "CANCELLED"]),
   items: z.array(OrderItemSchema),
   createdAt: z.string(),
 });

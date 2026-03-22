@@ -4,6 +4,7 @@ import SetUserClient from "@/components/setUserClient";
 import { Metadata } from "next";
 import ToastNotification from "@/components/ui/ToastNotification";
 import BottomBar from "@/components/admin/BottomBar";
+import SocketNotifier from "@/components/admin/SocketNotifier";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://fluvi.shop/admin"),
@@ -70,6 +71,7 @@ export default async function RootLayout({
       </div>
 
       <ToastNotification />
+      <SocketNotifier businessId={business.id} />
     </div>
   );
 }

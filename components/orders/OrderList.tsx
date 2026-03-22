@@ -15,11 +15,12 @@ import {
   Box,
   Divider,
 } from "@mui/material";
-import { CheckCircle, Clock, User, Phone, MapPin } from "lucide-react";
-import { confirmOrder } from "@/actions/orders/order-actions";
+import { CheckCircle, Clock, User, Phone, MapPin, CheckSquare, Eye } from "lucide-react";
+import { confirmOrder, updateOrderStatus } from "@/actions/orders/order-actions";
 import { toast } from "react-toastify";
 import { FluviToast } from "../ui/FluviToast";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import OrderDetailsDrawer from "./OrderDetailsDrawer";
 
 type OrderListProps = {
   initialOrders: Order[];
@@ -28,6 +29,27 @@ type OrderListProps = {
 export default function OrderList({ initialOrders }: OrderListProps) {
   const [orders, setOrders] = useState<Order[]>(initialOrders);
   const [loadingId, setLoadingId] = useState<number | null>(null);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
+
+  useEffect(() => {
+    setOrders(initialOrders);
+  }, [initialOrders]);
+
+  useEffect(() => {
+    const handleNewOrder = (e: CustomEvent) => {
+      setOrders(prevOrders => {
+        // Evita duplicar si por alguna razón el socket dispara doble o SSR ya lo trajo
+        if (prevOrders.some(order => order.id === e.detail.id)) return prevOrders;
+        return [e.detail, ...prevOrders];
+      });
+    };
+
+    window.addEventListener("newOrderReceived", handleNewOrder as EventListener);
+    return () => {
+      window.removeEventListener("newOrderReceived", handleNewOrder as EventListener);
+    };
+  }, []);
 
   const handleConfirm = async (orderId: number) => {
     setLoadingId(orderId);
@@ -55,6 +77,32 @@ export default function OrderList({ initialOrders }: OrderListProps) {
     }
   };
 
+  const handleUpdateStatus = async (orderId: number, status: string) => {
+    setLoadingId(orderId);
+    try {
+      const res = await updateOrderStatus(orderId, status);
+      if (res.error) {
+        toast.error(<FluviToast type="error" msg={res.error} />);
+      } else {
+        toast.success(
+          <FluviToast
+            type="success"
+            msg="Estado actualizado exitosamente"
+          />,
+        );
+        setOrders(
+          orders.map((o) =>
+            o.id === orderId ? { ...o, status: status as any } : o,
+          ),
+        );
+      }
+    } catch (err) {
+      toast.error(<FluviToast type="error" msg="Error al actualizar pedido" />);
+    } finally {
+      setLoadingId(null);
+    }
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
@@ -67,95 +115,99 @@ export default function OrderList({ initialOrders }: OrderListProps) {
             <Paper
               key={order.id}
               elevation={0}
-              className="border border-gray-100 rounded-2xl overflow-hidden p-6 hover:shadow-lg transition-shadow"
+              className="border border-gray-100 rounded-2xl overflow-hidden p-5 md:p-6 hover:shadow-lg transition-all bg-white"
             >
-              <div className="flex justify-between items-start mb-4">
-                <div className="space-y-1">
-                  <Box className="flex items-center gap-2">
-                    <Typography variant="h6" className="font-bold">
+              <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div className="space-y-2 flex-1">
+                  <Box className="flex items-center flex-wrap gap-2">
+                    <Typography variant="h6" className="font-bold text-gray-800">
                       Pedido #{order.id}
                     </Typography>
                     <Chip
                       label={
-                        order.status === "PENDING" ? "Pendiente" : "Confirmado"
+                        order.status === "PENDING" ? "Pendiente" :
+                          order.status === "CONFIRMED" ? "Confirmado" :
+                            order.status === "DELIVERED" ? "Entregado" : "Cancelado"
                       }
-                      color={order.status === "PENDING" ? "warning" : "success"}
+                      color={
+                        order.status === "PENDING" ? "warning" :
+                          order.status === "CONFIRMED" ? "success" :
+                            order.status === "DELIVERED" ? "info" : "error"
+                      }
                       size="small"
                       variant="outlined"
+                      sx={{ fontWeight: "bold" }}
                     />
+                    <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-md font-bold">
+                      {order.items.length} {order.items.length === 1 ? 'Producto' : 'Productos'}
+                    </span>
                   </Box>
-                  <div className="flex items-center gap-4 text-sm text-gray-500">
+                  <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500">
                     <span className="flex items-center gap-1">
-                      <User size={14} /> {order.customerName}
+                      <User size={14} className="text-gray-400" /> {order.customerName}
                     </span>
                     <span className="flex items-center gap-1">
-                      <Clock size={14} />{" "}
-                      {new Date(order.createdAt).toLocaleString()}
+                      <Clock size={14} className="text-gray-400" />{" "}
+                      {new Date(order.createdAt).toLocaleString("es-CO", { dateStyle: "short", timeStyle: "short" })}
                     </span>
                   </div>
                 </div>
-                <div className="text-right">
-                  <Typography className="text-xs text-gray-500 uppercase font-bold">
-                    Total
-                  </Typography>
-                  <Typography
-                    variant="h5"
-                    className="font-black text-brand-primary"
-                  >
+
+                <div className="flex flex-row md:flex-col items-center md:items-end justify-between w-full md:w-auto gap-2 shrink-0">
+                  <Typography variant="h5" className="font-black text-brand-primary">
                     ${order.total.toLocaleString()}
                   </Typography>
-                </div>
-              </div>
-
-              <Divider className="my-4" />
-
-              <div className="mb-6">
-                <Typography variant="subtitle2" className="font-bold mb-2">
-                  Detalle de Productos
-                </Typography>
-                <div className="bg-gray-50 rounded-xl p-4 space-y-2">
-                  {order.items.map((item, idx) => (
-                    <div
-                      key={idx}
-                      className="flex justify-between items-center text-sm"
-                    >
-                      <div className="flex gap-2">
-                        <span className="font-bold text-brand-primary">
-                          {item.quantity}x
-                        </span>
-                        <span>
-                          {item.productId}{" "}
-                          {/* Aquí faltaría el nombre del producto, idealmente el back lo debería enviar */}
-                        </span>
-                      </div>
-                      <span className="font-medium">
-                        ${item.subtotal.toLocaleString()}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="flex justify-end gap-3">
-                {order.status === "PENDING" && (
                   <Button
-                    variant="contained"
-                    startIcon={<CheckCircle size={18} />}
-                    onClick={() => handleConfirm(order.id)}
-                    disabled={loadingId === order.id}
-                    sx={{
-                      bgcolor: "brand.primary",
-                      borderRadius: 3,
-                      px: 4,
-                      "&:hover": { bgcolor: "brand.hover" },
+                    variant="text"
+                    size="small"
+                    startIcon={<Eye size={16} />}
+                    onClick={() => {
+                      setSelectedOrder(order);
+                      setDrawerOpen(true);
                     }}
+                    sx={{ fontWeight: "bold", textTransform: "none" }}
                   >
-                    {loadingId === order.id
-                      ? "Confirmando..."
-                      : "Confirmar Pedido"}
+                    Ver detalle
                   </Button>
-                )}
+                </div>
               </div>
+
+              {(order.status === "PENDING" || order.status === "CONFIRMED") && (
+                <>
+                  <Divider className="my-4" />
+                  <div className="flex justify-end gap-3 w-full">
+                    {order.status === "PENDING" && (
+                      <Button
+                        variant="contained"
+                        startIcon={<CheckCircle size={18} />}
+                        onClick={() => handleConfirm(order.id)}
+                        disabled={loadingId === order.id}
+                        sx={{
+                          bgcolor: "brand.primary",
+                          borderRadius: 3,
+                          px: 3,
+                          "&:hover": { bgcolor: "brand.hover" },
+                        }}
+                      >
+                        {loadingId === order.id ? "Confirmando..." : "Confirmar"}
+                      </Button>
+                    )}
+
+                    {order.status === "CONFIRMED" && (
+                      <Button
+                        variant="outlined"
+                        color="success"
+                        startIcon={<CheckSquare size={18} />}
+                        onClick={() => handleUpdateStatus(order.id, "DELIVERED")}
+                        disabled={loadingId === order.id}
+                        sx={{ borderRadius: 3, px: 3 }}
+                      >
+                        {loadingId === order.id ? "Actualizando..." : "Entregar"}
+                      </Button>
+                    )}
+                  </div>
+                </>
+              )}
             </Paper>
           ))
         ) : (
@@ -166,6 +218,16 @@ export default function OrderList({ initialOrders }: OrderListProps) {
           </Box>
         )}
       </div>
+
+      {/* Drawer Lateral del Detalle del Pedido */}
+      <OrderDetailsDrawer
+        open={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
+        order={selectedOrder}
+        loadingId={loadingId}
+        handleConfirm={handleConfirm}
+        handleUpdateStatus={handleUpdateStatus}
+      />
     </div>
   );
 }
