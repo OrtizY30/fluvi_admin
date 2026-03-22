@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache";
 
 export async function confirmOrder(orderId: number) {
     const token = await getToken();
-    const url = `${process.env.API_URL}/orders/${orderId}/confirm`;
+    const url = `${process.env.API_URL}/v1/internal/${orderId}/confirm`;
 
     const req = await fetch(url, {
         method: "POST",
@@ -22,7 +22,7 @@ export async function confirmOrder(orderId: number) {
 
 export async function getOrders() {
     const token = await getToken();
-    const url = `${process.env.API_URL}/orders`;
+    const url = `${process.env.API_URL}/v1/internal`;
 
     const req = await fetch(url, {
         headers: {

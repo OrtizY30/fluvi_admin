@@ -335,7 +335,7 @@ export const OrderSchema = z.object({
 });
 
 // Enum correspondiente a SubscriptionType
-export const SubscriptionTypeEnum = z.enum(["free", "simple", "pro"]); // Ajusta los valores reales
+export const SubscriptionTypeEnum = z.enum(["FREE", "BASIC", "PREMIUM"]);
 
 export const UserSchema = z.object({
   id: z.number(),

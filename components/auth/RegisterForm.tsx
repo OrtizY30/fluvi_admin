@@ -191,9 +191,9 @@ export default function RegisterForm() {
             defaultValue={state.data.subscriptionType}
           >
             <option value="">Selecciona una opción</option>
-            <option value="free">Free</option>
-            <option value="simple">Simple</option>
-            <option value="pro">Pro</option>
+            <option value="FREE">Free</option>
+            <option value="BASIC">Basic</option>
+            <option value="PREMIUM">Premium</option>
           </select>
         </div>
 
@@ -208,7 +208,7 @@ export default function RegisterForm() {
             international
             defaultValue={state.data.phone}
             className="w-full border border-gray-300 text-[16px] bg-white p-3 rounded-3xl focus:outline-none"
-            onChange={() => {}}
+            onChange={() => { }}
           />
         </div>
 

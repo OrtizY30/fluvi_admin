@@ -50,13 +50,12 @@ export default function AdminMenu() {
                 Suscripción
               </p>
               <p
-                className={`${
-                  user?.subscriptionType === "pro"
+                className={`${user?.subscriptionType === "PREMIUM"
                     ? "bg-green-800 border border-green-900"
-                    : user?.subscriptionType === "simple"
-                    ? "bg-yellow-400 border border-yellow-500"
-                    : "bg-blue-800 border border-blue-900"
-                } text-white font-bold flex items-center gap-1 rounded-full px-2 py-0.5 text-xs uppercase`}
+                    : user?.subscriptionType === "BASIC"
+                      ? "bg-yellow-400 border border-yellow-500"
+                      : "bg-blue-800 border border-blue-900"
+                  } text-white font-bold flex items-center gap-1 rounded-full px-2 py-0.5 text-xs uppercase`}
               >
                 <BoltIcon className="size-3" />
                 {user?.subscriptionType}
@@ -108,16 +107,16 @@ export default function AdminMenu() {
       {/* Botón principal */}
       <div>
         <div className="bg-white flex flex-row items-center justify-between w-full border-b border-gray-300 h-12">
-          <Link 
-          target="_blank" 
-          className="w-full flex items-center justify-center gap-2 h-full text-blue-500 font-semibold text-center border-r border-gray-300" 
-          href={`https://${user?.domain}.fluvi.shop`}>
+          <Link
+            target="_blank"
+            className="w-full flex items-center justify-center gap-2 h-full text-blue-500 font-semibold text-center border-r border-gray-300"
+            href={`https://${user?.domain}.fluvi.shop`}>
             {" "}<ExternalLink className="size-4" />
             Ver menú
           </Link>
           <Link className="w-full flex items-center justify-center gap-2 h-full text-blue-500 font-semibold text-center" href={'qr-code'}>
-          <QrCode className="size-4" />
-          Ver Qr
+            <QrCode className="size-4" />
+            Ver Qr
           </Link>
         </div>
         <button
@@ -127,11 +126,10 @@ export default function AdminMenu() {
         >
           <div className="flex gap-2 items-center">
             <div
-              className={`rounded-full p-[2px] bg-gradient-to-tr ${
-                business?.isOpen
+              className={`rounded-full p-[2px] bg-gradient-to-tr ${business?.isOpen
                   ? "from-green-700 via-lime-500 to-green-700"
                   : "from-red-300 via-red-500 to-red-700"
-              }`}
+                }`}
             >
               <div className="rounded-full bg-white p-[1px]">
                 <Avatar
