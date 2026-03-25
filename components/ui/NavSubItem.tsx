@@ -16,11 +16,10 @@ export default function NavSubItem({ link, label }: NavItemProps) {
   return (
     <Link
       href={"/admin/" + link}
-      className={`flex capitalize items-center gap-3 p-2  py-3 text-[12px]  transition-all rounded-xl ${
-        isActive
-          ? "bg-white shadow-md text-neutral-600 font-semibold"
-          : " text-white  hover:bg-gray-500"
-      }`}
+      className={`flex capitalize items-center gap-3 p-2  py-3 text-[12px]  transition-all rounded-xl ${isActive
+        ? "bg-white shadow-md text-neutral-600 font-semibold"
+        : " text-white hover:underline"
+        }`}
     >
       {label}
     </Link>

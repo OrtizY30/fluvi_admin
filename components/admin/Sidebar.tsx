@@ -20,7 +20,7 @@ export default function Sidebar() {
           </div>
         </div>
 
-        <nav className="flex-1 overflow-y-auto px-4 space-y-1 pb-4 custom-scroll">
+        <nav className="flex-1 overflow-y-auto px-4 gap-2 pb-4 custom-scroll">
           <MenuProduct />
           <MenuPedidos />
           <MenuInventory />

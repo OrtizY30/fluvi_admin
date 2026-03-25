@@ -175,7 +175,7 @@ export default function OrderList({ initialOrders }: OrderListProps) {
               {(order.status === "PENDING" || order.status === "CONFIRMED") && (
                 <>
                   <Divider className="my-4" />
-                  <div className="flex justify-end gap-3 w-full">
+                  <div className="flex justify-end gap-3 w-full mt-3">
                     {order.status === "PENDING" && (
                       <Button
                         variant="contained"

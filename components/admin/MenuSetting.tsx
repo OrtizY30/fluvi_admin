@@ -1,5 +1,5 @@
 "use client";
-import {  Settings } from "lucide-react";
+import { Settings } from "lucide-react";
 import NavSubItem from "../ui/NavSubItem";
 import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 import { ExpandMore } from "@mui/icons-material";
@@ -18,35 +18,47 @@ export default function MenuSetting() {
   return (
     <>
       <Accordion
+        disableGutters // <-- PROPIEDAD CLAVE: Elimina los márgenes automáticos al expandirse
+        elevation={0}
         sx={{
-          boxShadow: "none", // sin sombra
-          border: "none", // sin borde
-          "&:before": { display: "none" }, // quita la línea superior que mete MUI
-          background: "transparent", // sin fondo
-          borderRadius: 0, // sin esquinas redondeadas
-          m: 0, // sin márgenes
-          p: 0, // sin padding
+          boxShadow: "none",
+          border: "none",
+          "&:before": { display: "none" },
+          background: "transparent",
+          m: 0,
+          p: 0,
+          // Forzamos que no haya margen extra al expandirse
+          "&.Mui-expanded": {
+            margin: 0,
+          },
         }}
       >
         <AccordionSummary
           sx={{
             m: 0,
-           py: 1,
-            px: 0,
-            minHeight: "auto",
+            p: 0,
+            minHeight: 0, // <-- Elimina la altura mínima por defecto
             "& .MuiAccordionSummary-content": {
               m: 0,
               p: 0,
             },
+            // Evita que el contenido se mueva al expandirse
+            "& .MuiAccordionSummary-content.Mui-expanded": {
+              margin: 0,
+            },
+            // Evita que el contenedor del icono de expansión cambie de tamaño
+            "&.Mui-expanded": {
+              minHeight: 0,
+            },
           }}
-          expandIcon={<ExpandMore sx={{color: 'white'}} />}
+          expandIcon={<ExpandMore sx={{ color: 'white' }} />}
           aria-controls="panel1-content"
           id="panel1-header"
         >
-          <div className="flex items-center justify-between w-full px-3 py-2 rounded-lg ">
-            <div className="flex w-full text-white font-bold items-center gap-3 text-sm  transition-all">
-            
-              <Settings className="size-5"/>
+          {/* Tu contenido actual */}
+          <div className="flex items-center justify-between w-full px-3 py-2 rounded-lg">
+            <div className="flex w-full text-white font-bold items-center gap-3 text-sm transition-all">
+              <Settings className="size-5" />
               <p>Configuraciones</p>
             </div>
           </div>
@@ -54,13 +66,11 @@ export default function MenuSetting() {
         <AccordionDetails
           sx={{
             m: 0,
-            mt: -2,
             p: 0,
+            pb: 1, // Un pequeño padding inferior suele verse mejor que el margen negativo
           }}
         >
-          <ul
-            className={` ml-6 transition-all mt-1 space-y-2 border-l border-white text-xs  pl-3 `}
-          >
+          <ul className="ml-6 transition-all mt-1 space-y-2 border-l border-white text-xs pl-3">
             {productItems.map((item) => (
               <li key={item.label}>
                 <NavSubItem link={item.link} label={item.label} />

@@ -18,6 +18,11 @@ export async function confirmOrder(orderId: number) {
         if (!req.ok) {
             const errText = await req.text();
             console.error("Error from backend:", errText);
+            try {
+                const parsed = JSON.parse(errText);
+                if (parsed.error) return { error: parsed.error };
+                if (parsed.message) return { error: parsed.message };
+            } catch (e) { }
             return { error: `Error Backend: ${req.status} - ${errText.substring(0, 50)}...` };
         }
 
