@@ -11,7 +11,7 @@ export async function addIngredientToRecipe(data: {
     modifierId?: number;
 }) {
     const token = await getToken();
-    const url = `${process.env.API_URL}/recipes`;
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/recipes`;
 
     const req = await fetch(url, {
         method: "POST",
@@ -29,7 +29,7 @@ export async function addIngredientToRecipe(data: {
 
 export async function deleteRecipeItem(id: number) {
     const token = await getToken();
-    const url = `${process.env.API_URL}/recipes/${id}`;
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/recipes/${id}`;
 
     const req = await fetch(url, {
         method: "DELETE",
@@ -45,7 +45,7 @@ export async function deleteRecipeItem(id: number) {
 
 export async function getRecipeByProduct(productId: number) {
     const token = await getToken();
-    const url = `${process.env.API_URL}/recipes/product/${productId}`;
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/recipes/product/${productId}`;
 
     const req = await fetch(url, {
         headers: {

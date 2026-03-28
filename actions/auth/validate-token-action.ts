@@ -19,7 +19,7 @@ export async function validateToken(token: string, prevState: ActionStateType) {
     };
   }
  
-  const url = `${process.env.API_URL}/auth/validate-token`;
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/auth/validate-token`;
 
   const req = await fetch(url, {
     method: "POST",

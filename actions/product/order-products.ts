@@ -16,7 +16,7 @@ export async function updateProductOrder(
   try {
     const token = await getToken();
 
-    const url = `${process.env.API_URL}/products/order`;
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/products/order`;
 
     console.log(payload)
     const req = await fetch(url, {

@@ -7,7 +7,7 @@ import React from "react";
 
 async function getTheme() {
   const token = await getToken();
-  const url = `${process.env.API_URL}/theme`;
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/theme`;
 
   const req = await fetch(url, {
     headers: {

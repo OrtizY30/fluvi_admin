@@ -17,7 +17,7 @@ export async function updateModifierGroup(
 
   const token = await getToken();
   
-  const req = await fetch(`${process.env.API_URL}/modifiersGroup/${id}/field`, {
+  const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/modifiersGroup/${id}/field`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",

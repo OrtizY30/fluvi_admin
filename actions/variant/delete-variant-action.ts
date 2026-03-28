@@ -21,7 +21,7 @@ export async function deleteVariant(
 
 
 
-  const url = `${process.env.API_URL}/variants/${variantId}`;
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/variants/${variantId}`;
 
   const req = await fetch(url, {
     method: "DELETE",

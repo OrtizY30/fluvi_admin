@@ -9,14 +9,11 @@ import {
   ListItem,
   ListItemText,
   ListItemSecondaryAction,
-  Select,
-  MenuItem,
   TextField,
   Button,
-  FormControl,
-  InputLabel,
   Tooltip,
   Divider,
+  Autocomplete,
 } from "@mui/material";
 import { Trash2, Plus, Beer, Scale, ClipboardList, Info } from "lucide-react";
 import { useState, useEffect } from "react";
@@ -33,13 +30,13 @@ type RecipeManagerProps = {
   variantId?: number;
   modifierId?: number;
   initialRecipe?: RecipeItem[];
+  productPrice?: number;
 };
 
 export default function RecipeManager({
-  productId,
-  variantId,
   modifierId,
   initialRecipe = [],
+  productPrice = 0,
 }: RecipeManagerProps) {
   const [ingredients, setIngredients] = useState<Ingredient[]>([]);
   const [recipeItems, setRecipeItems] = useState<RecipeItem[]>(initialRecipe);
@@ -105,56 +102,189 @@ export default function RecipeManager({
   };
 
   return (
-    <Box className="mt-6 border border-gray-100 rounded-2xl bg-white shadow-sm overflow-hidden transition-all hover:shadow-md">
-      {/* Header */}
-      <Box className="bg-gray-50/80 px-5 py-4 flex items-center justify-between border-b border-gray-100">
+    <Box
+      sx={{
+        mt: 8,
+        border: "1px solid",
+        borderColor: "grey.100",
+        borderRadius: "24px",
+        bgcolor: "white",
+        shadow: "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
+        overflow: "hidden",
+        transition: "all 0.3s",
+        "&:hover": { boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)" },
+      }}
+    >
+      {/* Header Premium */}
+      <Box className="bg-gray-50/80 px-6 py-5 flex items-center justify-between border-b border-gray-100">
         <div className="flex items-center gap-3">
-          <div className="p-2 bg-white rounded-lg shadow-sm text-brand-primary">
-            <ClipboardList size={18} />
+          <div className="p-2.5 bg-brand-primary/10 rounded-xl text-brand-primary">
+            <ClipboardList size={22} />
           </div>
           <div>
-            <Typography className="text-sm font-black text-gray-800 leading-tight">
-              Receta de Producción
+            <Typography sx={{ fontSize: "1rem", fontWeight: 900, color: "grey.800", mb: 0.5 }}>
+              Receta y Costeo
             </Typography>
-            <Typography variant="caption" className="text-gray-400 font-medium">
-              Víncula insumos para descontar stock
+            <Typography variant="caption" sx={{ color: "grey.500", fontWeight: 500 }}>
+              Víncula insumos para descontar stock y ver costos por plato
             </Typography>
           </div>
         </div>
         <Tooltip title="Los insumos configurados aquí se descontarán automáticamente del inventario al confirmar cada pedido.">
-          <IconButton size="small" className="text-gray-300">
+          <IconButton
+            size="small"
+            className="bg-white border border-gray-100 shadow-sm text-gray-400"
+          >
             <Info size={16} />
           </IconButton>
         </Tooltip>
       </Box>
 
-      {/* List of Ingredients */}
-      <Box className="p-4 bg-white">
-        <List dense className="space-y-2 p-0">
+      {/* Formulario de Adición más intuitivo */}
+      <Box className="p-6 bg-white">
+        <div className="flex flex-col md:flex-row items-end gap-3 bg-gray-50/50 p-4 rounded-2xl border border-dashed border-gray-200">
+          <div className="w-full md:flex-1">
+            <Typography
+              variant="overline"
+              className="text-[10px] font-black text-gray-400 ml-1 mb-1 block"
+            >
+              Seleccionar Insumo
+            </Typography>
+            <Autocomplete
+              size="small"
+              options={ingredients}
+              getOptionLabel={(option) => `${option.name} (${option.unit})`}
+              value={
+                ingredients.find(
+                  (i) => i.id.toString() === selectedIngredientId,
+                ) || null
+              }
+              onChange={(_, newValue) => {
+                setSelectedIngredientId(newValue ? newValue.id.toString() : "");
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  placeholder="Ej: Carne, Pan, Salsa..."
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      borderRadius: "12px",
+                      bgcolor: "white",
+                    },
+                  }}
+                />
+              )}
+            />
+          </div>
+
+          <div className="w-full md:w-32">
+            <Typography
+              variant="overline"
+              className="text-[10px] font-black text-gray-400 ml-1 mb-1 block"
+            >
+              Cantidad
+            </Typography>
+            <TextField
+              type="number"
+              size="small"
+              placeholder="0"
+              value={quantity || ""}
+              onChange={(e) => setQuantity(parseFloat(e.target.value))}
+              fullWidth
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: "12px",
+                  bgcolor: "white",
+                },
+              }}
+              InputProps={{
+                endAdornment: (
+                  <span className="text-[10px] font-black text-gray-300 ml-1">
+                    {ingredients.find(
+                      (i) => i.id.toString() === selectedIngredientId,
+                    )?.unit || "un"}
+                  </span>
+                ),
+              }}
+            />
+          </div>
+
+          <Button
+            variant="contained"
+            onClick={handleAdd}
+            disabled={loading || !selectedIngredientId || !quantity}
+            sx={{
+              minWidth: 50,
+              height: 40,
+              bgcolor: "#E20A33",
+              borderRadius: "12px",
+              boxShadow: "0 8px 16px -4px rgba(226, 10, 51, 0.45)",
+              "&:hover": { bgcolor: "#c2082b" },
+              textTransform: "none",
+              fontWeight: "900",
+              px: 3,
+            }}
+          >
+            {loading ? (
+              "..."
+            ) : (
+              <>
+                <Plus size={18} className="mr-1" /> Añadir
+              </>
+            )}
+          </Button>
+        </div>
+      </Box>
+
+      {/* Listado de Insumos Vinculados */}
+      <Box className="px-6 pb-6 bg-white">
+        <Typography
+          variant="overline"
+          className="text-[10px] font-black text-gray-400 ml-1 mb-3 block"
+        >
+          Insumos de este plato ({recipeItems.length})
+        </Typography>
+
+        <List dense className="space-y-3 p-0">
           {recipeItems.length > 0 ? (
             recipeItems.map((item) => (
               <ListItem
                 key={item.id}
-                className="bg-gray-50/50 border border-gray-100 rounded-xl px-4 py-3 group hover:border-gray-200 transition-colors"
+                className="bg-white border border-gray-100 rounded-xl px-4 py-3 group hover:border-brand-primary/30 hover:shadow-sm transition-all shadow-[0_2px_4px_-2px_rgba(0,0,0,0.05)]"
               >
-                <div className="flex items-center gap-3 w-full">
-                  <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center border border-gray-100 group-hover:bg-brand-primary/5 group-hover:border-brand-primary/20 transition-colors">
+                <div className="flex items-center gap-4 w-full">
+                  <div className="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center border border-gray-100 group-hover:bg-brand-primary/5 transition-colors">
                     <Scale
-                      size={14}
+                      size={18}
                       className="text-gray-400 group-hover:text-brand-primary"
                     />
                   </div>
                   <ListItemText
                     primary={
-                      <span className="font-bold text-gray-700 text-sm">
-                        {item.ingredient?.name ||
-                          `Insumo ID: ${item.ingredientId}`}
-                      </span>
+                      <div className="flex items-center gap-2">
+                        <span className="font-bold text-gray-800 text-sm">
+                          {item.ingredient?.name ||
+                            `Insumo ID: ${item.ingredientId}`}
+                        </span>
+                        <span className="bg-gray-100 text-gray-500 text-[9px] px-1.5 py-0.5 rounded uppercase font-black">
+                          {item.ingredient?.unit}
+                        </span>
+                      </div>
                     }
                     secondary={
-                      <span className="text-xs text-gray-400 font-medium lowercase">
-                        {item.quantity} {item.ingredient?.unit || ""}
-                      </span>
+                      <div className="flex items-center gap-2 mt-0.5">
+                        <span className="text-xs text-brand-primary font-black">
+                          {item.quantity} {item.ingredient?.unit || ""}
+                        </span>
+                        <span className="text-[10px] text-gray-300">•</span>
+                        <span className="text-[10px] text-gray-400 font-medium italic">
+                          Costo aprox: $
+                          {(
+                            item.quantity *
+                            (item.ingredient?.averageCost || 0)
+                          ).toFixed(2)}
+                        </span>
+                      </div>
                     }
                   />
                   <ListItemSecondaryAction>
@@ -162,105 +292,67 @@ export default function RecipeManager({
                       edge="end"
                       size="small"
                       onClick={() => handleDelete(item.id)}
-                      className="text-gray-300 hover:text-red-500 bg-transparent hover:bg-red-50 transition-all"
+                      className="text-gray-300 opacity-0 group-hover:opacity-100 hover:text-red-500 bg-transparent hover:bg-red-50 transition-all"
                     >
-                      <Trash2 size={16} />
+                      <Trash2 size={18} />
                     </IconButton>
                   </ListItemSecondaryAction>
                 </div>
               </ListItem>
             ))
           ) : (
-            <div className="py-8 text-center bg-gray-50/30 border border-dashed border-gray-200 rounded-xl">
-              <Box className="mb-2 opacity-20">
-                <ClipboardList size={40} className="mx-auto" />
+            <div className="py-10 text-center bg-gray-50/50 border border-dashed border-gray-200 rounded-2xl">
+              <Box className="mb-3 text-gray-200">
+                <Beer size={48} className="mx-auto" />
               </Box>
-              <Typography className="text-xs text-gray-400 font-bold px-4">
-                No hay insumos vinculados a esta opción
+              <Typography className="text-xs text-gray-500 font-bold px-4">
+                No hay insumos vinculados todavía
+              </Typography>
+              <Typography className="text-[10px] text-gray-400 px-4 mt-1">
+                Añade tus ingredientes arriba para controlar costos
               </Typography>
             </div>
           )}
         </List>
-      </Box>
 
-      <Divider className="opacity-50" />
+        {recipeItems.length > 0 && (
+          <Box className="mt-6 pt-4 border-t border-gray-100 flex flex-col gap-4 px-2">
+            <div className="flex justify-between items-center">
+              <Typography className="text-xs font-bold text-gray-400 uppercase tracking-tighter">
+                Costo Production:
+              </Typography>
+              <Typography className="text-lg font-black text-gray-800">
+                $
+                {recipeItems
+                  .reduce(
+                    (acc, item) =>
+                      acc + item.quantity * (item.ingredient?.averageCost || 0),
+                    0,
+                  )
+                  .toFixed(2)}
+              </Typography>
+            </div>
 
-      {/* Add Form */}
-      <Box className="p-5 bg-white space-y-4">
-        <Typography
-          variant="overline"
-          className="text-[10px] font-black text-gray-400 tracking-wider"
-        >
-          Vincular Nuevo Insumo
-        </Typography>
-
-        <div className="grid grid-cols-12 gap-3 items-end">
-          <div className="col-span-7">
-            <FormControl fullWidth size="small">
-              <InputLabel className="text-xs font-bold">Insumo</InputLabel>
-              <Select
-                value={selectedIngredientId}
-                label="Insumo"
-                onChange={(e) =>
-                  setSelectedIngredientId(e.target.value as string)
-                }
-                sx={{
-                  borderRadius: "12px",
-                  fontSize: "13px",
-                  bgcolor: "gray.50/50",
-                }}
-              >
-                {ingredients.map((ing) => (
-                  <MenuItem
-                    key={ing.id}
-                    value={ing.id.toString()}
-                    className="text-sm font-medium"
-                  >
-                    {ing.name} ({ing.unit})
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </div>
-          <div className="col-span-3">
-            <TextField
-              label="Cant."
-              type="number"
-              size="small"
-              value={quantity}
-              onChange={(e) => setQuantity(parseFloat(e.target.value))}
-              fullWidth
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  borderRadius: "12px",
-                  bgcolor: "gray.50/50",
-                },
-                "& .MuiInputLabel-root": {
-                  fontSize: "13px",
-                  fontWeight: "bold",
-                },
-              }}
-            />
-          </div>
-          <div className="col-span-2">
-            <Button
-              variant="contained"
-              fullWidth
-              onClick={handleAdd}
-              disabled={loading || !selectedIngredientId}
-              sx={{
-                minWidth: 0,
-                height: 40,
-                bgcolor: "brand.primary",
-                borderRadius: "12px",
-                boxShadow: "0 4px 12px -4px rgba(226, 10, 51, 0.4)",
-                "&:hover": { bgcolor: "brand.hover" },
-              }}
-            >
-              <Plus size={20} />
-            </Button>
-          </div>
-        </div>
+            {productPrice > 0 && (
+              <div className="flex items-center justify-between bg-emerald-50 p-4 rounded-2xl border border-emerald-100">
+                <div>
+                  <Typography className="text-[10px] font-black text-emerald-800 uppercase tracking-widest block">Margen de Utilidad</Typography>
+                  <Typography className="text-[9px] text-emerald-600 font-medium">Basado en precio de venta ${productPrice}</Typography>
+                </div>
+                <div className="text-right">
+                  <Typography className="text-xl font-black text-emerald-700">
+                    {(() => {
+                      const totalCost = recipeItems.reduce((acc, item) => acc + (item.quantity * (item.ingredient?.averageCost || 0)), 0);
+                      const margin = ((productPrice - totalCost) / productPrice) * 100;
+                      return `${margin.toFixed(1)}%`;
+                    })()}
+                  </Typography>
+                  <Typography className="text-[9px] font-black text-emerald-800 uppercase">Rentable</Typography>
+                </div>
+              </div>
+            )}
+          </Box>
+        )}
       </Box>
     </Box>
   );

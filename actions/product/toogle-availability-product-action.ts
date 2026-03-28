@@ -14,7 +14,7 @@ export async function toogleAvailabilityProduct(
 ) {
   const token = await getToken();
 
-  const url = `${process.env.API_URL}/products/${productId}/toggle-availability`;
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/products/${productId}/toggle-availability`;
 
   const req = await fetch(url, {
     method: "PATCH",

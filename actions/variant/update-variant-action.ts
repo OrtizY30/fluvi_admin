@@ -28,7 +28,7 @@ export async function updateVariant(
 
   const token = await getToken();
   const req = await fetch(
-    `${process.env.API_URL}/variants/${variantId}/field`,
+    `${process.env.NEXT_PUBLIC_API_URL}/variants/${variantId}/field`,
     {
       method: "PATCH",
       headers: {

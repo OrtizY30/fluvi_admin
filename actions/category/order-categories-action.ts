@@ -16,7 +16,7 @@ export async function updateCategoryOrder(
   try {
     const token = await getToken();
 
-    const url = `${process.env.API_URL}/categories/order`;
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/categories/order`;
 
     console.log(payload)
     const req = await fetch(url, {

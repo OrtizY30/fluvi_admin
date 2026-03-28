@@ -62,40 +62,43 @@ export default function OpcionesAvanzadas({
   const modifiersGroup = useModifiersStore((state) => state.modifierGroups);
 
   return (
-    <Accordion
-      sx={{
-        borderRadius: 4,
-        border: "1px solid #dddfe3",
-        "&::before": { display: "none" },
-      }}
-      expanded={expanded}
-      onChange={() => setExpanded(!expanded)}
-    >
-      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-        <div className="flex items-center gap-3">
-          <WrenchScrewdriverIcon className="size-7 text-gray-700" />
+    <div className="space-y-12 pb-24">
+      {/* Sección: Estado de Venta / Ofertas */}
+      <section className="space-y-6">
+        <div className="flex items-center gap-4 border-l-[6px] border-[#E20A33] pl-6 py-1">
           <div className="flex flex-col">
-            <p className="label-input">Opciones Avanzadas</p>
-            <p className="text-xs text-gray-600 mt-1">
-              Descuentos y modificadores para el producto
-            </p>
+            <h2 className="text-lg font-semibold text-gray-800 mb-1">
+              Estado de Venta
+            </h2>
+            <span className="text-[10px] text-gray-400 font-inter font-semibold uppercase tracking-widest">
+              Pricing & Discounts
+            </span>
           </div>
         </div>
-      </AccordionSummary>
 
-      <AccordionDetails sx={{ borderRadius: 4 }}>
-        <div className="space-y-6">
+        <div className="bg-white p-8 rounded-[35px] border border-gray-100 shadow-sm space-y-6">
           <div className="flex items-center justify-between">
             <div>
-              <label className="label-input">Producto en oferta</label>
-              <p className="text-xs text-gray-600">
-                Activa si el producto tiene descuento
+              <label className="text-xs font-semibold text-gray-500 uppercase tracking-widest block mb-1">
+                Producto en oferta
+              </label>
+              <p className="text-[10px] text-gray-400 font-medium">
+                Activa precios especiales por tiempo limitado
               </p>
             </div>
 
             <Switch
               name="isOnSale"
               checked={formData.isOnSale}
+              sx={{
+                "& .MuiSwitch-switchBase.Mui-checked": {
+                  color: "#E20A33",
+                  "&:hover": { backgroundColor: "rgba(226, 10, 51, 0.08)" },
+                },
+                "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track": {
+                  backgroundColor: "#E20A33",
+                },
+              }}
               onChange={(e) => {
                 const checked = e.target.checked;
                 setFormData((prev: FormData) => ({
@@ -116,38 +119,29 @@ export default function OpcionesAvanzadas({
           </div>
 
           {formData.isOnSale && (
-            <div>
+            <div className="pt-2 animate-in fade-in slide-in-from-top-2 duration-300">
               <TextField
                 type="number"
-                className="w-full"
-                id="outlined-basic"
+                fullWidth
                 variant="outlined"
                 name="discount"
-                label="Precio en oferta"
+                label="Precio en Oferta"
+                placeholder="0.00"
                 value={formData.discount}
                 onChange={onChange}
                 size="small"
                 sx={{
-                  backgroundColor: "#f8fafc",
+                  mb: 2,
                   "& .MuiOutlinedInput-root": {
-                    borderRadius: 4,
+                    borderRadius: "16px",
+                    bgcolor: "white",
                   },
                 }}
                 slotProps={{
                   input: {
                     startAdornment: (
-                      <InputAdornment
-                        position="start"
-                        sx={{
-                          opacity: 0,
-                          pointerEvents: "none",
-                          [`[data-shrink=true] ~ .${inputBaseClasses.root} > &`]:
-                            {
-                              opacity: 1,
-                            },
-                        }}
-                      >
-                        <span className="text-gray-500 text-lg">$</span>
+                      <InputAdornment position="start">
+                        <span className="text-rose-600 font-bold">$</span>
                       </InputAdornment>
                     ),
                   },
@@ -155,33 +149,60 @@ export default function OpcionesAvanzadas({
               />
             </div>
           )}
+        </div>
+      </section>
 
-          <div className="space-y-4">
-            <div className="flex w-full items-center justify-between">
-              <div>
-                <label className="label-input">Modificadores</label>
-                <p className="text-xs text-gray-600 mt-0">
-                  Adiciones, salsas, extras, etc.
-                </p>
-              </div>
-              <OpenDrawerModifiersGroup />
+      {/* Sección: Modificadores */}
+      <section className="space-y-6">
+        <div className="flex items-center justify-between px-1">
+          <div className="flex items-center gap-4 border-l-[6px] border-gray-300 pl-6 py-1">
+            <div className="flex flex-col">
+              <h2 className="text-sm font-black text-gray-800 uppercase tracking-[0.2em] leading-none mb-1">
+                Modificadores
+              </h2>
+              <span className="text-[10px] text-gray-400 font-inter font-bold uppercase tracking-widest">
+                Extras & Accompaniments
+              </span>
             </div>
+          </div>
+          <OpenDrawerModifiersGroup />
+        </div>
 
-            {modifiersGroup.map((group) => (
-              <ModifiersDetail
-                key={group.id}
-                product={product}
-                modifiersGroup={group}
-              />
-            ))}
+        <div className="grid grid-cols-1 gap-4">
+          {modifiersGroup.map((group) => (
+            <div key={group.id} className="relative group/mod transition-all">
+              <ModifiersDetail product={product} modifiersGroup={group} />
+            </div>
+          ))}
 
-            <RecipeManager
-              productId={product.id}
-              initialRecipe={product.recipeItems}
-            />
+          {modifiersGroup.length === 0 && (
+            <div className="py-8 text-center bg-white border border-dashed border-gray-200 rounded-[24px]">
+              <p className="text-[10px] text-gray-400 font-black uppercase tracking-widest">
+                Sin modificadores vinculados
+              </p>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Sección: Receta */}
+      <section className="space-y-6">
+        <div className="flex items-center gap-4 border-l-[6px] border-gray-300 pl-6 py-1">
+          <div className="flex flex-col">
+            <h2 className="text-sm font-black text-gray-800 uppercase tracking-[0.2em] leading-none mb-1">
+              Gestor de Receta
+            </h2>
+            <span className="text-[10px] text-gray-400 font-inter font-bold uppercase tracking-widest">
+              Inventory & Cost Control
+            </span>
           </div>
         </div>
-      </AccordionDetails>
-    </Accordion>
+        <RecipeManager
+          productId={product.id}
+          initialRecipe={product.recipeItems}
+          productPrice={formData.price}
+        />
+      </section>
+    </div>
   );
 }

@@ -19,7 +19,7 @@ export async function updateTitleVariantGroup(
   const title = formData.get("title") as string;
   const token = await getToken();
 
-  const url = `${process.env.API_URL}/variantsGroup/${variantGroupId}`;
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/variantsGroup/${variantGroupId}`;
 
   const req = await fetch(url, {
     method: "PUT",

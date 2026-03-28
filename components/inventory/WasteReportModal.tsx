@@ -12,27 +12,26 @@ import {
   Typography,
   InputAdornment,
 } from "@mui/material";
-import { addStock } from "@/actions/inventory/ingredients-actions";
+import { recordWaste } from "@/actions/inventory/ingredients-actions";
 import { toast } from "react-toastify";
 import { FluviToast } from "../ui/FluviToast";
-import { DollarSign, Scale, Package, X } from "lucide-react";
+import { Trash2, Scale, Package, X, FileText } from "lucide-react";
 
-type AddStockModalProps = {
+type WasteReportModalProps = {
   open: boolean;
   onClose: () => void;
   ingredientId: number;
   ingredientName: string;
 };
 
-export default function AddStockModal({
+export default function WasteReportModal({
   open,
   onClose,
   ingredientId,
   ingredientName,
-}: AddStockModalProps) {
+}: WasteReportModalProps) {
   const [quantity, setQuantity] = useState<number>(0);
-  const [cost, setCost] = useState<number>(0);
-  const [expirationDate, setExpirationDate] = useState<string>("");
+  const [reason, setReason] = useState<string>("");
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async () => {
@@ -42,19 +41,25 @@ export default function AddStockModal({
       );
       return;
     }
+    if (!reason.trim()) {
+      toast.error(
+        <FluviToast type="error" msg="El motivo es obligatorio" />,
+      );
+      return;
+    }
     setLoading(true);
     try {
-      const res = await addStock(ingredientId, quantity, cost, expirationDate || null);
+      const res = await recordWaste(ingredientId, quantity, reason);
       if (res.error) {
         toast.error(<FluviToast type="error" msg={res.error} />);
       } else {
         toast.success(
-          <FluviToast type="success" msg="Stock actualizado correctamente" />,
+          <FluviToast type="success" msg="Merma registrada correctamente" />,
         );
         onClose();
       }
     } catch (err) {
-      toast.error(<FluviToast type="error" msg="Error al actualizar stock" />);
+      toast.error(<FluviToast type="error" msg="Error al registrar merma" />);
     } finally {
       setLoading(false);
     }
@@ -70,7 +75,7 @@ export default function AddStockModal({
     >
       <DialogTitle className="flex justify-between items-center pb-2">
         <Typography variant="h6" className="font-black text-gray-800">
-          Registrar Entrada
+          Registrar Merma
         </Typography>
         <Button
           onClick={onClose}
@@ -88,16 +93,16 @@ export default function AddStockModal({
 
       <DialogContent>
         <Box className="space-y-8 pt-4">
-          <Box className="bg-gray-50 p-4 rounded-2xl border border-gray-100 flex items-center gap-3">
-            <div className="p-2 bg-white rounded-lg shadow-sm text-brand-primary">
-              <Package size={20} />
+          <Box className="bg-red-50 p-4 rounded-2xl border border-red-100 flex items-center gap-3">
+            <div className="p-2 bg-white rounded-lg shadow-sm text-red-500">
+              <Trash2 size={20} />
             </div>
             <Box>
               <Typography
                 variant="caption"
-                className="text-gray-400 font-bold uppercase tracking-wider text-[10px]"
+                className="text-red-400 font-bold uppercase tracking-wider text-[10px]"
               >
-                Insumo seleccionado
+                Insumo a reportar
               </Typography>
               <Typography className="text-gray-800 font-black leading-tight">
                 {ingredientName}
@@ -106,7 +111,7 @@ export default function AddStockModal({
           </Box>
 
           <TextField
-            label="Cantidad a añadir"
+            label="Cantidad desperdiciada"
             type="number"
             fullWidth
             required
@@ -124,35 +129,21 @@ export default function AddStockModal({
           />
 
           <TextField
-            label="Costo total de esta compra"
-            type="number"
+            label="Motivo de la merma"
+            placeholder="Ej: Producto vencido, dañado, error de cocina"
             fullWidth
-            value={cost}
-            onChange={(e) => setCost(parseFloat(e.target.value))}
-            helperText="Opcional. Se usará para recalcular el costo promedio unitario."
+            required
+            multiline
+            rows={2}
+            value={reason}
+            onChange={(e) => setReason(e.target.value)}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <DollarSign size={18} className="text-green-600" />
+                  <FileText size={18} className="text-gray-400" />
                 </InputAdornment>
               ),
             }}
-            sx={{
-              "& .MuiOutlinedInput-root": { borderRadius: "14px" },
-              "& .MuiFormHelperText-root": {
-                fontSize: "10px",
-                fontWeight: 600,
-              },
-            }}
-          />
-
-          <TextField
-            label="Fecha de Vencimiento de este lote"
-            type="date"
-            fullWidth
-            value={expirationDate}
-            onChange={(e) => setExpirationDate(e.target.value)}
-            InputLabelProps={{ shrink: true }}
             sx={{ "& .MuiOutlinedInput-root": { borderRadius: "14px" } }}
           />
         </Box>
@@ -177,17 +168,18 @@ export default function AddStockModal({
           onClick={handleSubmit}
           variant="contained"
           disabled={loading}
+          className="bg-red-600 hover:bg-red-700"
           sx={{
             borderRadius: "14px",
             py: 1.5,
-            bgcolor: "brand.primary",
+            bgcolor: "error.main",
             textTransform: "none",
             fontWeight: "bold",
-            "&:hover": { bgcolor: "brand.hover" },
-            boxShadow: "0 8px 20px -6px rgba(226, 10, 51, 0.45)",
+            "&:hover": { bgcolor: "error.dark" },
+            boxShadow: "0 8px 20px -6px rgba(239, 68, 68, 0.45)",
           }}
         >
-          {loading ? "Registrando..." : "Registrar Entrada"}
+          {loading ? "Registrando..." : "Reportar Merma"}
         </Button>
       </DialogActions>
     </Dialog>

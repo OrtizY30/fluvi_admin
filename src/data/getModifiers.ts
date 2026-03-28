@@ -12,7 +12,7 @@ export const getModifiers = cache(async () => {
       throw new Error("No hay token, el usuario no está autenticado");
     }
 
-    const url = `${process.env.API_URL}/modifiersGroup`;
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/modifiersGroup`;
     const req = await fetch(url, {
       headers: {
         Authorization: `Bearer ${token}`, // 👈 agregamos el token

@@ -20,7 +20,7 @@ export async function deleteMethod(
 
 
 
-  const url = `${process.env.API_URL}/business/payment-method/${methodId}`;
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/business/payment-method/${methodId}`;
 
   const req = await fetch(url, {
     method: "DELETE",

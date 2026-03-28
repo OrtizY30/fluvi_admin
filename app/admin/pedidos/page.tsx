@@ -7,7 +7,7 @@ import React from 'react'
 
 async function getBranch() {
   const token = await getToken();
-  const url = `${process.env.API_URL}/business/branch`;
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/business/branch`;
 
   const req = await fetch(url, {
     headers: {
@@ -23,7 +23,7 @@ async function getBranch() {
 
 async function getMethods() {
   const token = await getToken();
-  const url = `${process.env.API_URL}/business/payment-method`;
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/business/payment-method`;
 
   const req = await fetch(url, {
     headers: {

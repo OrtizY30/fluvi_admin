@@ -281,6 +281,8 @@ export const IngredientSchema = z.object({
   minStock: z.number(),
   unit: IngredientUnitEnum,
   averageCost: z.number(),
+  costPrice: z.number().optional().default(0),
+  expirationDate: z.string().nullable().optional(),
   businessId: z.number(),
 });
 
@@ -290,6 +292,8 @@ export const DraftIngredientSchema = z.object({
   stock: z.coerce.number().min(0, "El stock no puede ser negativo"),
   minStock: z.coerce.number().min(0, "El stock mínimo no puede ser negativo"),
   averageCost: z.coerce.number().min(0, "El costo no puede ser negativo"),
+  costPrice: z.coerce.number().min(0, "El precio de compra no puede ser negativo").optional(),
+  expirationDate: z.string().optional().nullable(),
 });
 
 export const RecipeItemSchema = z.object({

@@ -25,7 +25,7 @@ export async function confirmAccount(
   }
 
   try {
-    const res = await fetch(`${process.env.API_URL}/auth/confirm-account`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/confirm-account`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",

@@ -40,7 +40,7 @@ export default function ModeSimple({
         <div>
           <TextField
             type="number"
-            className="w-full"
+            fullWidth
             id="outlined-basic"
             variant="outlined"
             name="price"
@@ -48,11 +48,12 @@ export default function ModeSimple({
             value={price}
             onChange={onChange}
             size="small"
-             sx={{
-                   "& .MuiOutlinedInput-root": {
-              borderRadius: 4, // aquí se aplica el borderRadius al input
-            },
-                }}
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                borderRadius: "20px",
+                bgcolor: "white",
+              },
+            }}
             slotProps={{
               
               input: {

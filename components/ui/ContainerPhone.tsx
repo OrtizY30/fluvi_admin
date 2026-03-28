@@ -14,11 +14,11 @@ export default function ContainerPhone() {
     }
   };
 
-  // Use environment variable for local development URL or fallback to production
-  const baseUrl = process.env.NEXT_PUBLIC_MENU_URL || "https://fluvi.shop/menu";
-  const domainUrl = baseUrl.includes("localhost")
-    ? `http://${user?.domain}.localhost:3000/menu`
-    : `https://${user?.domain}.fluvi.shop/menu`;
+  // Use environment variable as a template, replacing {{domain}} with the actual business domain.
+  // Example for local dev: http://{{domain}}.localhost:3001/menu
+  // Example for production: https://{{domain}}.fluvi.shop/menu
+  const menuTemplate = process.env.NEXT_PUBLIC_MENU_URL || "https://{{domain}}.fluvi.shop/menu";
+  const domainUrl = menuTemplate.replace("{{domain}}", user?.domain || "demo");
   return (
     <div className="lg:col-span-1 pt-4 gap-6 bg-[#f4f6f8] hidden lg:flex flex-col items-center justify-center h-screen overflow-hidden">
       {/* Simulador de Celular */}

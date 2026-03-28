@@ -36,7 +36,7 @@ export async function updateCategory(
 
   const token = await getToken();
 
-  const url = `${process.env.API_URL}/categories/${categoryId}/field`;
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/categories/${categoryId}/field`;
 
   const req = await fetch(url, {
     method: "PATCH",

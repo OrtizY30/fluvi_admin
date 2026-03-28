@@ -20,7 +20,7 @@ export async function deleteProduct(
 
 
 
-  const url = `${process.env.API_URL}/products/${ProductId}`;
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/products/${ProductId}`;
 
   const req = await fetch(url, {
     method: "DELETE",

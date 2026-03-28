@@ -32,7 +32,7 @@ export async function updateProduct(
 
   const token = await getToken();
   const req = await fetch(
-    `${process.env.API_URL}/products/${productId}/field`,
+    `${process.env.NEXT_PUBLIC_API_URL}/products/${productId}/field`,
     {
       method: "PATCH",
       headers: {

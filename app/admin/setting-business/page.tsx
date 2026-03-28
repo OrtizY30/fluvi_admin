@@ -14,7 +14,7 @@ async function getBranch() {
       return [];
     }
 
-    const url = `${process.env.API_URL}/business/branch`;
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/business/branch`;
     const req = await fetch(url, {
       headers: {
         Authorization: `Bearer ${token}`,

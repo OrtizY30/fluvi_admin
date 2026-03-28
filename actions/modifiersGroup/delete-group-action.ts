@@ -22,7 +22,7 @@ export async function deleteGroup(
 
   //   Comprobar el password
 
-  const checkPasswordUrl = `${process.env.API_URL}/auth/check-Password`;
+  const checkPasswordUrl = `${process.env.NEXT_PUBLIC_API_URL}/auth/check-Password`;
 
   const checkPasswordReq = await fetch(checkPasswordUrl, {
     method: "POST",
@@ -32,7 +32,7 @@ export async function deleteGroup(
     }
   });
 
-  const url = `${process.env.API_URL}/modifiersGroup/${modifiersGroupsId}`;
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/modifiersGroup/${modifiersGroupsId}`;
 
   const req = await fetch(url, {
     method: "DELETE",

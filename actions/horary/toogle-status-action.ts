@@ -15,7 +15,7 @@ export async function toogleStatus(
 
   const token = await getToken();
 
-  const url = `${process.env.API_URL}/business/open-close`;
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/business/open-close`;
 
   const req = await fetch(url, {
     method: "PATCH",

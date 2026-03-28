@@ -22,7 +22,7 @@ export const verifySession = cache(async () => {
   }
 
   // 1. Usuario
-  const userReq = await fetch(`${process.env.API_URL}/auth/user`, {
+  const userReq = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/user`, {
     headers: { Authorization: `Bearer ${token}` },
   });
   const userJson = await userReq.json();
@@ -33,7 +33,7 @@ export const verifySession = cache(async () => {
   }
 
   // 2. Empresa
-  const businessReq = await fetch(`${process.env.API_URL}/auth/business`, {
+  const businessReq = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/business`, {
     headers: { Authorization: `Bearer ${token}` },
   });
   const businessJson = await businessReq.json();
@@ -44,7 +44,7 @@ export const verifySession = cache(async () => {
   }
 
   // 3. Modificadores
-  const modifiersReq = await fetch(`${process.env.API_URL}/modifiersGroup`, {
+  const modifiersReq = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/modifiersGroup`, {
     headers: { Authorization: `Bearer ${token}` },
     cache: "no-store",
   });
@@ -57,7 +57,7 @@ export const verifySession = cache(async () => {
   }
 
   // 4. Horarios
-  const horaryReq = await fetch(`${process.env.API_URL}/business/horary`, {
+  const horaryReq = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/business/horary`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -71,7 +71,7 @@ export const verifySession = cache(async () => {
   }
 
   // 5. Redes sociales
-  const socialMediaReq = await fetch(`${process.env.API_URL}/business/social`, {
+  const socialMediaReq = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/business/social`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -95,7 +95,7 @@ export const verifySession = cache(async () => {
     };
   }
 
-  const categoriesReq = await fetch(`${process.env.API_URL}/categories`, {
+  const categoriesReq = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/categories`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

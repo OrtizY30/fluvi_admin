@@ -15,7 +15,7 @@ export async function toggleModifierGroup(
 ): Promise<ActionStateType> {
   const token = await getToken();
 
-  const url = `${process.env.API_URL}/products/${productId}/modifiers`;
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/products/${productId}/modifiers`;
 
   const req = await fetch(url, {
     method: "POST",

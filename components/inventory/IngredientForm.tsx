@@ -220,29 +220,56 @@ export default function IngredientForm({
             </Box>
           </section>
 
-          {/* Section: Costos */}
+          {/* Section: Costos y Vencimiento */}
           <section className="space-y-5">
             <Typography
               variant="overline"
               className="text-brand-primary font-black tracking-[0.1em] text-[10px] opacity-80"
             >
-              Finanzas
+              Finanzas y Control
             </Typography>
+            <Box className="grid grid-cols-2 gap-6">
+              <TextField
+                name="averageCost"
+                label="Costo Promedio"
+                type="number"
+                fullWidth
+                required
+                defaultValue={ingredient?.averageCost || 0}
+                placeholder="0.00"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <DollarSign size={18} className="text-green-600" />
+                    </InputAdornment>
+                  ),
+                }}
+                sx={{ "& .MuiOutlinedInput-root": { borderRadius: "14px" } }}
+              />
+              <TextField
+                name="costPrice"
+                label="Precio de Compra"
+                type="number"
+                fullWidth
+                defaultValue={ingredient?.costPrice || 0}
+                placeholder="0.00"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <DollarSign size={18} className="text-brand-primary" />
+                    </InputAdornment>
+                  ),
+                }}
+                sx={{ "& .MuiOutlinedInput-root": { borderRadius: "14px" } }}
+              />
+            </Box>
             <TextField
-              name="averageCost"
-              label="Costo Promedio (unitario)"
-              type="number"
+              name="expirationDate"
+              label="Fecha de Vencimiento"
+              type="date"
               fullWidth
-              required
-              defaultValue={ingredient?.averageCost || 0}
-              placeholder="0.00"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <DollarSign size={18} className="text-green-600" />
-                  </InputAdornment>
-                ),
-              }}
+              defaultValue={ingredient?.expirationDate ? new Date(ingredient.expirationDate).toISOString().split('T')[0] : ""}
+              InputLabelProps={{ shrink: true }}
               sx={{ "& .MuiOutlinedInput-root": { borderRadius: "14px" } }}
             />
             <Box className="p-5 mt-5 bg-blue-50/50 rounded-2xl border border-blue-100 flex gap-4">
@@ -253,9 +280,7 @@ export default function IngredientForm({
                 variant="caption"
                 className="text-blue-700 italic leading-relaxed text-[11.5px]"
               >
-                El costo unitario es fundamental para calcular automáticamente
-                el margen de rentabilidad de tus productos configurados con esta
-                receta.
+                El costo unitario y la fecha de vencimiento son fundamentales para el control financiero y alertas de stock.
               </Typography>
             </Box>
           </section>

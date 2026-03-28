@@ -16,7 +16,7 @@ export async function updateTheme(
 
   const token = await getToken();
 
-  const url = `${process.env.API_URL}/theme/${themeId}/field`;
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/theme/${themeId}/field`;
 
   const req = await fetch(url, {
     method: "PATCH",

@@ -7,7 +7,7 @@ import { CategoriesAPIResponseSchema } from "@/src/schemas";
 async function getCategories() {
   const token = await getToken();
 
-  const url = `${process.env.API_URL}/categories`;
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/categories`;
   const req = await fetch(url, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -28,7 +28,7 @@ async function getCategories() {
 //       throw new Error("No se encontró el token de autenticación.");
 //     }
 
-//     const url = `${process.env.API_URL}/categories`;
+//     const url = `${process.env.NEXT_PUBLIC_API_URL}/categories`;
 
 //     const req = await fetch(url, {
 //       headers: {

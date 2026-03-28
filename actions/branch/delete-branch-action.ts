@@ -31,7 +31,7 @@ export async function deleteBranch(
 
   //   Comprobar el password
 
-  const checkPasswordUrl = `${process.env.API_URL}/auth/check-Password`;
+  const checkPasswordUrl = `${process.env.NEXT_PUBLIC_API_URL}/auth/check-Password`;
 
   const checkPasswordReq = await fetch(checkPasswordUrl, {
     method: "POST",
@@ -55,7 +55,7 @@ export async function deleteBranch(
 
   // Despues de validar el password eliminamos la categoria
 
-  const url = `${process.env.API_URL}/business/branch/${branchId}`;
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/business/branch/${branchId}`;
 
   const req = await fetch(url, {
     method: "DELETE",

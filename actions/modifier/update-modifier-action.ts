@@ -15,7 +15,7 @@ export async function updateModifier(
   data: Partial<Modifier>
 ): Promise<ActionStateType> {
   const token = await getToken();
-  const req = await fetch(`${process.env.API_URL}/modifiers/${id}/field`, {
+  const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/modifiers/${id}/field`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",

@@ -15,7 +15,7 @@ export async function createProduct(
 
   const token = await getToken();
 
-  const url = `${process.env.API_URL}/products/category/${categoryId}`;
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/products/category/${categoryId}`;
 
   const req = await fetch(url, {
     method: "POST",

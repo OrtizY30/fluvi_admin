@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache";
 
 export async function getIngredients() {
     const token = await getToken();
-    const url = `${process.env.API_URL}/ingredients`;
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/ingredients`;
 
     const req = await fetch(url, {
         headers: {
@@ -21,7 +21,7 @@ export async function getIngredients() {
 
 export async function createIngredient(formData: FormData) {
     const token = await getToken();
-    const url = `${process.env.API_URL}/ingredients`;
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/ingredients`;
 
     const data = {
         name: formData.get("name")?.toString(),
@@ -29,6 +29,8 @@ export async function createIngredient(formData: FormData) {
         stock: parseFloat(formData.get("stock")?.toString() || "0"),
         minStock: parseFloat(formData.get("minStock")?.toString() || "0"),
         averageCost: parseFloat(formData.get("averageCost")?.toString() || "0"),
+        costPrice: parseFloat(formData.get("costPrice")?.toString() || "0"),
+        expirationDate: formData.get("expirationDate")?.toString() || null,
     };
 
     const req = await fetch(url, {
@@ -45,9 +47,9 @@ export async function createIngredient(formData: FormData) {
     return json;
 }
 
-export async function addStock(ingredientId: number, quantity: number, cost: number) {
+export async function addStock(ingredientId: number, quantity: number, cost: number, expirationDate?: string | null) {
     const token = await getToken();
-    const url = `${process.env.API_URL}/ingredients/${ingredientId}/add-stock`;
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/ingredients/${ingredientId}/add-stock`;
 
     const req = await fetch(url, {
         method: "POST",
@@ -55,7 +57,25 @@ export async function addStock(ingredientId: number, quantity: number, cost: num
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ quantity, cost }),
+        body: JSON.stringify({ quantity, cost, expirationDate }),
+    });
+
+    const json = await req.json();
+    revalidatePath("/admin/inventario");
+    return json;
+}
+
+export async function recordWaste(ingredientId: number, quantity: number, reason: string) {
+    const token = await getToken();
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/ingredients/${ingredientId}/record-waste`;
+
+    const req = await fetch(url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ quantity, reason }),
     });
 
     const json = await req.json();
@@ -65,7 +85,7 @@ export async function addStock(ingredientId: number, quantity: number, cost: num
 
 export async function getMovements(ingredientId: number) {
     const token = await getToken();
-    const url = `${process.env.API_URL}/ingredients/${ingredientId}/movements`;
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/ingredients/${ingredientId}/movements`;
 
     const req = await fetch(url, {
         headers: {
@@ -79,7 +99,7 @@ export async function getMovements(ingredientId: number) {
 }
 export async function updateIngredient(ingredientId: number, formData: FormData) {
     const token = await getToken();
-    const url = `${process.env.API_URL}/ingredients/${ingredientId}`;
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/ingredients/${ingredientId}`;
 
     // Recolectamos todos los campos para un PUT (actualización completa)
     // Usamos coalescencia para evitar NaN
@@ -89,6 +109,8 @@ export async function updateIngredient(ingredientId: number, formData: FormData)
         stock: parseFloat(formData.get("stock")?.toString() || "0"),
         minStock: parseFloat(formData.get("minStock")?.toString() || "0"),
         averageCost: parseFloat(formData.get("averageCost")?.toString() || "0"),
+        costPrice: parseFloat(formData.get("costPrice")?.toString() || "0"),
+        expirationDate: formData.get("expirationDate")?.toString() || null,
     };
 
     console.log("Full Update Request (PUT):", { url, data });
@@ -128,7 +150,7 @@ export async function updateIngredient(ingredientId: number, formData: FormData)
 
 export async function deleteIngredient(ingredientId: number) {
     const token = await getToken();
-    const url = `${process.env.API_URL}/ingredients/${ingredientId}`;
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/ingredients/${ingredientId}`;
 
     const req = await fetch(url, {
         method: "DELETE",

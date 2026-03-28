@@ -22,7 +22,7 @@ export async function deleteSocial(
   }
   const token = await getToken();
 
-  const url = `${process.env.API_URL}/business/social/${socialId}`;
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/business/social/${socialId}`;
 
   const req = await fetch(url, {
     method: "DELETE",

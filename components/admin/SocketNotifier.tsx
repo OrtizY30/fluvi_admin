@@ -30,8 +30,17 @@ export default function SocketNotifier({ businessId }: { businessId: number }) {
             });
 
             socket.on("new_order", (order: any) => {
-                // Reproducir sonido usando use-sound y el archivo local
-                play();
+                // Alerta sonora que se repite 3 veces para captar la atención
+                let playCount = 0;
+                const playAlert = () => {
+                    if (playCount < 3) {
+                        play();
+                        playCount++;
+                        setTimeout(playAlert, 1500); // 1.5s entre repeticiones
+                    }
+                };
+                
+                playAlert(); // Inicia la alerta inmediatamente
 
                 const customer = order.customerName || "Cliente";
                 const total = new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(order.total);

@@ -44,7 +44,7 @@ export async function updateHorary(
 
   const token = await getToken();
 
-  const url = `${process.env.API_URL}/business/horary/${horaryId}`;
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/business/horary/${horaryId}`;
 
   const req = await fetch(url, {
     method: "PUT",

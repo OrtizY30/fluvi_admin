@@ -18,7 +18,7 @@ export async function toogleActiveMethod(
 
   const token = await getToken();
 
-  const urlFetch = `${process.env.API_URL}/business/payment-method/${methodId}/toggle`;
+  const urlFetch = `${process.env.NEXT_PUBLIC_API_URL}/business/payment-method/${methodId}/toggle`;
 
   const req = await fetch(urlFetch, {
     method: "PATCH",

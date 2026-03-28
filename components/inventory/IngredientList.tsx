@@ -33,6 +33,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import AddStockModal from "./AddStockModal";
+import WasteReportModal from "./WasteReportModal";
 import IngredientForm from "./IngredientForm";
 import { deleteIngredient } from "@/actions/inventory/ingredients-actions";
 import { toast } from "react-toastify";
@@ -52,6 +53,7 @@ export default function IngredientList({ ingredients }: IngredientListProps) {
     useState<Ingredient | null>(null);
 
   const [isStockModalOpen, setIsStockModalOpen] = useState(false);
+  const [isWasteModalOpen, setIsWasteModalOpen] = useState(false);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
@@ -67,6 +69,11 @@ export default function IngredientList({ ingredients }: IngredientListProps) {
   const handleOpenStock = (item: Ingredient) => {
     setSelectedIngredient(item);
     setIsStockModalOpen(true);
+  };
+
+  const handleOpenWaste = (item: Ingredient) => {
+    setSelectedIngredient(item);
+    setIsWasteModalOpen(true);
   };
 
   // Apertura de form para editar
@@ -175,6 +182,9 @@ export default function IngredientList({ ingredients }: IngredientListProps) {
                 Costo Prom.
               </TableCell>
               <TableCell className="font-bold text-gray-600 uppercase text-[11px] px-6 py-4 tracking-wider">
+                Vencimiento
+              </TableCell>
+              <TableCell className="font-bold text-gray-600 uppercase text-[11px] px-6 py-4 tracking-wider">
                 Estado
               </TableCell>
               <TableCell className="font-bold text-gray-600 uppercase text-[11px] px-6 py-4 tracking-wider text-right">
@@ -227,6 +237,18 @@ export default function IngredientList({ ingredients }: IngredientListProps) {
                     </span>
                   </TableCell>
                   <TableCell className="px-6">
+                    {item.expirationDate ? (
+                      <Typography
+                        variant="caption"
+                        className={`font-bold ${new Date(item.expirationDate) < new Date() ? "text-red-500" : "text-gray-600"}`}
+                      >
+                        {new Date(item.expirationDate).toLocaleDateString()}
+                      </Typography>
+                    ) : (
+                      <span className="text-gray-300">-</span>
+                    )}
+                  </TableCell>
+                  <TableCell className="px-6">
                     <Chip
                       label={IsLowStock ? "Bajo Stock" : "Suficiente"}
                       color={IsLowStock ? "error" : "success"}
@@ -249,10 +271,21 @@ export default function IngredientList({ ingredients }: IngredientListProps) {
                             borderColor: "gray.200",
                             fontSize: "11px",
                             fontWeight: "bold",
+                            color: "brand.primary",
                           }}
                         >
                           Stock
                         </Button>
+                      </Tooltip>
+
+                      <Tooltip title="Reportar Merma">
+                        <IconButton
+                          size="small"
+                          onClick={() => handleOpenWaste(item)}
+                          className="text-gray-400 hover:text-red-600 transition-colors"
+                        >
+                          <Trash2 size={18} />
+                        </IconButton>
                       </Tooltip>
 
                       <Tooltip title="Editar Insumo">
@@ -330,6 +363,16 @@ export default function IngredientList({ ingredients }: IngredientListProps) {
         <AddStockModal
           open={isStockModalOpen}
           onClose={() => setIsStockModalOpen(false)}
+          ingredientId={selectedIngredient.id}
+          ingredientName={selectedIngredient.name}
+        />
+      )}
+
+      {/* Modal de Merma */}
+      {selectedIngredient && (
+        <WasteReportModal
+          open={isWasteModalOpen}
+          onClose={() => setIsWasteModalOpen(false)}
           ingredientId={selectedIngredient.id}
           ingredientName={selectedIngredient.name}
         />
